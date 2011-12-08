@@ -1,0 +1,78 @@
+# --------------------------------------------------------------------
+# Copyright 2004 grischka@users.sourceforge.net
+# http://bb4win.sourceforge.net/bblean
+# --------------------------------------------------------------------
+
+# bbSDK - Blackbox for Windows Slit-Plugin SDK
+
+# makefile for bcc55 free compiler
+
+# Use:
+# make -f makefile-bcc compile
+# make -f makefile-bcc install (edit the INSTALL path below previously)
+# make -f makefile-bcc clean
+
+!ifndef BCCDIR
+BCCDIR = C:\BORLAND\BCC55
+!endif
+
+# -------------------------------------------
+# names
+
+NAME    = bbSDK
+
+OBJ     = $(NAME).obj
+BIN     = $(NAME).dll
+
+# -------------------------------------------
+# paths
+
+BBAPI   = ..\..\blackbox
+BBLIB   = ..\..\blackbox\blackbox_bor.lib
+DEF     = ..\bbslitplugin.def
+RES     =
+
+INSTALL = c:\bblean\plugins
+
+# -------------------------------------------
+# targets
+
+compile: $(BIN)
+install: $(INSTALL)\$(BIN)
+
+$(INSTALL)\$(BIN): $(BIN)
+	copy $(BIN) $(INSTALL)
+
+clean:
+	del *.obj
+	del *.res
+	del *.dll
+	del *.tds
+
+# --------------------------------------------------------------------
+CC      = $(BCCDIR)\bin\bcc32
+LINKER  = $(BCCDIR)\bin\ilink32
+RC      = $(BCCDIR)\bin\brcc32 -i$(BCCDIR)\include
+
+CFLAGS  = -c -O1 -tW -w -Vd -x- -I$(BBAPI) -I$(BCCDIR)\include #-v
+LFLAGS  = -aa -Tpd -Gn -x #-v
+STARTUP = c0d32.obj
+BCCLIBS = import32.lib cw32.lib
+
+$(BIN): $(OBJ) $(RES) $(BBLIB) makefile-bcc
+	$(LINKER) $(LFLAGS) $(STARTUP) $(OBJ),$(BIN),,$(BCCLIBS) $(BBLIB),$(DEF),$(RES)
+	dir $(BIN)
+
+.c.obj:
+	$(CC) $(CFLAGS) $<
+
+.cpp.obj:
+	$(CC) $(CFLAGS) $<
+
+.rc.res:
+	$(RC) $<
+
+.asm.obj:
+	tasm32 -ml $<
+
+# --------------------------------------------------------------------

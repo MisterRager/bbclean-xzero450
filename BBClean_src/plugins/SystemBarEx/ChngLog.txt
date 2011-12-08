@@ -1,0 +1,73 @@
+This changelog represents all changes that I, XZero450/Evolution, have made to SystemBarEx.
+These changes remain under the original copyright.
+
+---Jul 03 2008---
+Added normal systembar functionality in the instance of dragging a file over a task.
+
+---Jun 29 2008---
+Added button shadow settings to the systembarex.rc to be used instead of style[or in place of lacking]
+Added option to invert Worksapce button Left and Right clicking action.[May eventually be changed/removed for something better.]
+
+---Jun 08 2008---
+Fixed task click options in menu[broken when the menu was fixed previously]
+
+---Jun 07 2008---
+Fixed transparency [broken in mingw/gcc compilation]
+
+---Jun 06 2008---
+Made actions upon click the WindowLabel/Inscription customizable
+
+---Jun 05 2008---
+Fixed MaxTaskWidth not being saved
+Fixed a bug in the Menu pertaining to element ordering
+
+---Jun 01 2008---
+Changed version from 2.2 to 2.3
+Added arrow buttons to move through workspaces
+
+---May 31 2008---
+Replaced .PC setting with Placement.Config / Changed Placement from bit ordering to string ordered
+
+---May 23 2008---
+Added Double Click menu for the May 03 2008 change.
+Fixed Compress PR broken on May 20 2008
+
+---May 21 2008---
+Removed the menu options to toggle transparency
+Fixed the broken Alpha settings in the menu
+Added the ability to set the maximum task width for text and icon/text tasks
+
+---May 20 2008---
+Fixed shadowing [may appear to be buggy under certain conditions, this _is_ shell related]
+Fixed 'Order Reversed' icon/text and text
+Added 'Order Reversed' for icon and 'iconized tasks'
+Broke Compress PR [Does anyone use this?]
+Fixed the source to allow compilation in mingw/gcc
+
+---May 18 2008---
+Implemented borders
+
+---May 03 2008---
+Made double clicking on tasks customizable[no menu options]
+
+---Apr 29 2008---
+added maximize, rollup/shade, alwaysontop, pin to the mouse click events
+
+---Apr 24 2008---
+added auto-hide/task update auto-raise
+
+---Apr 07 2008---
+"Fixed" issue with Button/ButtonP shadows [Reference the toolbar.label]
+Added BB.Button.M.Command:
+
+---Apr 06 2008---
+Added some hacked up support for .shadowX/Y/Color
+
+---Dec 31 2007---
+Added these for the "BB Button" to allow users to customize what it does
+BB.Button.R.Command:	ShowSBXMenu	
+BB.Button.L.Command:	ShowRootMenu
+I realize there are broams to do each, but I opted out of setting them as default.
+
+---Dec 30 2007---
+Fixed auto-black background bug

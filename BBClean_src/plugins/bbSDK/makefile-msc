@@ -1,0 +1,76 @@
+# --------------------------------------------------------------------
+# Copyright 2004 grischka@users.sourceforge.net
+# http://bb4win.sourceforge.net/bblean
+# --------------------------------------------------------------------
+
+# bbSDK - Blackbox for Windows Slit-Plugin SDK
+
+# makefile for msvc 6.0 nmake
+
+# Use:
+# nmake -f makefile-msc compile
+# nmake -f makefile-msc install (edit the INSTALL path below previously)
+# nmake -f makefile-msc clean
+
+!ifndef MSCDIR
+MSCDIR = C:\MSC
+!endif
+
+# -------------------------------------------
+# names
+
+NAME    = bbSDK
+
+OBJ     = $(NAME).obj
+BIN     = $(NAME).dll
+
+# -------------------------------------------
+# paths
+
+BBAPI   = ..\..\blackbox
+BBLIB   = ..\..\blackbox\blackbox.lib
+
+INSTALL = c:\bblean\plugins
+
+# -------------------------------------------
+# targets
+
+compile: $(BIN)
+install: $(INSTALL)\$(BIN)
+
+$(INSTALL)\$(BIN): $(BIN)
+	copy $(BIN) $(INSTALL)
+
+clean:
+	del $(OBJ)
+	del $(BIN)
+
+# --------------------------------------------------------------------
+CC      = $(MSCDIR)\bin\cl
+LINKER  = $(MSCDIR)\bin\link
+RC      = $(MSCDIR)\bin\rc
+
+CFLAGS  = /c /Osgy /Gfy /W3 /nologo /Zd /I$(MSCDIR)\include /I$(BBAPI) /MD
+
+LFLAGS  = /DLL /SUBSYSTEM:WINDOWS /NOLOGO /LIBPATH:$(MSCDIR)\lib \
+			/OPT:REF /OPT:ICF /OPT:NOWIN98 #/DEBUG
+
+LIBS = kernel32.lib user32.lib gdi32.lib
+
+$(BIN): $(OBJ) $(RES) makefile-msc
+	$(LINKER) $(LFLAGS) /OUT:$(BIN) $(OBJ) $(BBLIB) $(LIBS)
+	del $(NAME).exp
+	del $(NAME).lib
+	dir $(BIN)
+
+# --------------------------------------------------------------------
+.c.obj:
+	$(CC) $(CFLAGS) $<
+
+.cpp.obj:
+	$(CC) $(CFLAGS) $<
+
+.rc.res:
+	$(RC) $<
+
+# --------------------------------------------------------------------

@@ -1,0 +1,51 @@
+# depslib dependency file v1.0
+1170279986 source:d:\devcpp\projects\bbclean\plugins\bbleanbar\drawico.cpp
+	<windows.h>
+
+1170283586 source:d:\dev\projects\bbclean\plugins\bbleanbar\drawico.cpp
+	<windows.h>
+
+1181249443 source:d:\dev\projects\bbclean\plugins\bbleanbar\bbleanbar.cpp
+	"BBApi.h"
+	"m_alloc.h"
+	"..\BBPlugin\BBPlugin.h"
+	"tinylist.cpp"
+	<shellapi.h>
+	<commctrl.h>
+	<time.h>
+	"bbLeanBar.h"
+	"utils.cpp"
+	"tooltips.cpp"
+	"drawico.cpp"
+	"BuffBmp.cpp"
+	"bbLeanClasses.cpp"
+	"sysmenu.cpp"
+	"TinyDropTarg.cpp"
+
+1115079360 d:\dev\projects\bbclean\plugins\bbplugin\bbplugin.h
+
+1181250064 d:\dev\projects\bbclean\plugins\bbleanbar\bbleanbar.h
+
+1168345284 d:\dev\projects\bbclean\plugins\bbleanbar\utils.cpp
+
+1181880145 d:\dev\projects\bbclean\plugins\bbleanbar\tooltips.cpp
+	"bbLeanBar.h"
+
+1170283586 d:\dev\projects\bbclean\plugins\bbleanbar\drawico.cpp
+	<windows.h>
+
+1115075760 d:\dev\projects\bbclean\plugins\bbleanbar\buffbmp.cpp
+
+1181160881 d:\dev\projects\bbclean\plugins\bbleanbar\bbleanclasses.cpp
+
+1181921233 d:\dev\projects\bbclean\plugins\bbleanbar\sysmenu.cpp
+
+1115075760 d:\dev\projects\bbclean\plugins\bbleanbar\tinydroptarg.cpp
+	<shlobj.h>
+	<shellapi.h>
+
+1115079360 source:d:\dev\projects\bbclean\plugins\bbplugin\bbplugin.cpp
+	"BBApi.h"
+	"m_alloc.h"
+	"BBPlugin.h"
+

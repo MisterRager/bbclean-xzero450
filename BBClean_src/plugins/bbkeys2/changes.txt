@@ -1,0 +1,7 @@
+added ToggleMaxmize (between restored/maximized), Resize, Move WithAction commands
+
+
+added Restore WithAction command, also Maximize for uniformity
+
+
+added EditBlackbox, EditExtensions WithAction commands

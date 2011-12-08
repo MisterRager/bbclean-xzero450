@@ -1,0 +1,20 @@
+
+!    DEFAULT_PLACEMENT = 0
+!    N_COLUMNS = 1
+!    SAVED_POS = 2
+
+PlacementMethod: 2
+NumberOfColumns: 2
+
+!SAVED_POS method checks whether WindowTitle is a substring
+! of a newly created window, and apply defined position values
+WindowTitle: "Notepad"
+XPos: 400
+YPos: 200
+Height: 100
+Width: 100
+WindowTitle: "SciTE"
+XPos: 40
+YPos: 20
+Height: 10
+Width: 10

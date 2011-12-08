@@ -1,0 +1,34 @@
+
+CPP=cl.exe
+OUTDIR=.\Release
+INTDIR=.\Release
+
+ALL : "$(OUTDIR)\BBInterface.dll"
+
+"$(OUTDIR)" : 
+	if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
+
+LINK32=link.exe
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib shell32.lib comctl32.lib blackbox.lib gdiplus.lib \
+	/subsystem:windows /dll /out:"$(OUTDIR)\BBInterface.dll"
+
+LINK32_OBJS= "$(INTDIR)\AgentMaster.obj" "$(INTDIR)\AgentType_Bitmap.obj" "$(INTDIR)\AgentType_Broam.obj"  \
+"$(INTDIR)\AgentType_Mixer.obj" "$(INTDIR)\AgentType_Run.obj" "$(INTDIR)\AgentType_StaticText.obj"  \
+"$(INTDIR)\AgentType_System.obj" "$(INTDIR)\AgentType_TGA.obj" "$(INTDIR)\AgentType_Winamp.obj"  \
+"$(INTDIR)\ConfigMaster.obj" "$(INTDIR)\ControlMaster.obj" "$(INTDIR)\ControlType_Button.obj"  \
+"$(INTDIR)\ControlType_Label.obj" "$(INTDIR)\ControlType_Slider.obj" "$(INTDIR)\DialogMaster.obj"  \
+"$(INTDIR)\ListMaster.obj" "$(INTDIR)\MenuMaster.obj" "$(INTDIR)\MessageMaster.obj" "$(INTDIR)\PluginMaster.obj"  \
+"$(INTDIR)\SlitManager.obj" "$(INTDIR)\SnapWindow.obj" "$(INTDIR)\StyleMaster.obj" "$(INTDIR)\Tooltip.obj"  \
+"$(INTDIR)\WindowMaster.obj" "$(INTDIR)\ModuleMaster.obj"
+
+"$(OUTDIR)\BBInterface.dll" : "$(OUTDIR)" $(LINK32_OBJS)
+	$(LINK32) @<<
+  $(LINK32_FLAGS) $(LINK32_OBJS)
+<<
+
+CPP_PROJ=/nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Fo"$(INTDIR)\\" /c 
+
+.cpp{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<

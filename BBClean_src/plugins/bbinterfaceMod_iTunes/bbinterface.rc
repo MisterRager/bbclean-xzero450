@@ -1,0 +1,25 @@
+!---- BBInterface 0.9.9_k10 ----
+@BBInterface Plugin SetPluginProperty SnapWindows true
+@BBInterface Plugin SetPluginProperty SnapDistance 7
+@BBInterface Plugin SetPluginProperty SnapPadding 2
+@BBInterface Plugin SetPluginProperty IconSaturation 160
+@BBInterface Plugin SetPluginProperty IconHue 64
+@BBInterface Plugin SetPluginProperty DeskDropCommand ""
+@BBInterface Plugin SetPluginProperty GlobalOnload ""
+@BBInterface Plugin SetPluginProperty GlobalOnunload ""
+@BBInterface Plugin SetPluginProperty ClickRaise false
+@BBInterface Plugin SetPluginProperty SuppressErrors true
+@BBInterface Plugin SetPluginProperty ZeroControlsAllowed false
+@BBInterface Plugin SetPluginProperty UseTooltip false
+@BBInterface Plugin SetPluginProperty ClearConfigurationOnLoad false
+@BBInterface Plugin SetPluginProperty ModuleAutoSave true
+@BBInterface Plugin OnLoad ""
+@BBInterface Plugin OnUnload ""
+
+!---- Loaded modules ----
+@BBInterface Module Load "kazmix_samplescript\itunesModule.rc"
+@BBInterface Module Load "kazmix_samplescript\sysmeterModule.rc"
+
+!---- Active modules ----
+@BBInterface Module Toggle iTunesControlModule
+@BBInterface Module Toggle SystemMeterModule

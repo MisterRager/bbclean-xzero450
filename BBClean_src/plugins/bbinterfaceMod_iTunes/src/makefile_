@@ -1,0 +1,42 @@
+
+CPP=cl.exe
+OUTDIR=.\Release
+INTDIR=.\Release
+
+ALL : "$(OUTDIR)\BBInterfaceMod_iTunes.dll"
+
+"$(OUTDIR)" : 
+	if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
+
+
+MSCDIR = "C:\Program Files\Microsoft Visual Studio 8\VC"
+LINK32=link.exe
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib shell32.lib comctl32.lib .\blackbox\blackbox.lib gdiplus.lib advapi32.lib \
+iphlpapi.lib shlwapi.lib comsuppw.lib \
+	/subsystem:windows /dll /out:"$(OUTDIR)\BBInterfaceMod_iTunes.dll"
+
+LINK32_OBJS= "$(INTDIR)\AgentMaster.obj" "$(INTDIR)\AgentType_Bitmap.obj" "$(INTDIR)\AgentType_Broam.obj" \
+"$(INTDIR)\AgentType_CompoundText.obj" "$(INTDIR)\AgentType_Graph.obj" "$(INTDIR)\AgentType_Mixer.obj" \
+"$(INTDIR)\AgentType_Run.obj" "$(INTDIR)\AgentType_StaticText.obj" "$(INTDIR)\AgentType_SwitchedState.obj" \
+"$(INTDIR)\AgentType_System.obj" "$(INTDIR)\AgentType_SystemMonitor.obj" "$(INTDIR)\AgentType_TGA.obj" \
+"$(INTDIR)\AgentType_Winamp.obj" "$(INTDIR)\ConfigMaster.obj" "$(INTDIR)\ControlMaster.obj" "$(INTDIR)\ControlType_Button.obj" \
+"$(INTDIR)\ControlType_Label.obj" "$(INTDIR)\ControlType_Slider.obj" "$(INTDIR)\DialogMaster.obj" "$(INTDIR)\ListMaster.obj"\
+"$(INTDIR)\MenuMaster.obj" "$(INTDIR)\MessageMaster.obj" "$(INTDIR)\ModuleMaster.obj" "$(INTDIR)\PluginMaster.obj" \
+"$(INTDIR)\SlitManager.obj" "$(INTDIR)\SnapWindow.obj" "$(INTDIR)\StyleMaster.obj" "$(INTDIR)\Tooltip.obj" \
+"$(INTDIR)\WindowMaster.obj" "$(INTDIR)\AgentType_NetworkMonitor.obj" "$(INTDIR)\AgentType_iTunes.obj" \
+"$(INTDIR)\AgentType_AutoScaleGraph.obj" "$(INTDIR)\AgentType_DiskSpaceMonitor.obj" "$(INTDIR)\ColorMaster.obj" \
+"$(INTDIR)\AgentType_SystemInfo.obj" "$(INTDIR)\AgentType_Clock.obj"
+
+
+
+"$(OUTDIR)\BBInterfaceMod_iTunes.dll" : "$(OUTDIR)" $(LINK32_OBJS)
+	$(LINK32) @<<
+  $(LINK32_FLAGS) $(LINK32_OBJS)
+<<
+
+CPP_PROJ=/nologo /MT /W3 /O2 /D "WIN32"  /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Fo"$(INTDIR)\\"  /c /EHsc
+
+.cpp{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<

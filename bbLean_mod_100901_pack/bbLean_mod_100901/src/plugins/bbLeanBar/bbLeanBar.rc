@@ -1,0 +1,69 @@
+# ------------------------------------------------------
+# bbLeanBar.rc
+
+# Lines starting with # or ! are ignored
+
+# This builds a toolbar with tasks and tray. You may
+# change the order of items or uncomment some of the
+# currently disabled (!) items:
+
+bbleanbar.item:                 Clock
+!bbleanbar.item:		WorkspaceButtonL
+!bbleanbar.item:		WorkspaceButtonR
+bbleanbar.item:                 Tasks
+!bbleanbar.item:		CurrentOnlyButton
+bbleanbar.item:                 Tray
+!bbleanbar.item:		WindowButtonL
+!bbleanbar.item:		WindowButtonR
+!bbleanbar.item:		WorkspaceLabel
+
+# other available items:
+!bbleanbar.item:                 TaskStyleButton
+!bbleanbar.item:                 WindowLabel
+# opens another bar-line
+# inserts a small gap
+!bbleanbar.item:                Space
+
+# ----------------
+# general settings
+
+bbLeanBar.placement:            BottomLeft
+bbLeanBar.position.x:           0
+bbLeanBar.position.y:           999
+bbLeanBar.widthPercent:         100
+bbLeanBar.useSlit:              false
+bbLeanBar.smallicons:           true
+bbLeanBar.pluginToggle:         false
+bbleanbar.OnTop:                true
+bbLeanBar.autoHide:             false
+bbleanbar.autoRaise:            true
+bbleanbar.snapToEdge:           true
+bbleanbar.alpha.enabled:        false
+bbLeanBar.alpha.value:          0
+bbLeanBar.balloonTips:          true
+# Hide when applications go fullscreen
+bbLeanBar.autoFullscreenHide:   true
+
+# task tabs
+bbLeanBar.tasks.style:          2
+bbLeanBar.tasks.reverse:        false
+bbLeanBar.tasks.current:        false
+bbLeanBar.tasks.sysmenu:        true
+bbLeanBar.tasks.drawBorder:     false
+
+# icon color
+bbLeanBar.icon.saturation:      255
+bbLeanBar.icon.hue:             0
+
+# clock-format string
+bbLeanBar.strftimeFormat:       %m/%d(%a) %#H:%M
+
+bbLeanBar.clock.LeftDoubleClick:   @BBCore.ShowMenu menu\LeftDouble.rc
+bbLeanBar.clock.LeftClick:         @BBCore
+bbLeanBar.clock.RightClick:        @BBCore.ShowMenu menu\Right.rc
+bbLeanBar.clock.MidClick:          @BBCore.ShowMenu menu\Mid.rc
+
+# ------------------------------------------------------
+# systray icon fix, tweak it, if the icon's
+# context menus don't open correctly...
+! bbleanbar.tray.FocusDelay: 60

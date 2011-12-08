@@ -1,0 +1,208 @@
+!------ Module: SystemMeterModule
+!--------------------
+
+!---- SysmeterFrame ----
+@BBInterface Control Create Frame SysmeterFrame
+@BBInterface Control SetWindowProperty SysmeterFrame X 956
+@BBInterface Control SetWindowProperty SysmeterFrame Y 194
+@BBInterface Control SetWindowProperty SysmeterFrame Width 68
+@BBInterface Control SetWindowProperty SysmeterFrame Height 363
+@BBInterface Control SetWindowProperty SysmeterFrame Border true
+@BBInterface Control SetWindowProperty SysmeterFrame IsVisible true
+@BBInterface Control SetWindowProperty SysmeterFrame Style "Toolbar"
+@BBInterface Control SetWindowProperty SysmeterFrame IsToggledWithPlugins true
+@BBInterface Control SetWindowProperty SysmeterFrame IsOnAllWorkspaces true
+@BBInterface Control SetWindowProperty SysmeterFrame DetectFullScreen false
+@BBInterface Control SetWindowProperty SysmeterFrame IsOnTop true
+@BBInterface Control SetWindowProperty SysmeterFrame AutoHide false
+@BBInterface Control SetWindowProperty SysmeterFrame IsSlitted false
+@BBInterface Control SetWindowProperty SysmeterFrame IsTransparent true
+@BBInterface Control SetWindowProperty SysmeterFrame Transparency 90
+@BBInterface Control SetWindowProperty SysmeterFrame MakeInvisible "Never"
+@BBInterface Control SetControlProperty SysmeterFrame HAlign "Center"
+@BBInterface Control SetControlProperty SysmeterFrame VAlign "Top"
+@BBInterface Control SetControlProperty SysmeterFrame HasTitleBar false
+@BBInterface Control SetControlProperty SysmeterFrame IsLocked false
+
+!---- SysmeterFrame::CPULabel ----
+@BBInterface Control CreateChild SysmeterFrame Label CPULabel
+@BBInterface Control SetWindowProperty CPULabel X 2
+@BBInterface Control SetWindowProperty CPULabel Y 2
+@BBInterface Control SetWindowProperty CPULabel Width 64
+@BBInterface Control SetWindowProperty CPULabel Height 17
+@BBInterface Control SetWindowProperty CPULabel Border true
+@BBInterface Control SetWindowProperty CPULabel IsVisible true
+@BBInterface Control SetWindowProperty CPULabel Style "Toolbar"
+@BBInterface Control SetControlProperty CPULabel HAlign "Center"
+@BBInterface Control SetControlProperty CPULabel VAlign "Center"
+@BBInterface Control SetAgent CPULabel Caption StaticText "CPU"
+
+!---- SysmeterFrame::CPUMeter ----
+@BBInterface Control CreateChild SysmeterFrame Label CPUMeter
+@BBInterface Control SetWindowProperty CPUMeter X 2
+@BBInterface Control SetWindowProperty CPUMeter Y 21
+@BBInterface Control SetWindowProperty CPUMeter Width 64
+@BBInterface Control SetWindowProperty CPUMeter Height 48
+@BBInterface Control SetWindowProperty CPUMeter Border true
+@BBInterface Control SetWindowProperty CPUMeter IsVisible true
+@BBInterface Control SetWindowProperty CPUMeter Style "Toolbar"
+@BBInterface Control SetControlProperty CPUMeter HAlign "Left"
+@BBInterface Control SetControlProperty CPUMeter VAlign "Top"
+@BBInterface Control SetAgent CPUMeter Caption SystemMonitor "CPUUsage"
+@BBInterface Control SetAgent CPUMeter Image Graph "LINECHART"
+@BBInterface Control SetAgent CPUMeter Image.Value SystemMonitor "CPUUsage"
+
+!---- SysmeterFrame::MemoryLabel ----
+@BBInterface Control CreateChild SysmeterFrame Label MemoryLabel
+@BBInterface Control SetWindowProperty MemoryLabel X 2
+@BBInterface Control SetWindowProperty MemoryLabel Y 71
+@BBInterface Control SetWindowProperty MemoryLabel Width 64
+@BBInterface Control SetWindowProperty MemoryLabel Height 32
+@BBInterface Control SetWindowProperty MemoryLabel Border true
+@BBInterface Control SetWindowProperty MemoryLabel IsVisible true
+@BBInterface Control SetWindowProperty MemoryLabel Style "Toolbar"
+@BBInterface Control SetControlProperty MemoryLabel HAlign "Center"
+@BBInterface Control SetControlProperty MemoryLabel VAlign "TopWrap"
+@BBInterface Control SetAgent MemoryLabel Caption CompoundText "Memory\n$$"
+@BBInterface Control SetAgent MemoryLabel Caption.Text1 SystemMonitor "PhysicalMemoryUsed"
+
+!---- SysmeterFrame::MemMeter ----
+@BBInterface Control CreateChild SysmeterFrame Slider MemMeter
+@BBInterface Control SetWindowProperty MemMeter X 2
+@BBInterface Control SetWindowProperty MemMeter Y 105
+@BBInterface Control SetWindowProperty MemMeter Width 64
+@BBInterface Control SetWindowProperty MemMeter Height 16
+@BBInterface Control SetWindowProperty MemMeter Border true
+@BBInterface Control SetWindowProperty MemMeter IsVisible true
+@BBInterface Control SetWindowProperty MemMeter Style "Toolbar"
+@BBInterface Control SetControlProperty MemMeter Value 0.420000
+@BBInterface Control SetControlProperty MemMeter Vertical false
+@BBInterface Control SetControlProperty MemMeter Reversed false
+@BBInterface Control SetControlProperty MemMeter Appearance 0
+@BBInterface Control SetControlProperty MemMeter BroadcastValueMinimum 0
+@BBInterface Control SetControlProperty MemMeter BroadcastValueMaximum 100
+@BBInterface Control SetAgent MemMeter Value SystemMonitor "PhysicalMemoryUsed"
+
+!---- SysmeterFrame::BatteryLabel ----
+@BBInterface Control CreateChild SysmeterFrame Label BatteryLabel
+@BBInterface Control SetWindowProperty BatteryLabel X 2
+@BBInterface Control SetWindowProperty BatteryLabel Y 123
+@BBInterface Control SetWindowProperty BatteryLabel Width 64
+@BBInterface Control SetWindowProperty BatteryLabel Height 32
+@BBInterface Control SetWindowProperty BatteryLabel Border true
+@BBInterface Control SetWindowProperty BatteryLabel IsVisible true
+@BBInterface Control SetWindowProperty BatteryLabel Style "Toolbar"
+@BBInterface Control SetControlProperty BatteryLabel HAlign "Center"
+@BBInterface Control SetControlProperty BatteryLabel VAlign "TopWrap"
+@BBInterface Control SetAgent BatteryLabel Caption CompoundText "Battery\n$$"
+@BBInterface Control SetAgent BatteryLabel Caption.Text1 SystemMonitor "BatteryPower"
+
+!---- SysmeterFrame::BatteryMeter ----
+@BBInterface Control CreateChild SysmeterFrame Slider BatteryMeter
+@BBInterface Control SetWindowProperty BatteryMeter X 2
+@BBInterface Control SetWindowProperty BatteryMeter Y 157
+@BBInterface Control SetWindowProperty BatteryMeter Width 64
+@BBInterface Control SetWindowProperty BatteryMeter Height 16
+@BBInterface Control SetWindowProperty BatteryMeter Border true
+@BBInterface Control SetWindowProperty BatteryMeter IsVisible true
+@BBInterface Control SetWindowProperty BatteryMeter Style "Toolbar"
+@BBInterface Control SetControlProperty BatteryMeter Value 0.840000
+@BBInterface Control SetControlProperty BatteryMeter Vertical false
+@BBInterface Control SetControlProperty BatteryMeter Reversed false
+@BBInterface Control SetControlProperty BatteryMeter Appearance 0
+@BBInterface Control SetControlProperty BatteryMeter BroadcastValueMinimum 0
+@BBInterface Control SetControlProperty BatteryMeter BroadcastValueMaximum 100
+@BBInterface Control SetAgent BatteryMeter Value SystemMonitor "BatteryPower"
+
+!---- SysmeterFrame::NetIF1Label ----
+@BBInterface Control CreateChild SysmeterFrame Label NetIF1Label
+@BBInterface Control SetWindowProperty NetIF1Label X 2
+@BBInterface Control SetWindowProperty NetIF1Label Y 175
+@BBInterface Control SetWindowProperty NetIF1Label Width 64
+@BBInterface Control SetWindowProperty NetIF1Label Height 16
+@BBInterface Control SetWindowProperty NetIF1Label Border true
+@BBInterface Control SetWindowProperty NetIF1Label IsVisible true
+@BBInterface Control SetWindowProperty NetIF1Label Style "Toolbar"
+@BBInterface Control SetControlProperty NetIF1Label HAlign "Center"
+@BBInterface Control SetControlProperty NetIF1Label VAlign "Center"
+@BBInterface Control SetAgent NetIF1Label Caption StaticText "IF1"
+
+!---- SysmeterFrame::NetIF2Label ----
+@BBInterface Control CreateChild SysmeterFrame Label NetIF2Label
+@BBInterface Control SetWindowProperty NetIF2Label X 2
+@BBInterface Control SetWindowProperty NetIF2Label Y 243
+@BBInterface Control SetWindowProperty NetIF2Label Width 64
+@BBInterface Control SetWindowProperty NetIF2Label Height 16
+@BBInterface Control SetWindowProperty NetIF2Label Border true
+@BBInterface Control SetWindowProperty NetIF2Label IsVisible true
+@BBInterface Control SetWindowProperty NetIF2Label Style "Toolbar"
+@BBInterface Control SetControlProperty NetIF2Label HAlign "Center"
+@BBInterface Control SetControlProperty NetIF2Label VAlign "Center"
+@BBInterface Control SetAgent NetIF2Label Caption StaticText "IF2"
+
+!---- SysmeterFrame::DiskLabel ----
+@BBInterface Control CreateChild SysmeterFrame Label DiskLabel
+@BBInterface Control SetWindowProperty DiskLabel X 2
+@BBInterface Control SetWindowProperty DiskLabel Y 311
+@BBInterface Control SetWindowProperty DiskLabel Width 64
+@BBInterface Control SetWindowProperty DiskLabel Height 32
+@BBInterface Control SetWindowProperty DiskLabel Border true
+@BBInterface Control SetWindowProperty DiskLabel IsVisible true
+@BBInterface Control SetWindowProperty DiskLabel Style "Toolbar"
+@BBInterface Control SetControlProperty DiskLabel HAlign "Center"
+@BBInterface Control SetControlProperty DiskLabel VAlign "TopWrap"
+@BBInterface Control SetAgent DiskLabel Caption CompoundText "Free C:\\n$$"
+@BBInterface Control SetAgent DiskLabel Caption.Text1 DiskSpaceMonitor "DiskFree"
+@BBInterface Control SetAgentProperty DiskLabel Caption.Text1 MonitoringPath "C:\\"
+
+!---- SysmeterFrame::DiskMeter ----
+@BBInterface Control CreateChild SysmeterFrame Slider DiskMeter
+@BBInterface Control SetWindowProperty DiskMeter X 2
+@BBInterface Control SetWindowProperty DiskMeter Y 345
+@BBInterface Control SetWindowProperty DiskMeter Width 64
+@BBInterface Control SetWindowProperty DiskMeter Height 16
+@BBInterface Control SetWindowProperty DiskMeter Border true
+@BBInterface Control SetWindowProperty DiskMeter IsVisible true
+@BBInterface Control SetWindowProperty DiskMeter Style "Toolbar"
+@BBInterface Control SetControlProperty DiskMeter Value 0.184788
+@BBInterface Control SetControlProperty DiskMeter Vertical false
+@BBInterface Control SetControlProperty DiskMeter Reversed false
+@BBInterface Control SetControlProperty DiskMeter Appearance 0
+@BBInterface Control SetControlProperty DiskMeter BroadcastValueMinimum 0
+@BBInterface Control SetControlProperty DiskMeter BroadcastValueMaximum 100
+@BBInterface Control SetAgent DiskMeter Value DiskSpaceMonitor "DiskFree"
+@BBInterface Control SetAgentProperty DiskMeter Value MonitoringPath "C:\\"
+
+!---- SysmeterFrame::NetIF1Meter ----
+@BBInterface Control CreateChild SysmeterFrame Label NetIF1Meter
+@BBInterface Control SetWindowProperty NetIF1Meter X 2
+@BBInterface Control SetWindowProperty NetIF1Meter Y 193
+@BBInterface Control SetWindowProperty NetIF1Meter Width 64
+@BBInterface Control SetWindowProperty NetIF1Meter Height 48
+@BBInterface Control SetWindowProperty NetIF1Meter Border true
+@BBInterface Control SetWindowProperty NetIF1Meter IsVisible true
+@BBInterface Control SetWindowProperty NetIF1Meter Style "Toolbar"
+@BBInterface Control SetControlProperty NetIF1Meter HAlign "Left"
+@BBInterface Control SetControlProperty NetIF1Meter VAlign "Top"
+@BBInterface Control SetAgent NetIF1Meter Caption NetworkMonitor "Interface1"
+@BBInterface Control SetAgentProperty NetIF1Meter Caption MonitorType 0
+@BBInterface Control SetAgent NetIF1Meter Image AutoScaleGraph "LINECHART"
+@BBInterface Control SetAgent NetIF1Meter Image.Value NetworkMonitor "Interface1"
+@BBInterface Control SetAgentProperty NetIF1Meter Image.Value MonitorType 0
+
+!---- SysmeterFrame::NetIF2Meter ----
+@BBInterface Control CreateChild SysmeterFrame Label NetIF2Meter
+@BBInterface Control SetWindowProperty NetIF2Meter X 2
+@BBInterface Control SetWindowProperty NetIF2Meter Y 261
+@BBInterface Control SetWindowProperty NetIF2Meter Width 64
+@BBInterface Control SetWindowProperty NetIF2Meter Height 48
+@BBInterface Control SetWindowProperty NetIF2Meter Border true
+@BBInterface Control SetWindowProperty NetIF2Meter IsVisible true
+@BBInterface Control SetWindowProperty NetIF2Meter Style "Toolbar"
+@BBInterface Control SetControlProperty NetIF2Meter HAlign "Left"
+@BBInterface Control SetControlProperty NetIF2Meter VAlign "Top"
+@BBInterface Control SetAgent NetIF2Meter Caption NetworkMonitor "Interface2"
+@BBInterface Control SetAgentProperty NetIF2Meter Caption MonitorType 0
+@BBInterface Control SetAgent NetIF2Meter Image AutoScaleGraph "LINECHART"
+@BBInterface Control SetAgent NetIF2Meter Image.Value NetworkMonitor "Interface2"
+@BBInterface Control SetAgentProperty NetIF2Meter Image.Value MonitorType 0

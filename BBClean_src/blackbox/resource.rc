@@ -1,0 +1,118 @@
+/*
+ ============================================================================
+
+  This file is part of the bbLean source code
+  Copyright © 2001-2003 The Blackbox for Windows Development Team
+  Copyright © 2004 grischka
+
+  http://bb4win.sourceforge.net/bblean
+  http://sourceforge.net/projects/bb4win
+
+ ============================================================================
+
+  bbLean and bb4win are free software, released under the GNU General
+  Public License (GPL version 2 or later), with an extension that allows
+  linking of proprietary modules under a controlled interface. This means
+  that plugins etc. are allowed to be released under any license the author
+  wishes. For details see:
+
+  http://www.fsf.org/licenses/gpl.html
+  http://www.fsf.org/licenses/gpl-faq.html#LinkingOverControlledInterface
+
+  This program is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+  for more details.
+
+ ============================================================================
+*/
+
+#ifdef __BORLANDC__
+#define DS_SETFOREGROUND 0x200L
+#else
+#include <windows.h>
+#endif
+
+#define IDI_BLACKBOX 101
+#define IDC_MOVEMENU 102
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Edit Workspace Names (etc.) DialogBox
+//
+
+400 DIALOGEX 0,0, 200, 46
+STYLE DS_CENTER | DS_MODALFRAME | DS_SETFOREGROUND | DS_SYSMODAL | WS_POPUP | WS_VISIBLE | WS_CAPTION
+EXSTYLE WS_EX_TOOLWINDOW
+FONT 9, "ms shell dlg"
+BEGIN
+LTEXT       "",         401,       6,  4, 188, 8
+EDITTEXT                402,       6, 16, 188, 8  , ES_AUTOHSCROLL | NOT WS_BORDER | WS_TABSTOP
+PUSHBUTTON  "ok",       IDOK,     56, 28, 36, 12  , BS_FLAT | WS_TABSTOP
+PUSHBUTTON  "cancel",   IDCANCEL,106, 28, 36, 12  , BS_FLAT | WS_TABSTOP
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+
+IDI_BLACKBOX ICON DISCARDABLE "Blackbox.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu Drag Cursor
+//
+
+IDC_MOVEMENU CURSOR DISCARDABLE "Menu/MoveMenu.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION 0,1,16,0
+PRODUCTVERSION 0,1,16,0
+FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+FILEFLAGS 0x1L
+#else
+FILEFLAGS 0x0L
+#endif
+FILEOS 0x40004L
+FILETYPE 0x1L
+FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "000004b0"
+        BEGIN
+            VALUE "Comments",
+                "A new generation of Blackbox for Windows."
+                "\r\n\r\n"
+                "Based stylistically on the Blackbox window manager "
+                "for the X Window System by Brad Hughes."
+
+            //VALUE "CompanyName", "Blackbox for Windows"
+            VALUE "FileDescription", "Blackbox for Windows"
+			VALUE "FileVersion", "bbLean 1.16 (bbClean XZero450-build)"
+            //VALUE "InternalName", "Blackbox"
+            VALUE "LegalCopyright", "Copyright © 2003-2005 grischka"
+            //VALUE "LegalTrademarks", "none"
+            VALUE "OriginalFilename", "blackbox.exe"
+            //VALUE "PrivateBuild", "none"
+            VALUE "ProductName", "Blackbox for Windows"
+			VALUE "ProductVersion", "bbLean 1.16 (bbClean)"
+            //VALUE "SpecialBuild", "none"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0, 1200
+    END
+END
+/////////////////////////////////////////////////////////////////////////////

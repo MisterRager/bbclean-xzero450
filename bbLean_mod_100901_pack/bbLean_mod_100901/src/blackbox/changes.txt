@@ -1,0 +1,199 @@
+bbLean - changes
+
+[27 Apr 2005] bbLean 1.14
+- BG color resolution prob (reported by grimlan)
+- Auto-reconfigure on screen resultion change (reported by iffan4ever)
+- SystemTray code fixed for network icons.
+- Recognizes new bb4nix 0.70 style conventions.
+
+[16-Feb-2005] bbLean 1.13b6
+- Menu metrics fixed.
+- Minimizing Windows (vc.net issue): tweaked the code, untested.
+- Missing borders with some plugins (e.g. BBI): fixed.
+- Startup items wait 500ms to run (might fix an issue with AutoIt)
+- Context Menus: added option for left margin adjust
+
+[08-Feb-2005] bbLean 1.13b5
+- added in 'setlocale' for localized date/time formats
+- Tweaked the code for the SendTo folder in the contextmenu to spot
+  a reported "no items" issue (untested).
+- changed desktop's window class to "DesktopBackgroundClass"
+- fixed moving windows across workspaces with BBEdgeFlip
+- renamed some options in extensions.rc.
+- added custom margins for 2nd monitor
+
+[23-Sep-2004] - bbLean 1.13b4
+- Changed Systemtray code with shared icons (Tray.cpp)
+- The command to open a folder is now configurable in extensions.rc.
+- Small change with workspaces to make popups in current workspace
+  from programs on other workspaces clickable (untested).
+- Root menus are now pinned like any other
+- Change in systray code (to spot an issue with toggling icons, untested)
+
+[22-Aug-2004] - bbLean 1.13b3
+- Double click on folder item opens explorer
+- Added in color-dithering for 16bit displays from the original
+  *nix code. (Looks now almost like with 24bit screens.)
+- Fixed an issue with the pager moving windows randomly across
+  workspaces or even beyond.
+
+[02-Aug-2004] - bbLean 1.13b2
+- Fixed "@BBCore.ShowMenu <folder>"
+
+[01-Aug-2004] - bbLean 1.13b1
+- Worked around the slit killing menus on autohide.
+- Fixed an issue with some certain apps, which couldn't get focus.
+- Fixed an issue with screensavers not starting.
+- Fixed shading with popup windows (bbhook / bbkeys)
+
+[14-Jul-2004] - bbLean 1.13b1
+- added Custom Menus. Example: @BBCore.ShowMenu other-menu.rc
+- changed semantics for merge folders: {DESKTOPDIRECTORY|COMMON_DESKTOPDIRECTORY}
+- added configurable desktop mouse clicks in extensions.rc:
+  Example: blackbox.desktop.AltRightClick: @BBCore.ShowMenu configuration
+- New Snap function, snaps plugins to each other also.
+- New workspace code.
+- Added menu keys: ALT-arrows to move, INS to pin, ALT-F4 / DEL to close
+- Contains a plugin API to support BBMail/BBPower (qwilk)
+- Contains the "XP-LogonScreen-Terminator" (credits to all who found it :)
+- added multimon auto desktop margins, untested:
+- added a fix to make "internat.exe" (keyboard layout switching) In Tray.cpp.
+
+
+[20-Feb-2004] - v1.12
+- global font override option, see extensions.rc
+- some multimon fixes, mostly untested though
+
+
+[10-Jan-2004] - v1.10
+- drag & drop from and to menus.
+- keyboard navigation for menus.
+- Load and unload plugins on the fly from the config menu.
+  Special thanks to qwilk for the idea and the working example.
+- New menu item [insertpath] to join several folders in one menu.
+- Toolbar and menus toggle with plugins (Ctrl+Win+P with the default bbkeys.rc)
+- Added menuitems to set numbers. Hold down Ctrl for faster progress
+
+
+[09-Sep-2003] - v1.0
+- Transparency for menus and bars.
+- Scroll button for menus
+- Force menu bullet orientation, blackbox.rc:
+    - session.menu.bullet.position: default/left/right
+- Enable/disable the background/rootcommand, blackbox.rc:
+    - session.graphics.background.enabled: true/false
+- Re-introduced 'follow active' option:
+- added another easteregg (for XG). extensions.rc:
+    - blackbox.appearance.cursor.usedefault: true/false
+- and of course, systray icons code changed again...
+- new version, new name!
+    - bbLean 1.00
+
+
+[22-Jul-2003]
+- Optional full-range mode for the elliptic gradient (config-menu).
+  Can be overridden for backwards compatibility by in a stylefile
+    - fullElliptic: true/false
+
+
+[12-Jul-2003]
+- sharpened the 'diamond' bullet. Setting for all bullets in extensions.rc:
+    - blackbox.appearance.bullet.unix: true=small, false=large
+- the word 'NOLABEL' on any line in bbkeys.rc disables the display
+  for key commands on the toolbar.
+- tweaked autoraising of overlapping, pinned menus (also stripped
+  'opaque.window.move' option).
+- new gradient code (-9kb). Elliptic gradients and sunken bevels
+  are handled more consistently (IMO). 'ParseLiteralColor'
+  deflated (-3kb).
+- restart logic changed (workspaces and desktop are preserved).
+
+
+[07-Jul-2003]
+- sometimes windows changed workspace or disappeared, when minimized.
+  Should not happen anymore.
+- BBSystemBar got a 'show current tasks only' option. In the menu or
+  with alt-right-click in the task zone.
+
+
+[29-Jun-2003]
+- disabled some 'experimental' code in the desktop (which caused trouble)
+
+
+[27-Jun-2003]
+- Workspaces remember their top window
+- Tried to fix "white systembar phenomenon"
+- Toolbarclock is less self - resizing
+  also thought about adding a 'include systembar' option to toolbar ...
+- Does anybody still have troubles with trayicons ?
+
+
+[19-Jun-2003]
+- changed quit logic for menu item [exit]
+
+
+[16-Jun-2003]
+- the systray icon code has been reworked. Many thanks to Roger for
+  spending hours on running several tests and for his detailed and
+  useful evaluations.
+
+
+[01-Jun-2003]
+- bb008lc has been made fit for xp-pro. Many thanks go to Pete for
+  running numerous tests on the layouts of the code, and for his
+  detailed feedbacks.
+- menues 'always on top' option: (in the toolbar menu)
+    - session.menu.OnTop: false/true
+- click on desktop-background or any of the box-parts brings
+  menues into foreground
+- double left click on menu-title toggles the 'on top' property
+  for this menu only.
+
+
+[23-May-2003]
+- clean up, removed unused configuration items, review of systray
+- should work now with earlier bsetbg/bsetroot versions as well
+
+
+[16-May-2003]
+- fixed root-menu default-title-display
+
+
+[11-May-2003]
+- previous desktop-area correctly saved, fixed styledir
+
+
+[10-May-2003]
+- added parsing for <styleitem>.fontweight, possible values:
+    - thin, extralight, light, regular/normal, medium,
+    - semi/demibold, bold, extrabold, heavy
+- added some experimental parsing for *nix type font desriptions, e.g.
+    "-*-lucidatypewriter-medium-r-*-*-*-100-*-*-*-*-*-*"
+    This will give better results in some cases.
+- made any wildcards in styles work
+
+
+[22-Apr-2003]
+- first release (as bb008lc)
+- bbLean is a lean build for Blackbox for Windows.
+- contextmenus
+- shellfolder support: include items from 'shellfolders.rc' into
+  your menu.rc as needed or the entire file with this line:
+    - [include] (shellfolders.rc)
+- you can tweek the popup delay with this setting in blackbox.rc:
+    - session.menu.PopupDelay: 40-120
+- you can browse your styles without getting the menu closed
+- it gives you full access to your large folders
+- see the included bbLean.htm for more information...
+
+
+######## Blackbox for Windows 0.0.82 ##########
+
+[changed Settings.cpp/.h, Workspaces.cpp 03/18/2003 ironhead]
+- added "blackbox.tasks.followActive:" to extensions.rc to enable/disable Alt-Tab
+  support
+
+.... (continue with BB4win changes here.)
+Copyright grischka and The Blackbox for Windows Development Team
+http://bb4win.sourceforge.net/bblean
+grischka@users.sourceforge.net

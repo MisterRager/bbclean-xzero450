@@ -1,0 +1,58 @@
+# --------------------------------------------------------------------
+# makefile for BBKeys - gcc mingw
+
+OBJ1    = BBKeys.o
+BIN1    = BBKeys.dll
+
+OBJ2    = winkeyhook.o
+BIN2    = winkeyhook.dll
+
+OBJ3	= mousehook.o
+BIN3	= mousehook.dll
+
+# INSTDIR = c:\bblean\plugins\BBKeys
+
+# -------------------------------------------
+# targets
+
+ifdef INSTDIR
+all: $(INSTDIR)\$(BIN1) $(INSTDIR)\$(BIN2) $(INSTDIR)\$(BIN3)
+else
+all: $(BIN1) $(BIN2) $(BIN3)
+endif
+
+# -------------------------------------------
+$(INSTDIR)\$(BIN1): $(BIN1)
+	copy $(BIN1) $(INSTDIR)
+
+$(INSTDIR)\$(BIN2): $(BIN2)
+	copy $(BIN2) $(INSTDIR)
+	
+$(INSTDIR)\$(BIN3): $(BIN3)
+	copy $(BIN3) $(INSTDIR)
+
+clean:
+	rm -f $(OBJ1) $(OBJ2) $(OBJ3) $(BIN1) $(BIN2) $(BIN3) *.exp
+
+# --------------------------------------------------------------------
+CC      = gcc
+CFLAGS  = -Os -Wall -c -mwindows -I../../blackbox
+LIBS    = -lshell32 -luser32 -lkernel32 -lgdi32 -lcomctl32 -lstdc++ ../../blackbox/libBlackbox.a
+
+# --------------------------------------------------------------------
+$(BIN1): $(OBJ1) makefile-gcc
+	$(CC) -shared -s -o $(BIN1) $(OBJ1) $(LIBS)
+	dir $(BIN1)
+
+$(BIN2): $(OBJ2) makefile-gcc
+	$(CC) -shared -s -o $(BIN2) $(OBJ2) $(LIBS)
+	dir $(BIN2)
+	
+$(BIN3): $(OBJ3) makefile-gcc
+	$(CC) -shared -s -o $(BIN3) $(OBJ3) $(LIBS)
+	dir $(BIN3)
+
+.cpp.o:
+	$(CC) $(CFLAGS) $< -o $@
+
+# --------------------------------------------------------------------

@@ -1,0 +1,40 @@
+/////////////////////////////////////////////////////////////////
+
+bbLeanBar modは設定しないと何の動作も起こりません。
+最低でも、bbLeanBar.rcに以下の設定を追加することをお勧めします。
+
+bbleanbar.tasks.LeftClick:		Default
+bbleanbar.tasks.RightClick:		SystemMenu
+
+/////////////////////////////////////////////////////////////////
+
+bbleanbar.tasks.[<mod>]<button>Click: <command>
+<mod>    : Shift, Left, Right, Mid, Ctrl(WheelUp, WheelDownの時のみ)
+<button> : Left, Mid, Right, Double, WheelUp, WheelDown(WheelUp, WheelDownは"Click"不要)
+
+<command>:
+	Default				左クリックした時と同じ動作
+	SystemMenu			右クリックした時に出るシステムメニュー
+	Raise				最背面にあるウィンドウを最前面にする
+	RaiseWindow			同上
+	Lower				ウィンドウを最背面にする
+	LowerWindow			同上
+	Shade				ウィンドウをタイトルバーだけにする
+	ShadeWindow			同上
+	Close				ウィンドウを閉じる
+	CloseWindow			同上
+	Minimize			ウィンドウを最小化する
+	MinimizeWindow		同上
+	Maximize			ウィンドウを最大化する
+	MaximizeWindow		同上
+	MaximizeVertical	ウィンドウの高さを最大化する
+	MaximizeHorizontal	ウィンドウの幅を最大化する
+	Restore				ウィンドウサイズを元に戻す
+	RestoreWindow		同上
+	PrevWindow			次のウィンドウをアクティブにする
+	NextWindow			前のウィンドウをアクティブにする
+	StickWindow			ウィンドウを全てのワークスペースで表示する
+	MoveWindowLeft		ウィンドウを左のワークスペースへ移動
+	MoveWindowRight		ウィンドウを右のワークスペースへ移動
+	ActivateTask		ウィンドウをアクティブにする
+	MinimizeToTray		タスクトレイに最小化

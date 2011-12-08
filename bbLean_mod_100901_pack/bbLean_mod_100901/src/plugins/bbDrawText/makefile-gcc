@@ -1,0 +1,68 @@
+# --------------------------------------------------------------------
+# makefile for bbDrawText - gcc (mingw)
+
+# Compile:
+#   you may want to change INST below
+#   make -f makefile-gcc
+
+# Versions:
+#   gcc-3.4.2
+#   binutils-2.15.90
+#   mingw-runtime-3.7
+#   w32api-3.2
+
+OBJ     = bbDrawText.o
+RES     =
+BIN     = bbDrawText.dll
+# INST    = c:\bblean\plugins\bbDrawText
+
+BBAPI   = ../../blackbox
+BBLIB   = $(BBAPI)/libBlackbox.a
+
+ifdef INSTDIR
+all: $(INST)/$(BIN)
+else
+all: $(BIN)
+endif
+
+bbDrawText.o: \
+	bbDrawText.cpp
+
+clean:
+	rm -f $(OBJ) $(RES) $(BIN)
+
+$(INST)/$(BIN): $(BIN)
+	copy $(BIN) $(INST)
+
+$(BBLIB): $(BBAPI)/libBlackbox.def
+	dlltool -d $< -l $@ -D blackbox.exe
+
+# --------------------------------------------------------------------
+CC      = gcc
+WINDRES = windres.exe -J rc -O coff --include-dir $(<D)
+
+CFLAGS  = -c -Wall -Os -I$(BBAPI)\
+	-fno-rtti \
+	-fno-exceptions \
+	-fomit-frame-pointer \
+
+LIBS = -lcomdlg32
+
+
+$(BIN): $(OBJ) $(BBLIB) makefile-gcc
+	$(CC) -mwindows -shared -s -o $(BIN) $(OBJ) $(LIBS) $(BBLIB)
+	dir $(BIN)
+
+# --------------------------------------------------------------------
+
+%.o: %.c
+	$(CC) $(CFLAGS) $< -o $@
+
+%.o: %.cpp
+	$(CC) $(CFLAGS) $< -o $@
+
+%.res: %.rc
+	$(WINDRES) -i $< -o $@
+
+# --------------------------------------------------------------------
+

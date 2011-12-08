@@ -1,0 +1,412 @@
+!------ Module: iTunesControlModule
+!--------------------
+
+!---- iTunesControlFrame ----
+@BBInterface Control Create Frame iTunesControlFrame
+@BBInterface Control SetWindowProperty iTunesControlFrame X 0
+@BBInterface Control SetWindowProperty iTunesControlFrame Y 0
+@BBInterface Control SetWindowProperty iTunesControlFrame Width 312
+@BBInterface Control SetWindowProperty iTunesControlFrame Height 115
+@BBInterface Control SetWindowProperty iTunesControlFrame Border true
+@BBInterface Control SetWindowProperty iTunesControlFrame IsVisible true
+@BBInterface Control SetWindowProperty iTunesControlFrame Style "Flat"
+@BBInterface Control SetWindowProperty iTunesControlFrame IsToggledWithPlugins true
+@BBInterface Control SetWindowProperty iTunesControlFrame IsOnAllWorkspaces true
+@BBInterface Control SetWindowProperty iTunesControlFrame DetectFullScreen false
+@BBInterface Control SetWindowProperty iTunesControlFrame IsOnTop false
+@BBInterface Control SetWindowProperty iTunesControlFrame AutoHide false
+@BBInterface Control SetWindowProperty iTunesControlFrame IsSlitted false
+@BBInterface Control SetWindowProperty iTunesControlFrame IsTransparent true
+@BBInterface Control SetWindowProperty iTunesControlFrame Transparency 95
+@BBInterface Control SetWindowProperty iTunesControlFrame MakeInvisible "Never"
+@BBInterface Control SetControlProperty iTunesControlFrame HAlign "Center"
+@BBInterface Control SetControlProperty iTunesControlFrame VAlign "Top"
+@BBInterface Control SetControlProperty iTunesControlFrame HasTitleBar false
+@BBInterface Control SetControlProperty iTunesControlFrame IsLocked false
+
+!---- iTunesControlFrame::iTunesTitleLabel ----
+@BBInterface Control CreateChild iTunesControlFrame Label iTunesTitleLabel
+@BBInterface Control SetWindowProperty iTunesTitleLabel X 104
+@BBInterface Control SetWindowProperty iTunesTitleLabel Y 2
+@BBInterface Control SetWindowProperty iTunesTitleLabel Width 206
+@BBInterface Control SetWindowProperty iTunesTitleLabel Height 16
+@BBInterface Control SetWindowProperty iTunesTitleLabel Border true
+@BBInterface Control SetWindowProperty iTunesTitleLabel IsVisible true
+@BBInterface Control SetWindowProperty iTunesTitleLabel Style "Toolbar"
+@BBInterface Control SetControlProperty iTunesTitleLabel HAlign "Left"
+@BBInterface Control SetControlProperty iTunesTitleLabel VAlign "Center"
+@BBInterface Control SetAgent iTunesTitleLabel Caption iTunesText "TrackTitleAutoScroll"
+@BBInterface Control SetAgent iTunesTitleLabel RightMouseUp iTunes 17
+
+!---- iTunesControlFrame::iTunesArtistNameLabel ----
+@BBInterface Control CreateChild iTunesControlFrame Label iTunesArtistNameLabel
+@BBInterface Control SetWindowProperty iTunesArtistNameLabel X 104
+@BBInterface Control SetWindowProperty iTunesArtistNameLabel Y 38
+@BBInterface Control SetWindowProperty iTunesArtistNameLabel Width 206
+@BBInterface Control SetWindowProperty iTunesArtistNameLabel Height 16
+@BBInterface Control SetWindowProperty iTunesArtistNameLabel Border true
+@BBInterface Control SetWindowProperty iTunesArtistNameLabel IsVisible true
+@BBInterface Control SetWindowProperty iTunesArtistNameLabel Style "Toolbar"
+@BBInterface Control SetControlProperty iTunesArtistNameLabel HAlign "Left"
+@BBInterface Control SetControlProperty iTunesArtistNameLabel VAlign "Center"
+@BBInterface Control SetAgent iTunesArtistNameLabel Caption iTunesText "TrackArtistAutoScroll"
+@BBInterface Control SetAgent iTunesArtistNameLabel RightMouseUp iTunes 18
+
+!---- iTunesControlFrame::iTunesTrackPositionSlider ----
+@BBInterface Control CreateChild iTunesControlFrame Slider iTunesTrackPositionSlider
+@BBInterface Control SetWindowProperty iTunesTrackPositionSlider X 104
+@BBInterface Control SetWindowProperty iTunesTrackPositionSlider Y 20
+@BBInterface Control SetWindowProperty iTunesTrackPositionSlider Width 168
+@BBInterface Control SetWindowProperty iTunesTrackPositionSlider Height 16
+@BBInterface Control SetWindowProperty iTunesTrackPositionSlider Border true
+@BBInterface Control SetWindowProperty iTunesTrackPositionSlider IsVisible true
+@BBInterface Control SetWindowProperty iTunesTrackPositionSlider Style "Toolbar"
+@BBInterface Control SetControlProperty iTunesTrackPositionSlider Value 0.000000
+@BBInterface Control SetControlProperty iTunesTrackPositionSlider Vertical false
+@BBInterface Control SetControlProperty iTunesTrackPositionSlider Reversed false
+@BBInterface Control SetControlProperty iTunesTrackPositionSlider Appearance 0
+@BBInterface Control SetControlProperty iTunesTrackPositionSlider BroadcastValueMinimum 0
+@BBInterface Control SetControlProperty iTunesTrackPositionSlider BroadcastValueMaximum 100
+@BBInterface Control SetAgent iTunesTrackPositionSlider Value iTunesScale "TrackPosition"
+
+!---- iTunesControlFrame::iTunesAlbumLabel ----
+@BBInterface Control CreateChild iTunesControlFrame Label iTunesAlbumLabel
+@BBInterface Control SetWindowProperty iTunesAlbumLabel X 104
+@BBInterface Control SetWindowProperty iTunesAlbumLabel Y 56
+@BBInterface Control SetWindowProperty iTunesAlbumLabel Width 206
+@BBInterface Control SetWindowProperty iTunesAlbumLabel Height 16
+@BBInterface Control SetWindowProperty iTunesAlbumLabel Border true
+@BBInterface Control SetWindowProperty iTunesAlbumLabel IsVisible true
+@BBInterface Control SetWindowProperty iTunesAlbumLabel Style "Toolbar"
+@BBInterface Control SetControlProperty iTunesAlbumLabel HAlign "Left"
+@BBInterface Control SetControlProperty iTunesAlbumLabel VAlign "Center"
+@BBInterface Control SetAgent iTunesAlbumLabel Caption iTunesText "TrackAlbumAutoScroll"
+@BBInterface Control SetAgent iTunesAlbumLabel RightMouseUp iTunes 19
+
+!---- iTunesControlFrame::iTunesVolumeSlider ----
+@BBInterface Control CreateChild iTunesControlFrame Slider iTunesVolumeSlider
+@BBInterface Control SetWindowProperty iTunesVolumeSlider X 104
+@BBInterface Control SetWindowProperty iTunesVolumeSlider Y 100
+@BBInterface Control SetWindowProperty iTunesVolumeSlider Width 206
+@BBInterface Control SetWindowProperty iTunesVolumeSlider Height 13
+@BBInterface Control SetWindowProperty iTunesVolumeSlider Border true
+@BBInterface Control SetWindowProperty iTunesVolumeSlider IsVisible true
+@BBInterface Control SetWindowProperty iTunesVolumeSlider Style "Toolbar"
+@BBInterface Control SetControlProperty iTunesVolumeSlider Value 0.000000
+@BBInterface Control SetControlProperty iTunesVolumeSlider Vertical false
+@BBInterface Control SetControlProperty iTunesVolumeSlider Reversed false
+@BBInterface Control SetControlProperty iTunesVolumeSlider Appearance 2
+@BBInterface Control SetControlProperty iTunesVolumeSlider BroadcastValueMinimum 0
+@BBInterface Control SetControlProperty iTunesVolumeSlider BroadcastValueMaximum 100
+@BBInterface Control SetAgent iTunesVolumeSlider Value iTunesScale "VolumeValue"
+
+!---- iTunesControlFrame::iTunesRewindButton ----
+@BBInterface Control CreateChild iTunesControlFrame Button iTunesRewindButton
+@BBInterface Control SetWindowProperty iTunesRewindButton X 104
+@BBInterface Control SetWindowProperty iTunesRewindButton Y 74
+@BBInterface Control SetWindowProperty iTunesRewindButton Width 24
+@BBInterface Control SetWindowProperty iTunesRewindButton Height 24
+@BBInterface Control SetWindowProperty iTunesRewindButton Border false
+@BBInterface Control SetWindowProperty iTunesRewindButton IsVisible true
+@BBInterface Control SetWindowProperty iTunesRewindButton Style "Flat"
+@BBInterface Control SetWindowProperty iTunesRewindButton Color "#303030"
+@BBInterface Control SetWindowProperty iTunesRewindButton ColorTo "#303030"
+@BBInterface Control SetWindowProperty iTunesRewindButton TextColor "#FFE0F0"
+@BBInterface Control SetWindowProperty iTunesRewindButton Bevel "Flat"
+@BBInterface Control SetWindowProperty iTunesRewindButton ShadowColor "#444444"
+@BBInterface Control SetWindowProperty iTunesRewindButton ShadowPosX 1
+@BBInterface Control SetWindowProperty iTunesRewindButton ShadowPosY 1
+@BBInterface Control SetControlProperty iTunesRewindButton HAlign "Center"
+@BBInterface Control SetControlProperty iTunesRewindButton VAlign "Center"
+@BBInterface Control SetAgent iTunesRewindButton Image Bitmap "kazmix_samplescript\icon\rew.png"
+@BBInterface Control SetAgentProperty iTunesRewindButton Image Scale 75
+@BBInterface Control SetAgentProperty iTunesRewindButton Image VAlign "Center"
+@BBInterface Control SetAgentProperty iTunesRewindButton Image HAlign "Center"
+@BBInterface Control SetAgent iTunesRewindButton LeftMouseDown iTunes 8
+@BBInterface Control SetAgent iTunesRewindButton LeftMouseUp iTunes 20
+
+!---- iTunesControlFrame::iTunesPreviousTrackButton ----
+@BBInterface Control CreateChild iTunesControlFrame Button iTunesPreviousTrackButton
+@BBInterface Control SetWindowProperty iTunesPreviousTrackButton X 130
+@BBInterface Control SetWindowProperty iTunesPreviousTrackButton Y 74
+@BBInterface Control SetWindowProperty iTunesPreviousTrackButton Width 24
+@BBInterface Control SetWindowProperty iTunesPreviousTrackButton Height 24
+@BBInterface Control SetWindowProperty iTunesPreviousTrackButton Border false
+@BBInterface Control SetWindowProperty iTunesPreviousTrackButton IsVisible true
+@BBInterface Control SetWindowProperty iTunesPreviousTrackButton Style "Flat"
+@BBInterface Control SetWindowProperty iTunesPreviousTrackButton Color "#303030"
+@BBInterface Control SetWindowProperty iTunesPreviousTrackButton ColorTo "#303030"
+@BBInterface Control SetWindowProperty iTunesPreviousTrackButton TextColor "#FFE0F0"
+@BBInterface Control SetWindowProperty iTunesPreviousTrackButton Bevel "Flat"
+@BBInterface Control SetWindowProperty iTunesPreviousTrackButton ShadowColor "#444444"
+@BBInterface Control SetWindowProperty iTunesPreviousTrackButton ShadowPosX 1
+@BBInterface Control SetWindowProperty iTunesPreviousTrackButton ShadowPosY 1
+@BBInterface Control SetControlProperty iTunesPreviousTrackButton HAlign "Center"
+@BBInterface Control SetControlProperty iTunesPreviousTrackButton VAlign "Center"
+@BBInterface Control SetAgent iTunesPreviousTrackButton Image Bitmap "kazmix_samplescript\icon\prev.png"
+@BBInterface Control SetAgentProperty iTunesPreviousTrackButton Image Scale 75
+@BBInterface Control SetAgentProperty iTunesPreviousTrackButton Image VAlign "Center"
+@BBInterface Control SetAgentProperty iTunesPreviousTrackButton Image HAlign "Center"
+@BBInterface Control SetAgent iTunesPreviousTrackButton LeftMouseDown iTunes 2
+
+!---- iTunesControlFrame::iTunesPlayPauseButton ----
+@BBInterface Control CreateChild iTunesControlFrame Button iTunesPlayPauseButton
+@BBInterface Control SetWindowProperty iTunesPlayPauseButton X 156
+@BBInterface Control SetWindowProperty iTunesPlayPauseButton Y 74
+@BBInterface Control SetWindowProperty iTunesPlayPauseButton Width 24
+@BBInterface Control SetWindowProperty iTunesPlayPauseButton Height 24
+@BBInterface Control SetWindowProperty iTunesPlayPauseButton Border false
+@BBInterface Control SetWindowProperty iTunesPlayPauseButton IsVisible true
+@BBInterface Control SetWindowProperty iTunesPlayPauseButton Style "Flat"
+@BBInterface Control SetWindowProperty iTunesPlayPauseButton Color "#303030"
+@BBInterface Control SetWindowProperty iTunesPlayPauseButton ColorTo "#303030"
+@BBInterface Control SetWindowProperty iTunesPlayPauseButton TextColor "#FFE0F0"
+@BBInterface Control SetWindowProperty iTunesPlayPauseButton Bevel "Flat"
+@BBInterface Control SetWindowProperty iTunesPlayPauseButton ShadowColor "#444444"
+@BBInterface Control SetWindowProperty iTunesPlayPauseButton ShadowPosX 1
+@BBInterface Control SetWindowProperty iTunesPlayPauseButton ShadowPosY 1
+@BBInterface Control SetControlProperty iTunesPlayPauseButton HAlign "Center"
+@BBInterface Control SetControlProperty iTunesPlayPauseButton VAlign "Center"
+@BBInterface Control SetAgent iTunesPlayPauseButton Image SwitchedState "IMAGE"
+@BBInterface Control SetAgent iTunesPlayPauseButton Image.Value iTunesBool "IsPlaying"
+@BBInterface Control SetAgent iTunesPlayPauseButton Image.ResultWhenTrue Bitmap "kazmix_samplescript\icon\pause.png"
+@BBInterface Control SetAgentProperty iTunesPlayPauseButton Image.ResultWhenTrue Scale 75
+@BBInterface Control SetAgentProperty iTunesPlayPauseButton Image.ResultWhenTrue VAlign "Center"
+@BBInterface Control SetAgentProperty iTunesPlayPauseButton Image.ResultWhenTrue HAlign "Center"
+@BBInterface Control SetAgent iTunesPlayPauseButton Image.ResultWhenFalse Bitmap "kazmix_samplescript\icon\play.png"
+@BBInterface Control SetAgentProperty iTunesPlayPauseButton Image.ResultWhenFalse Scale 75
+@BBInterface Control SetAgentProperty iTunesPlayPauseButton Image.ResultWhenFalse VAlign "Center"
+@BBInterface Control SetAgentProperty iTunesPlayPauseButton Image.ResultWhenFalse HAlign "Center"
+@BBInterface Control SetAgent iTunesPlayPauseButton LeftMouseDown iTunes 7
+
+!---- iTunesControlFrame::iTunesStopButton ----
+@BBInterface Control CreateChild iTunesControlFrame Button iTunesStopButton
+@BBInterface Control SetWindowProperty iTunesStopButton X 182
+@BBInterface Control SetWindowProperty iTunesStopButton Y 74
+@BBInterface Control SetWindowProperty iTunesStopButton Width 24
+@BBInterface Control SetWindowProperty iTunesStopButton Height 24
+@BBInterface Control SetWindowProperty iTunesStopButton Border false
+@BBInterface Control SetWindowProperty iTunesStopButton IsVisible true
+@BBInterface Control SetWindowProperty iTunesStopButton Style "Flat"
+@BBInterface Control SetWindowProperty iTunesStopButton Color "#303030"
+@BBInterface Control SetWindowProperty iTunesStopButton ColorTo "#303030"
+@BBInterface Control SetWindowProperty iTunesStopButton TextColor "#FFE0F0"
+@BBInterface Control SetWindowProperty iTunesStopButton Bevel "Flat"
+@BBInterface Control SetWindowProperty iTunesStopButton ShadowColor "#444444"
+@BBInterface Control SetWindowProperty iTunesStopButton ShadowPosX 1
+@BBInterface Control SetWindowProperty iTunesStopButton ShadowPosY 1
+@BBInterface Control SetControlProperty iTunesStopButton HAlign "Center"
+@BBInterface Control SetControlProperty iTunesStopButton VAlign "Center"
+@BBInterface Control SetAgent iTunesStopButton Image Bitmap "kazmix_samplescript\icon\stop.png"
+@BBInterface Control SetAgentProperty iTunesStopButton Image Scale 75
+@BBInterface Control SetAgentProperty iTunesStopButton Image VAlign "Center"
+@BBInterface Control SetAgentProperty iTunesStopButton Image HAlign "Center"
+@BBInterface Control SetAgent iTunesStopButton LeftMouseDown iTunes 5
+
+!---- iTunesControlFrame::iTunesNextTrackButton ----
+@BBInterface Control CreateChild iTunesControlFrame Button iTunesNextTrackButton
+@BBInterface Control SetWindowProperty iTunesNextTrackButton X 208
+@BBInterface Control SetWindowProperty iTunesNextTrackButton Y 74
+@BBInterface Control SetWindowProperty iTunesNextTrackButton Width 24
+@BBInterface Control SetWindowProperty iTunesNextTrackButton Height 24
+@BBInterface Control SetWindowProperty iTunesNextTrackButton Border false
+@BBInterface Control SetWindowProperty iTunesNextTrackButton IsVisible true
+@BBInterface Control SetWindowProperty iTunesNextTrackButton Style "Flat"
+@BBInterface Control SetWindowProperty iTunesNextTrackButton Color "#303030"
+@BBInterface Control SetWindowProperty iTunesNextTrackButton ColorTo "#303030"
+@BBInterface Control SetWindowProperty iTunesNextTrackButton TextColor "#FFE0F0"
+@BBInterface Control SetWindowProperty iTunesNextTrackButton Bevel "Flat"
+@BBInterface Control SetWindowProperty iTunesNextTrackButton ShadowColor "#444444"
+@BBInterface Control SetWindowProperty iTunesNextTrackButton ShadowPosX 1
+@BBInterface Control SetWindowProperty iTunesNextTrackButton ShadowPosY 1
+@BBInterface Control SetControlProperty iTunesNextTrackButton HAlign "Center"
+@BBInterface Control SetControlProperty iTunesNextTrackButton VAlign "Center"
+@BBInterface Control SetAgent iTunesNextTrackButton Image Bitmap "kazmix_samplescript\icon\next.png"
+@BBInterface Control SetAgentProperty iTunesNextTrackButton Image Scale 75
+@BBInterface Control SetAgentProperty iTunesNextTrackButton Image VAlign "Center"
+@BBInterface Control SetAgentProperty iTunesNextTrackButton Image HAlign "Center"
+@BBInterface Control SetAgent iTunesNextTrackButton LeftMouseDown iTunes 3
+
+!---- iTunesControlFrame::iTunesQuitButton ----
+@BBInterface Control CreateChild iTunesControlFrame Button iTunesQuitButton
+@BBInterface Control SetWindowProperty iTunesQuitButton X 260
+@BBInterface Control SetWindowProperty iTunesQuitButton Y 74
+@BBInterface Control SetWindowProperty iTunesQuitButton Width 24
+@BBInterface Control SetWindowProperty iTunesQuitButton Height 24
+@BBInterface Control SetWindowProperty iTunesQuitButton Border false
+@BBInterface Control SetWindowProperty iTunesQuitButton IsVisible true
+@BBInterface Control SetWindowProperty iTunesQuitButton Style "Flat"
+@BBInterface Control SetWindowProperty iTunesQuitButton Color "#303030"
+@BBInterface Control SetWindowProperty iTunesQuitButton ColorTo "#303030"
+@BBInterface Control SetWindowProperty iTunesQuitButton TextColor "#FFE0F0"
+@BBInterface Control SetWindowProperty iTunesQuitButton Bevel "Flat"
+@BBInterface Control SetWindowProperty iTunesQuitButton ShadowColor "#444444"
+@BBInterface Control SetWindowProperty iTunesQuitButton ShadowPosX 1
+@BBInterface Control SetWindowProperty iTunesQuitButton ShadowPosY 1
+@BBInterface Control SetControlProperty iTunesQuitButton HAlign "Center"
+@BBInterface Control SetControlProperty iTunesQuitButton VAlign "Center"
+@BBInterface Control SetAgent iTunesQuitButton Image Bitmap "kazmix_samplescript\icon\exit.png"
+@BBInterface Control SetAgentProperty iTunesQuitButton Image Scale 75
+@BBInterface Control SetAgentProperty iTunesQuitButton Image VAlign "Center"
+@BBInterface Control SetAgentProperty iTunesQuitButton Image HAlign "Center"
+@BBInterface Control SetAgent iTunesQuitButton LeftMouseDown iTunes 1
+
+!---- iTunesControlFrame::iTunesMinimizedButton ----
+@BBInterface Control CreateChild iTunesControlFrame Button iTunesMinimizedButton
+@BBInterface Control SetWindowProperty iTunesMinimizedButton X 286
+@BBInterface Control SetWindowProperty iTunesMinimizedButton Y 74
+@BBInterface Control SetWindowProperty iTunesMinimizedButton Width 24
+@BBInterface Control SetWindowProperty iTunesMinimizedButton Height 24
+@BBInterface Control SetWindowProperty iTunesMinimizedButton Border false
+@BBInterface Control SetWindowProperty iTunesMinimizedButton IsVisible true
+@BBInterface Control SetWindowProperty iTunesMinimizedButton Style "Flat"
+@BBInterface Control SetWindowProperty iTunesMinimizedButton Color "#303030"
+@BBInterface Control SetWindowProperty iTunesMinimizedButton ColorTo "#303030"
+@BBInterface Control SetWindowProperty iTunesMinimizedButton TextColor "#FFE0F0"
+@BBInterface Control SetWindowProperty iTunesMinimizedButton Bevel "Flat"
+@BBInterface Control SetWindowProperty iTunesMinimizedButton ShadowColor "#444444"
+@BBInterface Control SetWindowProperty iTunesMinimizedButton ShadowPosX 1
+@BBInterface Control SetWindowProperty iTunesMinimizedButton ShadowPosY 1
+@BBInterface Control SetControlProperty iTunesMinimizedButton HAlign "Center"
+@BBInterface Control SetControlProperty iTunesMinimizedButton VAlign "Center"
+@BBInterface Control SetAgent iTunesMinimizedButton Image SwitchedState "IMAGE"
+@BBInterface Control SetAgent iTunesMinimizedButton Image.Value iTunesBool "IsMinimized"
+@BBInterface Control SetAgent iTunesMinimizedButton Image.ResultWhenTrue Bitmap "kazmix_samplescript\icon\restore.png"
+@BBInterface Control SetAgentProperty iTunesMinimizedButton Image.ResultWhenTrue Scale 75
+@BBInterface Control SetAgentProperty iTunesMinimizedButton Image.ResultWhenTrue VAlign "Center"
+@BBInterface Control SetAgentProperty iTunesMinimizedButton Image.ResultWhenTrue HAlign "Center"
+@BBInterface Control SetAgent iTunesMinimizedButton Image.ResultWhenFalse Bitmap "kazmix_samplescript\icon\minimize.png"
+@BBInterface Control SetAgentProperty iTunesMinimizedButton Image.ResultWhenFalse Scale 75
+@BBInterface Control SetAgentProperty iTunesMinimizedButton Image.ResultWhenFalse VAlign "Center"
+@BBInterface Control SetAgentProperty iTunesMinimizedButton Image.ResultWhenFalse HAlign "Center"
+@BBInterface Control SetAgent iTunesMinimizedButton LeftMouseDown iTunes 13
+
+!---- iTunesControlFrame::iTunesRepeatButton ----
+@BBInterface Control CreateChild iTunesControlFrame Button iTunesRepeatButton
+@BBInterface Control SetWindowProperty iTunesRepeatButton X 2
+@BBInterface Control SetWindowProperty iTunesRepeatButton Y 104
+@BBInterface Control SetWindowProperty iTunesRepeatButton Width 48
+@BBInterface Control SetWindowProperty iTunesRepeatButton Height 9
+@BBInterface Control SetWindowProperty iTunesRepeatButton Border false
+@BBInterface Control SetWindowProperty iTunesRepeatButton IsVisible true
+@BBInterface Control SetWindowProperty iTunesRepeatButton Style "Flat"
+@BBInterface Control SetWindowProperty iTunesRepeatButton Color "#303030"
+@BBInterface Control SetWindowProperty iTunesRepeatButton ColorTo "#303030"
+@BBInterface Control SetWindowProperty iTunesRepeatButton TextColor "#FFE0F0"
+@BBInterface Control SetWindowProperty iTunesRepeatButton Bevel "Flat"
+@BBInterface Control SetWindowProperty iTunesRepeatButton ShadowColor "#444444"
+@BBInterface Control SetWindowProperty iTunesRepeatButton ShadowPosX 1
+@BBInterface Control SetWindowProperty iTunesRepeatButton ShadowPosY 1
+@BBInterface Control SetControlProperty iTunesRepeatButton HAlign "Center"
+@BBInterface Control SetControlProperty iTunesRepeatButton VAlign "Center"
+@BBInterface Control SetAgent iTunesRepeatButton Image SwitchedState "IMAGE"
+@BBInterface Control SetAgent iTunesRepeatButton Image.Value iTunesBool "IsRepeatOne"
+@BBInterface Control SetAgent iTunesRepeatButton Image.ResultWhenTrue Bitmap "kazmix_samplescript\icon\repeat-one.png"
+@BBInterface Control SetAgentProperty iTunesRepeatButton Image.ResultWhenTrue Scale 100
+@BBInterface Control SetAgentProperty iTunesRepeatButton Image.ResultWhenTrue VAlign "Center"
+@BBInterface Control SetAgentProperty iTunesRepeatButton Image.ResultWhenTrue HAlign "Center"
+@BBInterface Control SetAgent iTunesRepeatButton Image.ResultWhenFalse SwitchedState "IMAGE"
+@BBInterface Control SetAgent iTunesRepeatButton Image.ResultWhenFalse.Value iTunesBool "IsRepeatAll"
+@BBInterface Control SetAgent iTunesRepeatButton Image.ResultWhenFalse.ResultWhenTrue Bitmap "kazmix_samplescript\icon\repeat-all.png"
+@BBInterface Control SetAgentProperty iTunesRepeatButton Image.ResultWhenFalse.ResultWhenTrue Scale 100
+@BBInterface Control SetAgentProperty iTunesRepeatButton Image.ResultWhenFalse.ResultWhenTrue VAlign "Center"
+@BBInterface Control SetAgentProperty iTunesRepeatButton Image.ResultWhenFalse.ResultWhenTrue HAlign "Center"
+@BBInterface Control SetAgent iTunesRepeatButton Image.ResultWhenFalse.ResultWhenFalse Bitmap "kazmix_samplescript\icon\repeat-off.png"
+@BBInterface Control SetAgentProperty iTunesRepeatButton Image.ResultWhenFalse.ResultWhenFalse Scale 100
+@BBInterface Control SetAgentProperty iTunesRepeatButton Image.ResultWhenFalse.ResultWhenFalse VAlign "Center"
+@BBInterface Control SetAgentProperty iTunesRepeatButton Image.ResultWhenFalse.ResultWhenFalse HAlign "Center"
+@BBInterface Control SetAgent iTunesRepeatButton LeftMouseDown iTunes 15
+
+!---- iTunesControlFrame::iTunesShuffleButton ----
+@BBInterface Control CreateChild iTunesControlFrame Button iTunesShuffleButton
+@BBInterface Control SetWindowProperty iTunesShuffleButton X 54
+@BBInterface Control SetWindowProperty iTunesShuffleButton Y 104
+@BBInterface Control SetWindowProperty iTunesShuffleButton Width 48
+@BBInterface Control SetWindowProperty iTunesShuffleButton Height 9
+@BBInterface Control SetWindowProperty iTunesShuffleButton Border false
+@BBInterface Control SetWindowProperty iTunesShuffleButton IsVisible true
+@BBInterface Control SetWindowProperty iTunesShuffleButton Style "Flat"
+@BBInterface Control SetWindowProperty iTunesShuffleButton Color "#303030"
+@BBInterface Control SetWindowProperty iTunesShuffleButton ColorTo "#303030"
+@BBInterface Control SetWindowProperty iTunesShuffleButton TextColor "#FFE0F0"
+@BBInterface Control SetWindowProperty iTunesShuffleButton Bevel "Flat"
+@BBInterface Control SetWindowProperty iTunesShuffleButton ShadowColor "#444444"
+@BBInterface Control SetWindowProperty iTunesShuffleButton ShadowPosX 1
+@BBInterface Control SetWindowProperty iTunesShuffleButton ShadowPosY 1
+@BBInterface Control SetControlProperty iTunesShuffleButton HAlign "Center"
+@BBInterface Control SetControlProperty iTunesShuffleButton VAlign "Center"
+@BBInterface Control SetAgent iTunesShuffleButton Image SwitchedState "IMAGE"
+@BBInterface Control SetAgent iTunesShuffleButton Image.Value iTunesBool "IsShuffle"
+@BBInterface Control SetAgent iTunesShuffleButton Image.ResultWhenTrue Bitmap "kazmix_samplescript\icon\shuffle-on.png"
+@BBInterface Control SetAgentProperty iTunesShuffleButton Image.ResultWhenTrue Scale 100
+@BBInterface Control SetAgentProperty iTunesShuffleButton Image.ResultWhenTrue VAlign "Center"
+@BBInterface Control SetAgentProperty iTunesShuffleButton Image.ResultWhenTrue HAlign "Center"
+@BBInterface Control SetAgent iTunesShuffleButton Image.ResultWhenFalse Bitmap "kazmix_samplescript\icon\shuffle-off.png"
+@BBInterface Control SetAgentProperty iTunesShuffleButton Image.ResultWhenFalse Scale 100
+@BBInterface Control SetAgentProperty iTunesShuffleButton Image.ResultWhenFalse VAlign "Center"
+@BBInterface Control SetAgentProperty iTunesShuffleButton Image.ResultWhenFalse HAlign "Center"
+@BBInterface Control SetAgent iTunesShuffleButton LeftMouseDown iTunes 14
+
+!---- iTunesControlFrame::iTunesArtworkLabel ----
+@BBInterface Control CreateChild iTunesControlFrame Label iTunesArtworkLabel
+@BBInterface Control SetWindowProperty iTunesArtworkLabel X 2
+@BBInterface Control SetWindowProperty iTunesArtworkLabel Y 2
+@BBInterface Control SetWindowProperty iTunesArtworkLabel Width 100
+@BBInterface Control SetWindowProperty iTunesArtworkLabel Height 100
+@BBInterface Control SetWindowProperty iTunesArtworkLabel Border true
+@BBInterface Control SetWindowProperty iTunesArtworkLabel IsVisible true
+@BBInterface Control SetWindowProperty iTunesArtworkLabel Style "Flat"
+@BBInterface Control SetWindowProperty iTunesArtworkLabel Color "#303030"
+@BBInterface Control SetWindowProperty iTunesArtworkLabel ColorTo "#303030"
+@BBInterface Control SetWindowProperty iTunesArtworkLabel TextColor "#FFE0F0"
+@BBInterface Control SetWindowProperty iTunesArtworkLabel Bevel "Flat"
+@BBInterface Control SetWindowProperty iTunesArtworkLabel ShadowColor "#444444"
+@BBInterface Control SetWindowProperty iTunesArtworkLabel ShadowPosX 1
+@BBInterface Control SetWindowProperty iTunesArtworkLabel ShadowPosY 1
+@BBInterface Control SetControlProperty iTunesArtworkLabel HAlign "Center"
+@BBInterface Control SetControlProperty iTunesArtworkLabel VAlign "Center"
+@BBInterface Control SetAgent iTunesArtworkLabel Image SwitchedState "IMAGE"
+@BBInterface Control SetAgent iTunesArtworkLabel Image.Value iTunesBool "HasArtwork"
+@BBInterface Control SetAgent iTunesArtworkLabel Image.ResultWhenTrue iTunesImage "iTunesArtwork"
+@BBInterface Control SetAgent iTunesArtworkLabel Image.ResultWhenFalse Bitmap "kazmix_samplescript\icon\no.png"
+@BBInterface Control SetAgentProperty iTunesArtworkLabel Image.ResultWhenFalse Scale 100
+@BBInterface Control SetAgentProperty iTunesArtworkLabel Image.ResultWhenFalse VAlign "Center"
+@BBInterface Control SetAgentProperty iTunesArtworkLabel Image.ResultWhenFalse HAlign "Center"
+
+!---- iTunesControlFrame::iTunesElapsed ----
+@BBInterface Control CreateChild iTunesControlFrame Label iTunesElapsed
+@BBInterface Control SetWindowProperty iTunesElapsed X 274
+@BBInterface Control SetWindowProperty iTunesElapsed Y 20
+@BBInterface Control SetWindowProperty iTunesElapsed Width 36
+@BBInterface Control SetWindowProperty iTunesElapsed Height 16
+@BBInterface Control SetWindowProperty iTunesElapsed Border true
+@BBInterface Control SetWindowProperty iTunesElapsed IsVisible true
+@BBInterface Control SetWindowProperty iTunesElapsed Style "Toolbar"
+@BBInterface Control SetControlProperty iTunesElapsed HAlign "Center"
+@BBInterface Control SetControlProperty iTunesElapsed VAlign "Center"
+@BBInterface Control SetAgent iTunesElapsed Caption iTunesText "TimeElapsed"
+
+!---- iTunesControlFrame::iTunesFastForwardButton ----
+@BBInterface Control CreateChild iTunesControlFrame Button iTunesFastForwardButton
+@BBInterface Control SetWindowProperty iTunesFastForwardButton X 234
+@BBInterface Control SetWindowProperty iTunesFastForwardButton Y 74
+@BBInterface Control SetWindowProperty iTunesFastForwardButton Width 24
+@BBInterface Control SetWindowProperty iTunesFastForwardButton Height 24
+@BBInterface Control SetWindowProperty iTunesFastForwardButton Border false
+@BBInterface Control SetWindowProperty iTunesFastForwardButton IsVisible true
+@BBInterface Control SetWindowProperty iTunesFastForwardButton Style "Flat"
+@BBInterface Control SetWindowProperty iTunesFastForwardButton Color "#303030"
+@BBInterface Control SetWindowProperty iTunesFastForwardButton ColorTo "#303030"
+@BBInterface Control SetWindowProperty iTunesFastForwardButton TextColor "#FFE0F0"
+@BBInterface Control SetWindowProperty iTunesFastForwardButton Bevel "Flat"
+@BBInterface Control SetWindowProperty iTunesFastForwardButton ShadowColor "#444444"
+@BBInterface Control SetWindowProperty iTunesFastForwardButton ShadowPosX 1
+@BBInterface Control SetWindowProperty iTunesFastForwardButton ShadowPosY 1
+@BBInterface Control SetControlProperty iTunesFastForwardButton HAlign "Center"
+@BBInterface Control SetControlProperty iTunesFastForwardButton VAlign "Center"
+@BBInterface Control SetAgent iTunesFastForwardButton Image Bitmap "kazmix_samplescript\icon\ff.png"
+@BBInterface Control SetAgentProperty iTunesFastForwardButton Image Scale 75
+@BBInterface Control SetAgentProperty iTunesFastForwardButton Image VAlign "Center"
+@BBInterface Control SetAgentProperty iTunesFastForwardButton Image HAlign "Center"
+@BBInterface Control SetAgent iTunesFastForwardButton LeftMouseDown iTunes 9
+@BBInterface Control SetAgent iTunesFastForwardButton LeftMouseUp iTunes 20

@@ -1,0 +1,35 @@
+caution
+without setting, leanbar is not to accept mouse action.
+
+bbleanbar.tasks.[<mod>]<button>Click: <command>
+<mod>    : Shift, Left, Right, Mid, Ctrl(WheelUp/WheelDown only)
+<button> : Left, Mid, Right, Double, WheelUp, WheelDown(WheelUp, WheelDown : without "Click")
+
+Relation that activates window using WheelUp/WheelDown dosen't work well.
+
+<command>:
+	Default			same Left-Click
+	SystemMenu		sama Right-Click
+	Raise
+	RaiseWindow
+	Lower
+	LowerWindow
+	Shade
+	ShadeWindow
+	Close
+	CloseWindow
+	Minimize
+	MinimizeWindow
+	Maximize
+	MaximizeWindow
+	MaximizeVertical
+	MaximizeHorizontal
+	Restore
+	RestoreWindow
+	PrevWindow
+	NextWindow
+	StickWindow
+	MoveWindowLeft
+	MoveWindowRight
+	ActivateTask
+	MinimizeToTray

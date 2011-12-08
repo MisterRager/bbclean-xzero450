@@ -1,0 +1,294 @@
+# depslib dependency file v1.0
+1198785945 source:c:\svn\bbclean_src\blackbox\bbapi.cpp
+	"BB.h"
+	"Settings.h"
+	<shellapi.h>
+	<time.h>
+
+1197943269 c:\svn\bbclean_src\blackbox\bb.h
+	"crt-string.h"
+	"BBApi.h"
+	"win0x500.h"
+	"m_alloc.h"
+	"Tinylist.h"
+	<assert.h>
+
+1205025503 c:\svn\bbclean_src\blackbox\bbapi.h
+	<windows.h>
+	<stdlib.h>
+	<stdio.h>
+
+1205021518 c:\svn\bbclean_src\blackbox\win0x500.h
+
+1167580116 c:\svn\bbclean_src\blackbox\m_alloc.h
+
+1169962788 c:\svn\bbclean_src\blackbox\tinylist.h
+
+1205022208 c:\svn\bbclean_src\blackbox\settings.h
+	"stylestruct.h"
+
+1197130716 c:\svn\bbclean_src\blackbox\stylestruct.h
+
+1115100960 source:c:\svn\bbclean_src\blackbox\bbroot.cpp
+	"BB.H"
+	"Settings.h"
+
+1197943462 source:c:\svn\bbclean_src\blackbox\bbvwm.cpp
+	"BB.h"
+	"BBVWM.h"
+
+1115100960 c:\svn\bbclean_src\blackbox\bbvwm.h
+
+1197943494 source:c:\svn\bbclean_src\blackbox\bimage.cpp
+	"BB.h"
+	"BImage.h"
+	<math.h>
+	<float.h>
+
+1197943537 c:\svn\bbclean_src\blackbox\bimage.h
+
+1205022015 source:c:\svn\bbclean_src\blackbox\blackbox.cpp
+	"BB.h"
+	"Settings.h"
+	"MessageManager.h"
+	"PluginManager.h"
+	"Workspaces.h"
+	"Desk.h"
+	"Tray.h"
+	"Toolbar.h"
+	"Menu/MenuMaker.h"
+	"Resource.h"
+	"BBSendData.h"
+	"VolumeControl.h"
+	<process.h>
+	<shellapi.h>
+	<shlobj.h>
+	<commdlg.h>
+	<tlhelp32.h>
+	<ole2.h>
+	<locale.h>
+	"blackbox.h"
+
+1115100960 c:\svn\bbclean_src\blackbox\messagemanager.h
+
+1167580116 c:\svn\bbclean_src\blackbox\pluginmanager.h
+
+1115100960 c:\svn\bbclean_src\blackbox\workspaces.h
+
+1197943897 c:\svn\bbclean_src\blackbox\desk.h
+
+1115100960 c:\svn\bbclean_src\blackbox\tray.h
+
+1115100960 c:\svn\bbclean_src\blackbox\toolbar.h
+
+1205021812 c:\svn\bbclean_src\blackbox\menu\menumaker.h
+
+1115100960 c:\svn\bbclean_src\blackbox\resource.h
+
+1167580116 c:\svn\bbclean_src\blackbox\bbsenddata.h
+	<windows.h>
+	<malloc.h>
+
+1144159846 c:\svn\bbclean_src\blackbox\volumecontrol.h
+
+1197036751 c:\svn\bbclean_src\blackbox\blackbox.h
+
+1205022075 source:c:\svn\bbclean_src\blackbox\configmenu.cpp
+	"BB.h"
+	"Settings.h"
+	"Desk.h"
+	"PluginManager.h"
+	"Workspaces.h"
+	"Toolbar.h"
+	"Menu/MenuMaker.h"
+	"blackbox.h"
+
+1197944369 source:c:\svn\bbclean_src\blackbox\desk.cpp
+	"BB.h"
+	"Desk.h"
+	"Settings.h"
+	"Workspaces.h"
+	"MessageManager.h"
+	<shlobj.h>
+	<shellapi.h>
+	<process.h>
+	<winbase.h>
+
+1205022131 source:c:\svn\bbclean_src\blackbox\desktopmenu.cpp
+	"BB.h"
+	"Workspaces.h"
+	"Menu/MenuMaker.h"
+	"Menu/Menu.h"
+
+1199812701 c:\svn\bbclean_src\blackbox\menu\menu.h
+	<windows.h>
+	"MenuMaker.h"
+
+1205021431 source:c:\svn\bbclean_src\blackbox\install.cpp
+	"BB.H"
+
+1197944648 source:c:\svn\bbclean_src\blackbox\menu\commanditem.cpp
+	"../BB.h"
+	"../Settings.h"
+	"../Workspaces.h"
+	"../Pidl.h"
+	"../Desk.h"
+	"MenuMaker.h"
+	"Menu.h"
+	"../VolumeControl.h"
+
+1115100960 c:\svn\bbclean_src\blackbox\pidl.h
+
+1197944658 source:c:\svn\bbclean_src\blackbox\menu\contextmenu.cpp
+	"../BB.h"
+	"../Pidl.h"
+	"../Settings.h"
+	"Menumaker.h"
+	"Menu.h"
+	<shlobj.h>
+	<shellapi.h>
+
+1115100960 source:c:\svn\bbclean_src\blackbox\menu\dragsource.cpp
+	"../BB.h"
+	"../Pidl.h"
+	<shlobj.h>
+
+1115100960 source:c:\svn\bbclean_src\blackbox\menu\droptarget.cpp
+	"../BB.h"
+	"../Pidl.h"
+	<ole2.h>
+	<shlobj.h>
+	<shlwapi.h>
+
+1168570668 source:c:\svn\bbclean_src\blackbox\menu\folderitem.cpp
+	"../BB.h"
+	"../Settings.h"
+	"MenuMaker.h"
+	"Menu.h"
+
+1199812675 source:c:\svn\bbclean_src\blackbox\menu\menu.cpp
+	"../BB.h"
+	"../Settings.h"
+	"../Pidl.h"
+	"MenuMaker.h"
+	"Menu.h"
+	<commctrl.h>
+	<Shellapi.h>
+
+1205021211 source:c:\svn\bbclean_src\blackbox\menu\menuitem.cpp
+	"../BB.h"
+	"../Settings.h"
+	"MenuMaker.h"
+	"Menu.h"
+	<shlobj.h>
+	<shellapi.h>
+	"DrawIco.cpp"
+
+1197944670 c:\svn\bbclean_src\blackbox\menu\drawico.cpp
+	"menu.h"
+
+1205021803 source:c:\svn\bbclean_src\blackbox\menu\menumaker.cpp
+	"../BB.h"
+	"../Settings.h"
+	"../Pidl.h"
+	"../Desk.h"
+	"../Workspaces.h"
+	"../Toolbar.h"
+	"MenuMaker.h"
+	"Menu.h"
+	<ctype.h>
+	<shlobj.h>
+	<shellapi.h>
+	<shlwapi.h>
+
+1168578560 source:c:\svn\bbclean_src\blackbox\menu\specialfolder.cpp
+	"../BB.h"
+	"../Settings.h"
+	"../Pidl.h"
+	"MenuMaker.h"
+	"Menu.h"
+	<shlobj.h>
+
+1168017198 source:c:\svn\bbclean_src\blackbox\menu\titleitem.cpp
+	"../BB.h"
+	"../Settings.h"
+	"MenuMaker.h"
+	"Menu.h"
+
+1115100960 source:c:\svn\bbclean_src\blackbox\messagemanager.cpp
+	"BB.h"
+	"MessageManager.h"
+
+1115100960 source:c:\svn\bbclean_src\blackbox\pidl.cpp
+	"BB.H"
+	"Pidl.h"
+	<shlobj.h>
+	<shellapi.h>
+
+1167580116 source:c:\svn\bbclean_src\blackbox\pluginmanager.cpp
+	"BB.h"
+	"PluginManager.h"
+	<commdlg.h>
+
+1205025663 source:c:\svn\bbclean_src\blackbox\settings.cpp
+	"BB.h"
+	"Settings.h"
+	"Menu/MenuMaker.h"
+
+1169962788 source:c:\svn\bbclean_src\blackbox\tinylist.cpp
+	"BB.h"
+	"Tinylist.h"
+
+1197130732 source:c:\svn\bbclean_src\blackbox\toolbar.cpp
+	"BB.h"
+	"Settings.h"
+	"Toolbar.h"
+	"MessageManager.h"
+	"Workspaces.h"
+	"Menu/MenuMaker.h"
+	<time.h>
+	<locale.h>
+	<shellapi.h>
+	<shlwapi.h>
+
+1205025594 source:c:\svn\bbclean_src\blackbox\tray.cpp
+	"BB.H"
+	"Settings.h"
+	"Pidl.h"
+	"Tray.h"
+	<shlobj.h>
+	<shellapi.h>
+	<shlwapi.h>
+	<docobj.h>
+
+1168366462 source:c:\svn\bbclean_src\blackbox\utils.cpp
+	"BB.h"
+	"Settings.h"
+	"resource.h"
+	<time.h>
+	<shlobj.h>
+	<shellapi.h>
+	<tlhelp32.h>
+
+1166369986 source:c:\svn\bbclean_src\blackbox\volumecontrol.cpp
+	"VolumeControl.h"
+	<windows.h>
+
+1205022321 source:c:\svn\bbclean_src\blackbox\workspaces.cpp
+	"BB.h"
+	"Settings.h"
+	"Workspaces.h"
+	"Desk.h"
+	"BBVWM.h"
+
+1167580116 source:c:\svn\bbclean_src\blackbox\m_alloc.cpp
+	"BB.h"
+	"m_alloc.h"
+	<windows.h>
+	<stdio.h>
+	<malloc.h>
+	<malloc.h>
+
+1168098876 source:c:\svn\bbclean_src\blackbox\resource.rc
+	<windows.h>
+

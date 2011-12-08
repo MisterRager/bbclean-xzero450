@@ -1,0 +1,80 @@
+# --------------------------------------------------------------------
+# makefile for bbWheelHook - gcc (mingw)
+
+# Compile:
+#   you may want to change INST below
+#   make -f makefile-gcc
+
+# Versions:
+#   gcc-3.4.2
+#   binutils-2.15.90
+#   mingw-runtime-3.7
+#   w32api-3.2
+
+OBJ0     = bbWheelHook.o Utils.o Tinylist.o
+BIN0     = bbWheelHook.dll
+
+OBJ1     = bbWheelHookHook.o
+BIN1     = bbWheelHookHook.dll
+# INST    = c:\bblean\plugins\bbWheelHook
+
+BBAPI   =
+BBLIB   =
+
+ifdef INSTDIR
+all: $(INST)/$(BIN0) $(INST)/$(BIN1)
+else
+all: $(BIN0) $(BIN1)
+endif
+
+bbWheelHook.o: \
+	bbWheelHook.cpp
+
+bbWheelHookHook.o: \
+	bbWheelHookHook.cpp
+
+clean:
+	rm -f $(OBJ0) $(BIN0) $(OBJ1) $(BIN1)
+
+$(INST)/$(BIN0): $(BIN0)
+	copy $(BIN0) $(INST)
+
+$(INST)/$(BIN1): $(BIN1)
+	copy $(BIN1) $(INST)
+
+$(BBLIB): $(BBAPI)/libBlackbox.def
+	dlltool -d $< -l $@ -D blackbox.exe
+
+# --------------------------------------------------------------------
+CC      = gcc
+WINDRES = windres.exe -J rc -O coff --include-dir $(<D)
+
+CFLAGS  = -c -Wall -Os \
+	-fno-rtti \
+	-fno-exceptions \
+	-fomit-frame-pointer
+
+LIBS0 = -nostdlib -luser32 -lkernel32 -lpsapi
+LIBS1 = -nostdlib -luser32
+
+LINKEROPT = -Wl,--entry,_DllMainCRTStartup,--enable-stdcall-fixup
+
+$(BIN0): $(OBJ0) $(BBLIB) makefile-gcc
+	$(CC) -mwindows -shared -s -o $(BIN0) $(OBJ0) $(LIBS0) $(LINKEROPT)
+
+$(BIN1): $(OBJ1) $(BBLIB) makefile-gcc
+	$(CC) -mwindows -shared -s -o $(BIN1) $(OBJ1) $(LIBS1) $(LINKEROPT)
+
+# --------------------------------------------------------------------
+
+%.o: %.c
+	$(CC) $(CFLAGS) $< -o $@
+
+%.o: %.cpp
+	$(CC) $(CFLAGS) $< -o $@
+
+%.res: %.rc
+	$(WINDRES) -i $< -o $@
+
+# --------------------------------------------------------------------
+

@@ -1,0 +1,257 @@
+<html>
+<head>
+<title>Blackbox for Windows: BBKeys</title>
+<style>
+	body
+	{background-color: #333333;
+	margin-top: 5px; margin-left: 5px;
+	scrollbar-face-color: #636363;
+	scrollbar-shadow-color: #535353;
+	scrollbar-highlight-color: #737373;
+	scrollbar-3dlight-color: #737373;
+	scrollbar-darkshadow-color: #535353;
+	scrollbar-track-color: #333333;
+	scrollbar-arrow-color: #FFFFFF;}
+	<!--
+	a:hover{color:#888888;}
+	.myhover a:hover{color:#888888;}
+	-->
+	hr {height: 1px; color: #666666;}
+	table {font-family: Tahoma; font-size: 8pt; font-weight: normal; text-align: left; color: #FFFFFF;}
+	span {color: #777777;}
+	span.desc {color: #BBBBBB;}
+	span.example {color: #555555;}
+</style>
+</head>
+
+<!-- ---------- -->
+
+<body bgcolor="#333333" text="#FFFFFF" link="#AAAAAA" vlink="#AAAAAA" alink="#AAAAAA" topmargin="10" leftmargin="5">
+
+<table border="0" cellpadding="0" cellspacing="2" height="100%" align="center" valign="center">
+
+<!-- ---------- -->
+
+<tr><td colspan="2">
+
+<table cellpadding="10" cellspacing="0" border="1" bordercolor="#666666"><tr bgcolor="#555555"><td width="600">
+&nbsp;&nbsp;<font size="+1">BBKeys</font>
+</td></tr></table>
+
+<!-- ---------- -->
+
+<table cellpadding="4" cellspacing="0"><tr valign="top">
+
+<tr valign="top"><td colspan="2">
+BBKeys is a <a href="http://desktopian.org/bb/" target="_new">Blackbox for Windows</a> hotkey plugin, ie. it lets you run commands based on certain keyboard combinations.
+<br>It reads the hotkeys from its own configuration file, <span>bbkeys.rc</span> (or <span>bbkeysrc</span>), located in the same folder as the plugin
+<br>or in the Blackbox directory (please note that the former location has precedence). It uses the following syntax:
+<p><span class="desc">KeyToGrab(key), WithModifier(modifier), WithAction(SeeBelowForList), DoThis("command.exe" arguments)</span>
+<p>...where 'key' is one of the following...
+<p><span class="desc">
+A-Z, 0-9, Num0-Num9, F1-F12, Left (Arrow), Right (Arrow), Up (Arrow), Down (Arrow), PrtScn, Pause, Insert, Delete, Home, End,
+PageUp, PageDown, Tab, Backspace, Spacebar, Enter, Mul, Div, Add, Sub, Dec, Apps (Application key, the one next to Right Win Key), Escape</span>
+<p>...and 'modifier' is any combination (separated by + signs) of:
+<p><span class="desc">Ctrl, Alt, Shift, Win</span>
+<p>Please note that the last part, DoThis(...), is only used in conjunction with ExecCommand (see below).
+<hr></td></tr>
+
+<!-- ---------- -->
+
+<tr valign="top">
+
+<td width="150">
+WithAction()
+<p><span>Minimize
+<br>Raise
+<br>Lower
+<br>Close
+<br>Workspace1
+<br>Workspace2
+<br>Workspace3
+<br>Workspace4
+<br>Workspace5
+<br>Workspace6
+<br>Workspace7
+<br>Workspace8
+<br>Workspace9
+<br>Workspace10
+<br>Workspace11
+<br>Workspace12
+<br>MoveWindowLeft
+<br>MoveWindowRight
+<br>PrevWindow
+<br>NextWindow
+<br>PrevWindowAllWorkspaces
+<br>NextWindowAllWorkspaces
+<br>LeftWorkspace
+<br>RightWorkspace
+<br>PrevWorkspace
+<br>NextWorkspace
+<br>LastWorkspace
+<br>GatherWindows
+<br>ShadeWindow
+<br>StickWindow
+<br>MaximizeWindow
+<br>MaximizeVertical
+<br>MaximizeHorizontal
+<br>Restart
+<br>Reconfigure
+<br>Quit
+<br>EditStyle
+<br>EditMenu
+<br>EditPlugins
+<br>AboutStyle
+<br>ShowMenu
+<br>ShowWorkspaceMenu
+<br>ToggleTray
+<br>TogglePlugins
+<br>Shutdown
+<br>Reboot
+<br>Logoff
+<br>Hibernate
+<br>Suspend
+<br>LockWorkstation
+<br>Run
+</span></td>
+
+<td width="450">
+Example
+<p><span class="desc">KeyToGrab(N), WithModifier(Win), WithAction(Minimize)
+<br>KeyToGrab(PageUp), WithModifier(Win), WithAction(Raise)
+<br>KeyToGrab(PageDown), WithModifier(Win), WithAction(Lower)
+<br>KeyToGrab(Delete), WithModifier(Win), WithAction(Close)
+<br>KeyToGrab(Num1), WithModifier(Win), WithAction(Workspace1)
+<br>KeyToGrab(Num2), WithModifier(Win), WithAction(Workspace2)
+<br>KeyToGrab(Num3), WithModifier(Win), WithAction(Workspace3)
+<br>KeyToGrab(Num4), WithModifier(Win), WithAction(Workspace4)
+<br>KeyToGrab(Num5), WithModifier(Win), WithAction(Workspace5)
+<br>KeyToGrab(Num6), WithModifier(Win), WithAction(Workspace6)
+<br>KeyToGrab(Num7), WithModifier(Win), WithAction(Workspace7)
+<br>KeyToGrab(Num8), WithModifier(Win), WithAction(Workspace8)
+<br>KeyToGrab(Num9), WithModifier(Win), WithAction(Workspace9)
+<br>KeyToGrab(Num0), WithModifier(Win), WithAction(Workspace10)
+<br>KeyToGrab(Div), WithModifier(Win), WithAction(Workspace11)
+<br>KeyToGrab(Mul), WithModifier(Win), WithAction(Workspace12)
+<br>KeyToGrab(Down), WithModifier(Win), WithAction(MoveWindowLeft)
+<br>KeyToGrab(Up), WithModifier(Win), WithAction(MoveWindowRight)
+<br>KeyToGrab(Left), WithModifier(Ctrl+Win), WithAction(PrevWindow)
+<br>KeyToGrab(Right), WithModifier(Ctrl+Win), WithAction(NextWindow)
+<br>KeyToGrab(Up), WithModifier(Ctrl+Win), WithAction(PrevWindowAllWorkspaces)
+<br>KeyToGrab(Down), WithModifier(Ctrl+Win), WithAction(NextWindowAllWorkspaces)
+<br>KeyToGrab(Left), WithModifier(Win), WithAction(LeftWorkspace)
+<br>KeyToGrab(Right), WithModifier(Win), WithAction(RightWorkspace)
+<br>KeyToGrab(Left), WithModifier(Alt+Win), WithAction(PrevWorkspace)
+<br>KeyToGrab(Right), WithModifier(Alt+Win), WithAction(NextWorkspace)
+<br>KeyToGrab(Spacebar), WithModifier(Alt+Win), WithAction(LastWorkspace)
+<br>KeyToGrab(G), WithModifier(Win), WithAction(GatherWindows)
+<br>KeyToGrab(End), WithModifier(Win), WithAction(ShadeWindow)
+<br>KeyToGrab(Insert), WithModifier(Win), WithAction(StickWindow)
+<br>KeyToGrab(X), WithModifier(Win), WithAction(MaximizeWindow)
+<br>KeyToGrab(V), WithModifier(Win), WithAction(MaximizeVertical)
+<br>KeyToGrab(H), WithModifier(Win), WithAction(MaximizeHorizontal)
+<br>KeyToGrab(R), WithModifier(Win), WithAction(Restart)
+<br>KeyToGrab(R), WithModifier(Ctrl+Win), WithAction(Reconfigure)
+<br>KeyToGrab(Q), WithModifier(Win), WithAction(Quit)
+<br>KeyToGrab(S), WithModifier(Win), WithAction(EditStyle)
+<br>KeyToGrab(M), WithModifier(Win), WithAction(EditMenu)
+<br>KeyToGrab(P), WithModifier(Win), WithAction(EditPlugins)
+<br>KeyToGrab(S), WithModifier(Ctrl+Win), WithAction(AboutStyle)
+<br>KeyToGrab(M), WithModifier(Ctrl+Win), WithAction(ShowMenu)
+<br>KeyToGrab(M), WithModifier(Alt+Win), WithAction(ShowWorkspaceMenu)
+<br>KeyToGrab(T), WithModifier(Win), WithAction(ToggleTray)
+<br>KeyToGrab(P), WithModifier(Ctrl+Win), WithAction(TogglePlugins)
+<br>KeyToGrab(F12), WithModifier(Win), WithAction(Shutdown)
+<br>KeyToGrab(F11), WithModifier(Win), WithAction(Reboot)
+<br>KeyToGrab(F10), WithModifier(Win), WithAction(Logoff)
+<br>KeyToGrab(F12), WithModifier(Ctrl+Win), WithAction(Hibernate)
+<br>KeyToGrab(F12), WithModifier(Alt+Win), WithAction(Suspend)
+<br>KeyToGrab(Spacebar), WithModifier(Win), WithAction(LockWorkstation)
+<br>KeyToGrab(Z), WithModifier(Win), WithAction(Run)
+</span></td>
+
+</tr>
+
+<tr><td colspan="2">
+<span>ExecCommand examples:</span>
+<span class="desc">
+<br>KeyToGrab(E), WithModifier(Win), WithAction(ExecCommand), DoThis(explorer.exe /e,c:\)
+<br>KeyToGrab(Home), WithModifier(Win), WithAction(ExecCommand), DoThis(http://desktopian.org/bb/)
+<br>KeyToGrab(Enter), WithModifier(Win), WithAction(ExecCommand), DoThis("c:\Path with spaces\MyApp.exe" arguments)
+</span></td>
+
+<tr><td colspan="2">
+<span>Using ExecCommand to send bro@ms (examples show how to control multiamp):</span>
+<span class="desc">
+<br>KeyToGrab(Left), WithModifier(Ctrl+Win), WithAction(ExecCommand), DoThis(@maPrev)
+<br>KeyToGrab(Enter), WithModifier(Ctrl+Win), WithAction(ExecCommand), DoThis(@maPlay)
+<br>KeyToGrab(Spacebar), WithModifier(Ctrl+Win), WithAction(ExecCommand), DoThis(@maPause)
+<br>KeyToGrab(Num0), WithModifier(Ctrl+Win), WithAction(ExecCommand), DoThis(@maStop)
+<br>KeyToGrab(Right), WithModifier(Ctrl+Win), WithAction(ExecCommand), DoThis(@maNext)
+<br>KeyToGrab(Add), WithModifier(Ctrl+Win), WithAction(ExecCommand), DoThis(@maOpenFile)
+<br>KeyToGrab(Mul), WithModifier(Ctrl+Win), WithAction(ExecCommand), DoThis(@maMenu)
+<br>KeyToGrab(Sub), WithModifier(Ctrl+Win), WithAction(ExecCommand), DoThis(@maPower)
+<br>KeyToGrab(Up), WithModifier(Ctrl+Win), WithAction(ExecCommand), DoThis(@maVolumeUp)
+<br>KeyToGrab(Down), WithModifier(Ctrl+Win), WithAction(ExecCommand), DoThis(@maVolumeDown)
+</span></td>
+</tr></table>
+
+<!-- ---------- -->
+
+<table cellpadding="0" cellspacing="0"><tr><td width="600" align="left">
+<hr>
+
+<span class="desc">Version 1.63 (2003-03-03)</span>
+        <li>~ MakeSticky now uses the "MakeSticky" BB4Win function which should help with Windows (especially WinME) in general (Note: Requires BB 0.0.81 or above) <span>ironhead</span></li>
+        <li>+ LastWorkspace switches back to the previous workspace <span>Jason King</span></li>
+
+<br><span class="desc">Version 1.62 (2003-01-09)</span>
+	<li>+ New WithAction commands: PrevWindow, NextWindow, PrevWindowAllWorkspaces, NextWindowAllWorkspaces
+	<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;as supported in *nix. Suggested by Dr_Jazz. Please note these actions require Blackbox for Windows 0.0.80 or later
+	<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in order to work <span>nc-17</span></li>
+
+<br><span class="desc">Version 1.61 (2002-11-24)</span>
+	<li>+ BBKeys now displays executed commands in the Blackbox toolbar <span>qwilk</span></li>
+	<li>~ Fixed StickWindow - it is now possible to *unstick* windows too! &lt;g&gt; <span>qwilk</span></li>
+
+<br><span class="desc">Version 1.6 (2002-09-07)</span>
+	<li>~ Uses the updated API in Blackbox for Windows 0.0.60 <span>qwilk</span></li>
+	<li>+ Support for bro@ms in ExecCommand's <span>qwilk</span></li>
+	<li>+ New WithAction commands: AboutStyle, ToggleTray, TogglePlugins, MoveWindowLeft, MoveWindowRight,
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ShowWorkspaceMenu, Hibernate, Suspend <span>qwilk</span></li>
+
+<br><span class="desc">Version 1.5 (2002-06-18)</span>
+	<li>+ Lots of new WithAction commands! :D (-&gt; this version requires Blackbox for Windows 0.0.40 or later...) <span>qwilk</span></li>
+	<li>~ ExecCommand's will now open a document in the default viewer if no app is specified <span>qwilk</span></li>
+	<li>+ BBKeys now sets the working directory when executing commands <span>qwilk</span></li>
+	<li>~ The configuration file (bbkeys.rc) can now be the same directory as the .dll or in the Blackbox directory <span>qwilk</span></li>
+	<li>+ New HTML documentation <span>qwilk</span></li>
+	<li># BBKeys is now <a href="http://desktopian.org/bb/docs/license.html" target="_new">open source</a>...</li>
+
+<br><span class="desc">Version 1.4 (2002-01-19)</span>
+	<li>~ Stupid mistake in the last build. I used strcat instead of strcpy, which caused paths to be read wrong... <span>azathoth</span></li>
+
+<br><span class="desc">Version 1.3 (2002-01-15)</span>
+	<li>~ Updated to Blackbox for Windows 0.0.21 plugin standards <span>azathoth</span></li>
+	<li>+ Added a whole host of groovy Blackbox features! <span>azathoth</span></li>
+
+<br><span class="desc">Version 1.0.0.2 (2002-01-02)</span>
+	<li>~ Fixed hotkey execution to be able to handle arguments <span>azathoth</span></li>
+
+</td></tr></table>
+
+<!-- ---------- -->
+
+<table cellpadding="0" cellspacing="0"><tr><td width="600" align="right">
+<hr>
+<span>© 2001-2002 <a href="http://desktopian.org/bb/" target="_new">The Blackbox for Windows Development Team</a></span>
+</td></tr></table>
+
+</td></tr>
+
+<!-- ---------- -->
+
+</td></tr></table>
+
+</body>
+</html>
