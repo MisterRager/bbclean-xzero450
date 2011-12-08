@@ -97,6 +97,7 @@ void FolderItem::Paint(HDC hDC)
 //	int yBottom = yOffset + r;
 
 	HGDIOBJ oldPen = SelectObject(hDC, CreatePen(PS_SOLID, 1, C));
+	int  x1, x2, y, nBmpPosY, nBulletSize, xs, ys;
 	switch (m_nBulletStyle)
 	{
 		case BS_TRIANGLE:
@@ -112,7 +113,6 @@ void FolderItem::Paint(HDC hDC)
 			break;
 
 		case BS_DIAMOND:
-			int  x1, x2, y;
 			for (x2=1+(x1=xOffset), y = yOffset-r; y <= yOffset + r; y++)
 			{
 				MoveToEx(hDC, x1, y, NULL);
@@ -196,12 +196,12 @@ void FolderItem::Paint(HDC hDC)
 		case BS_BMP:
 			if (m_byBulletBmp == NULL) break;
 			// if active, draw lower of Bitmap
-			int nBmpPosY = m_bActive ? m_nBulletBmpSize : 0;
+			nBmpPosY = m_bActive ? m_nBulletBmpSize : 0;
 			// triming draw area
-			int nBulletSize = imin(m_nBulletBmpSize, imin(m_nHeight, m_nWidth));
+			nBulletSize = imin(m_nBulletBmpSize, imin(m_nHeight, m_nWidth));
 			// start/end pos
-			int xs = xOffset - nBulletSize/2;
-			int ys = yOffset - nBulletSize/2;
+			xs = xOffset - nBulletSize/2;
+			ys = yOffset - nBulletSize/2;
 			for(int j = 0; j < nBulletSize; j++){
 				for(int i = 0; i < nBulletSize; i++){
 					SetPixel(hDC, xs+i, ys+j, mixcolors(C, GetPixel(hDC, xs+i, ys+j), m_byBulletBmp[nBmpPosY+j][i]));
