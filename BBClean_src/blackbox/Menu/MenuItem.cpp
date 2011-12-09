@@ -293,7 +293,7 @@ void MenuItem::Paint(HDC hDC)
 		// int dist = (m_nWidth + 1) / 2 - ((Settings_menuFullSeparatorWidth==true)?mStyle.MenuFrame.borderWidth:mStyle.MenuSepMargin);
 		int dist = (m_nWidth+1) / 2 - ((Settings_menuFullSeparatorWidth)?1:mStyle.MenuSepMargin);
 		COLORREF c = mStyle.MenuSepColor;
-		COLORREF cs = pSI->ShadowColor;
+		COLORREF cs = mStyle.MenuSepShadowColor;//pSI->ShadowColor; /*12.08.2011*/
 
 		if (pSI->ShadowXY)
 		{

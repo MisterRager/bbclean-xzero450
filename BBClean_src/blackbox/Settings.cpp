@@ -305,6 +305,7 @@ static struct items StyleItems[] = {
 {   &mStyle.MenuHilite          , "menu.item",              (void*) &DefStyleB, C_STY,  VALID_MARGIN|VALID_TEXTCOLOR|HAS_SHADOW|VALID_OUTLINECOLOR },
 {   &mStyle.MenuSepMargin       , "menu.separator.margin:", (void*) 4, C_INT, 0 },
 {   &mStyle.MenuSepColor        , "menu.separator.color:",  (void*) &mStyle.MenuFrame.TextColor, C_COL, 0 },
+{   &mStyle.MenuSepShadowColor  , "menu.separator.shadowColor:",  (void*) &mStyle.MenuFrame.ShadowColor, C_COL, 0 },
 //{   &mStyle.MenuVolume          , "menu.volume",            (void*) &mStyle.MenuHilite, C_STY,  HAS_TEXTURE|HAS_SHADOW|VALID_TEXTCOLOR|VALID_OUTLINECOLOR|VALID_PICCOLOR },
 
 {   &mStyle.menuBullet          , "menu.bullet:",           (void*) "triangle", C_STR, sizeof mStyle.menuBullet  },

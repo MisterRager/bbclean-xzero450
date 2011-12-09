@@ -76,9 +76,10 @@ typedef struct
 
     bool bulletUnix;
     bool metricsUnix;
-
+	//These probably break compatibility
 	int MenuSepMargin;
 	COLORREF MenuSepColor;
+	COLORREF MenuSepShadowColor; //This will break compatibility
 
 } StyleStruct;
 
