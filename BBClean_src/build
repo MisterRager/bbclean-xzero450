@@ -1,0 +1,19 @@
+#!/bin/sh
+
+cd ./blackbox/
+make clean
+make
+
+cd ../plugins/bbLeanBar/
+make clean
+make
+
+cd ../bbLeanSkin/
+make clean
+make
+
+cd ../SystemBarEx/
+make clean
+make
+
+cd ../../
