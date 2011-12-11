@@ -759,6 +759,10 @@ static struct rccfg ext_rccfg[] = {
 
     { "blackbox.menu.maxHeightRatio:",          C_INT, (void*)80,       &Settings_menuMaxHeightRatio },
     { "blackbox.menu.keepHilite:",              C_BOL, (void*)false,    &Settings_menuKeepHilite },
+    { "blackbox.recent.menuFile:",              C_STR, (void*)"",       &Settings_recentMenu },
+    { "blackbox.recent.itemKeepSize:",          C_INT, (void*)3,        &Settings_recentItemKeepSize },
+    { "blackbox.recent.itemSortSize:",          C_INT, (void*)5,        &Settings_recentItemSortSize },
+    { "blackbox.recent.withBeginEnd:",          C_BOL, (void*)true,     &Settings_recentBeginEnd },
 	{ "blackbox.tweaks.noOleUnInit:",           C_BOL, (void*)false,    &Settings_noOleUninit },
 
 	{ "blackbox.processPriority:",				C_INT, (void*)-1,		&Settings_processPriority},

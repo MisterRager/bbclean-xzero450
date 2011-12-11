@@ -3199,51 +3199,7 @@ inline void PaintInscription() {
 
 	p = InscriptionText;
 	
-	do  {
-		
-		//if (StyleItemArray[STYLE_TOOLBARLABEL].ShadowXY && !StyleItemArray[STYLE_TOOLBARLABEL].parentRelative) {
-		/*if (StyleItemArray[STYLE_TOOLBARLABEL].validated & VALID_SHADOWCOLOR) {
-			RECT Rs;
-			int i;
-			COLORREF cr0;
-			i = StyleItemArray[STYLE_TOOLBARLABEL].ShadowY;
-			Rs.top = rectnow.top + i;
-			Rs.bottom = rectnow.bottom + i;
-			i = StyleItemArray[STYLE_TOOLBARLABEL].ShadowX;
-			Rs.left = rectnow.left + i;
-			Rs.right = rectnow.right + i;
-			cr0 = SetTextColor(bufDC, StyleItemArray[STYLE_TOOLBARLABEL].ShadowColor);
-			DrawText(bufDC, p, 1, &Rs, DT_LEFT|DT_VCENTER|DT_NOPREFIX|DT_SINGLELINE|DT_NOCLIP);
-		}
-
-		if (StyleItemArray[STYLE_TOOLBARLABEL].validated & VALID_OUTLINECOLOR && !StyleItemArray[STYLE_TOOLBARLABEL].parentRelative) {	
-	COLORREF cr0;
-			RECT rcOutline;
-			//_CopyRect(&rcOutline, r);
-			rcOutline.bottom = rectnow.bottom;
-			rcOutline.top = rectnow.top;
-			rcOutline.left = rectnow.left+1;
-			rcOutline.right = rectnow.right+1;
-			//cr0 = SetTextColor(bufDC, StyleItemArray[STYLE_TOOLBARLABEL].OutlineColor);
-			SetTextColor(bufDC, StyleItemArray[STYLE_TOOLBARLABEL].OutlineColor);
-			//_CopyOffsetRect(&rcOutline, lpRect, 1, 0);
-			DrawText(bufDC, p, 1, &rcOutline, DT_LEFT|DT_VCENTER|DT_NOPREFIX|DT_SINGLELINE|DT_NOCLIP);
-			_OffsetRect(&rcOutline,   0,  1);
-			DrawText(bufDC, p, 1, &rcOutline, DT_LEFT|DT_VCENTER|DT_NOPREFIX|DT_SINGLELINE|DT_NOCLIP);
-			_OffsetRect(&rcOutline,  -1,  0);
-			DrawText(bufDC, p, 1, &rcOutline, DT_LEFT|DT_VCENTER|DT_NOPREFIX|DT_SINGLELINE|DT_NOCLIP);
-			_OffsetRect(&rcOutline,  -1,  0);
-			DrawText(bufDC, p, 1, &rcOutline, DT_LEFT|DT_VCENTER|DT_NOPREFIX|DT_SINGLELINE|DT_NOCLIP);
-			_OffsetRect(&rcOutline,   0, -1);
-			DrawText(bufDC, p, 1, &rcOutline, DT_LEFT|DT_VCENTER|DT_NOPREFIX|DT_SINGLELINE|DT_NOCLIP);
-			_OffsetRect(&rcOutline,   0, -1);
-			DrawText(bufDC, p, 1, &rcOutline, DT_LEFT|DT_VCENTER|DT_NOPREFIX|DT_SINGLELINE|DT_NOCLIP);
-			_OffsetRect(&rcOutline,   1,  0);
-			DrawText(bufDC, p, 1, &rcOutline, DT_LEFT|DT_VCENTER|DT_NOPREFIX|DT_SINGLELINE|DT_NOCLIP);
-			_OffsetRect(&rcOutline,   1,  0);
-			DrawText(bufDC, p, 1, &rcOutline, DT_LEFT|DT_VCENTER|DT_NOPREFIX|DT_SINGLELINE|DT_NOCLIP);
-		}
-
+	do  {/*
 		SetTextColor(bufDC, StyleItemArray[STYLE_TOOLBARLABEL].TextColor);
 		DrawText(bufDC, p, 1, &rectnow, DT_LEFT|DT_VCENTER|DT_NOPREFIX|DT_SINGLELINE|DT_NOCLIP);*/
 

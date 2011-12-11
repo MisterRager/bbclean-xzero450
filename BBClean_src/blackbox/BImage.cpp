@@ -108,10 +108,10 @@ static int isgn(int x)
     return x>0 ? 1 : x<0 ? -1 : 0;
 }
 
-static int imin(int a, int b)
-{
-	return a<b?a:b;
-}
+// static int imin(int a, int b)
+// {
+//     return a<b?a:b;
+// }
 
 static void init_dither_tables(void)
 {

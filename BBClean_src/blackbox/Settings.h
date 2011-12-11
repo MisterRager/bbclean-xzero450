@@ -145,6 +145,10 @@ BBSETTING bool Settings_newMetrics;
 
 BBSETTING int  Settings_menuMaxHeightRatio;
 BBSETTING bool Settings_menuKeepHilite;
+BBSETTING char Settings_recentMenu[MAX_PATH];
+BBSETTING int  Settings_recentItemKeepSize;
+BBSETTING int  Settings_recentItemSortSize;
+BBSETTING bool Settings_recentBeginEnd;
 BBSETTING bool Settings_noOleUninit;
 
 BBSETTING int Settings_processPriority;

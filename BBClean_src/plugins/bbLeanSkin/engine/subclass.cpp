@@ -22,8 +22,17 @@
 
  ============================================================================
 */
-//#pragma comment(lib, "msimg32.lib")
+#ifdef __GNUC__
+  #define imax(a,b) ((a) >? (b))
+  #define imin(a,b) ((a) <? (b))
+#else
+  #define imax(a,b) ((a) > (b) ? (a) : (b))
+  #define imin(a,b) ((a) < (b) ? (a) : (b))
+#endif
+#define iminmax(a,b,c) (imin(imax((a),(b)),(c)))
 
+#define GetRectWidth(lprc) ((*(lprc)).right - (*(lprc)).left)
+#define GetRectHeight(lprc) ((*(lprc)).bottom - (*(lprc)).top)
 #include "..\..\..\blackbox\BBApi.h"
 #include "hookinfo.h"
 #include "subclass.h"
@@ -39,13 +48,13 @@ bool isWin2kXP();
 
 //===========================================================================
 
-int imax(int a, int b) {
-	return a>b?a:b;
-}
-
-int imin(int a, int b) {
-	return a<b?a:b;
-}
+// int imax(int a, int b) {
+//     return a>b?a:b;
+// }
+// 
+// int imin(int a, int b) {
+//     return a<b?a:b;
+// }
 
 //===========================================================================
 void get_workarea(HWND hwnd, RECT *w, RECT *s)

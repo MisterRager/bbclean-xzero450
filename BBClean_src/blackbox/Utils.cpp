@@ -132,19 +132,19 @@ void draw_line_h(HDC hDC, int x1, int x2, int y, int w, COLORREF C)
 
 /*----------------------------------------------------------------------------*/
 
-int imax(int a, int b) {
-	return a>b?a:b;
-}
+// int imax(int a, int b) {
+//     return a>b?a:b;
+// }
 
-int imin(int a, int b) {
-	return a<b?a:b;
-}
+// int imin(int a, int b) {
+//     return a<b?a:b;
+// }
 
-int iminmax(int a, int b, int c) {
-	if (a<b) a=b;
-	if (a>c) a=c;
-	return a;
-}
+// int iminmax(int a, int b, int c) {
+//     if (a<b) a=b;
+//     if (a>c) a=c;
+//     return a;
+// }
 
 bool is_alpha(int c)
 {

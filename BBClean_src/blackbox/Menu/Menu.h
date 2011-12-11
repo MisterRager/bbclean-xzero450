@@ -350,7 +350,7 @@ public:
 
 	_ITEMIDLIST *m_pidl;
 	char *m_pszCommand;
-
+	char *m_pszIcon;
 	HICON m_hIcon;
 	//int m_bSmallIcon;//was bool in this base
 	bool m_bSmallIcon;
@@ -470,8 +470,6 @@ class CommandItemEx : public CommandItem
 	friend class StringItem;
 };
 
-
-
 //=======================================
 class IntegerItem : public CommandItemEx
 {
@@ -493,7 +491,6 @@ public:
 	int oldsize;
 	int offvalue;
 	const char *offstring;
-
 };
 
 //=======================================
@@ -513,7 +510,6 @@ private:
 };
 
 //===========================================================================
-
 
 class StringItem : public CommandItemEx
 {

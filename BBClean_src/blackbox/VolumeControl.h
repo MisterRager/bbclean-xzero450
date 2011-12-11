@@ -30,7 +30,7 @@
 #ifndef __VOLUMECONTROL_H
 #define __VOLUMECONTROL_H
 
-// volume in percents (0-100)
+/* VolumeControl Class */
 class VolumeControl
 {
 public:

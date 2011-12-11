@@ -113,6 +113,14 @@
 #define IS_SPC(c) ((unsigned char)(c) <= 32)
 #define IS_SLASH(c) ((c) == '\\' || (c) == '/')
 
+#if defined(__GNUC__) && (__GNUC__ == 3)
+  #define imax(a,b) ((a) >? (b))
+  #define imin(a,b) ((a) <? (b))
+#else
+  #define imax(a,b) ((a) > (b) ? (a) : (b))
+  #define imin(a,b) ((a) < (b) ? (a) : (b))
+#endif
+#define iminmax(a,b,c) (imin(imax((a),(b)),(c)))
 #define _CopyRect(lprcDst,lprcSrc) (*lprcDst) = (*lprcSrc)
 #define _InflateRect(lprc,dx,dy) (*(lprc)).left -= (dx), (*(lprc)).right += (dx), (*(lprc)).top -= (dy), (*(lprc)).bottom += (dy)
 #define _OffsetRect(lprc,dx,dy) (*(lprc)).left += (dx), (*(lprc)).right += (dx), (*(lprc)).top += (dy), (*(lprc)).bottom += (dy)
@@ -173,9 +181,9 @@ const char *string_empty_or_null(const char *s);
 char *extract_string(char *dest, const char *src, int length);
 int bb_sscanf(const char **src, const char *fmt, ...);
 
-int imax(int a, int b);
-int imin(int a, int b);
-int iminmax(int i, int minval, int maxval);
+// int imax(int a, int b);
+// int imin(int a, int b);
+// int iminmax(int i, int minval, int maxval);
 bool is_alpha(int c);
 bool is_num(int c);
 bool is_alnum(int c);

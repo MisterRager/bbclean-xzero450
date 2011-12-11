@@ -46,15 +46,15 @@
 //  - Rager
 static struct int_item { int *v; short minval, maxval, offval; }  int_items[] = {
     { &Settings_menuMousewheelfac          ,  1,  10,   -2  },
-    { &Settings_menuPopupDelay             ,  0, 1000,   -2 },//1000 was 400
-    { &Settings_menuCloseDelay			   ,  0, 1000,  -2  },
+	{ &Settings_menuPopupDelay             ,  0, 1000,  -2  },//1000 was 400
+	{ &Settings_menuCloseDelay			   ,  0, 1000,  -2  },
     { &Settings_menuMaxWidth               ,100, 600,   -2  },
-    { &Settings_menuMinWidth               , 25, 600,   -2  },
+	{ &Settings_menuMinWidth               , 25, 600,   -2  },
     { &Settings_menuAlphaValue             ,  0, 255,  255  },
-    { &Settings_menuIconSize               , -1,  32,    0  },
-    { &Settings_menuIconSaturation         ,  0, 255,  255  },
-    { &Settings_menuIconHue                ,  0, 255,    0  },
-    { &Settings_menuScrollHue              ,  0, 255,    0  },
+	{ &Settings_menuIconSize               , -1,  32,    0  },
+	{ &Settings_menuIconSaturation         ,  0, 255,  255  },
+	{ &Settings_menuIconHue                ,  0, 255,    0  },
+	{ &Settings_menuScrollHue              ,  0, 255,    0  },
     { (int*)&Settings_desktopMargin.left   , -1, 10000, -1  },
     { (int*)&Settings_desktopMargin.right  , -1, 10000, -1  },
     { (int*)&Settings_desktopMargin.top    , -1, 10000, -1  },
@@ -63,8 +63,8 @@ static struct int_item { int *v; short minval, maxval, offval; }  int_items[] = 
     { &Settings_edgeSnapPadding            , -4, 100,   -4  },
     { &Settings_toolbarWidthPercent        , 10, 100,   -2  },
     { &Settings_toolbarAlphaValue          ,  0, 255,  255  },
-    { &Settings_menuPositionAdjustX			, -500, 500, 0	},
-    { &Settings_menuPositionAdjustY			, -500, 500, 0	},
+	{ &Settings_menuPositionAdjustX			, -500, 500, 0	},
+	{ &Settings_menuPositionAdjustY			, -500, 500, 0	},
     { NULL, 0, 0, 0}
 };
 
@@ -87,11 +87,11 @@ static bool is_fixed_string(const void *v)
 {
     return v == Settings_focusModel
         || v == Settings_menuBulletPosition_cfg
-    || v == Settings_menuScrollPosition_cfg
-    || v == Settings_menuAlphaMethod_cfg
-    || v == Settings_menuPositionAdjustPlacement
+		|| v == Settings_menuScrollPosition_cfg
+		|| v == Settings_menuAlphaMethod_cfg
+		|| v == Settings_menuPositionAdjustPlacement
         || v == Settings_toolbarPlacement
-    || v == Settings_menuSeparatorStyle
+		|| v == Settings_menuSeparatorStyle
         ;
 }
 
@@ -276,7 +276,7 @@ const struct cfgmenu cfg_main[] = {
     { NLS0("Menus"),              NULL, cfg_sub_menu },
     { NLS0("Graphics"),           NULL, cfg_sub_graphics },
     { NLS0("Misc."),              NULL, cfg_sub_misc },
-    { NLS0("Session"),            NULL, cfg_sub_session },
+	{ NLS0("Session"),            NULL, cfg_sub_session },
     { NULL }
 };
 
@@ -290,63 +290,63 @@ const struct cfgmenu cfg_sub_plugins[] = {
 };
 
 const struct cfgmenu cfg_sub_session[] = {
-    { NLS0("Enable Screensaver"),   "toggleScreensaver", &Session_screensaverEnabled},
-    { NULL }
+	{ NLS0("Enable Screensaver"),   "toggleScreensaver", &Session_screensaverEnabled},
+	{ NULL }
 };
 const struct cfgmenu cfg_sub_menu[] = {
     { NLS0("Bullet Position"),    NULL, cfg_sub_menubullet },
-    { NLS0("Scroll Position"),    NULL, cfg_sub_menuscroll },
+	{ NLS0("Scroll Position"),    NULL, cfg_sub_menuscroll },
     { NLS0("Maximal Width"),      "menu.maxWidth",        &Settings_menuMaxWidth  },
-    { NLS0("Minimal Width"),      "menu.minWidth",        &Settings_menuMinWidth  },
-    { NLS0("Default Icon Size"),  "menu.icon.Size",       &Settings_menuIconSize  },
-    { NLS0("Icon Saturation"),    "menu.icon.Saturation", &Settings_menuIconSaturation  },
-    { NLS0("Icon Hue"),           "menu.icon.Hue",        &Settings_menuIconHue  },
+	{ NLS0("Minimal Width"),      "menu.minWidth",        &Settings_menuMinWidth  },
+	{ NLS0("Default Icon Size"),  "menu.icon.Size",       &Settings_menuIconSize  },
+	{ NLS0("Icon Saturation"),    "menu.icon.Saturation", &Settings_menuIconSaturation  },
+	{ NLS0("Icon Hue"),           "menu.icon.Hue",        &Settings_menuIconHue  },
     { NLS0("Popup Delay"),        "menu.popupDelay",      &Settings_menuPopupDelay  },
-    { NLS0("Close Delay"),		  "menu.closeDelay",	  &Settings_menuCloseDelay	},
+	{ NLS0("Close Delay"),		  "menu.closeDelay",	  &Settings_menuCloseDelay	},
     { NLS0("Wheel Factor"),       "menu.mouseWheelFactor", &Settings_menuMousewheelfac  },
     { "", NULL, NULL },
-    { NLS0("Scroll Button Hue"),  "menu.scrollButton.Hue", &Settings_menuScrollHue  },
-    //{ NLS0("Transparency"),       "menu.alpha.Enabled",   &Settings_menuAlphaEnabled  },
-    { NLS0("Alpha Method"),		  NULL,	  cfg_sub_menualphamethod	},
+	{ NLS0("Scroll Button Hue"),  "menu.scrollButton.Hue", &Settings_menuScrollHue  },
+	//{ NLS0("Transparency"),       "menu.alpha.Enabled",   &Settings_menuAlphaEnabled  },
+	{ NLS0("Alpha Method"),		  NULL,	  cfg_sub_menualphamethod	},
     { NLS0("Alpha Value"),        "menu.alpha.Value",     &Settings_menuAlphaValue  },
     { "", NULL, NULL },
-    { NLS0("Shadow"),			  "menu.shadow",		&Settings_menuShadow	},
-    { NLS0("Separator style"),    NULL,  cfg_sub_menuseparatorstyle },
-    { "", NULL, NULL },
+	{ NLS0("Shadow"),			  "menu.shadow",		&Settings_menuShadow	},
+	{ NLS0("Separator style"),    NULL,  cfg_sub_menuseparatorstyle },
+	{ "", NULL, NULL },
     { NLS0("Always On Top"),      "menu.onTop",           &Settings_menusOnTop  },
     { NLS0("Snap To Edges"),      "menu.snapWindow",      &Settings_menusSnapWindow  },
     { NLS0("Toggle With Plugins"), "menu.pluginToggle",   &Settings_menuspluginToggle  },
     { NLS0("Sort By Extension"),  "menu.sortbyExtension", &Settings_menusExtensionSort  },
-    { NLS0("Separate Folders/Other"), "menu.separateFolders", &Settings_menusSeparateFolders  },
+	{ NLS0("Separate Folders/Other"), "menu.separateFolders", &Settings_menusSeparateFolders  },
     { "", NULL, NULL },
     { NLS0("Show Bro@ms"),        "menu.showBr@ams",      &Settings_menusBroamMode },
-    { NLS0("PositionAdjust Placement"),	NULL,	cfg_sub_menupositionadjustplacement },
-    { NLS0("PositionAdjust X"),    "menu.positionAdjust.x", &Settings_menuPositionAdjustX  },
-    { NLS0("PositionAdjust Y"),    "menu.positionAdjust.y", &Settings_menuPositionAdjustY  },
-    { NULL }
+	{ NLS0("PositionAdjust Placement"),	NULL,	cfg_sub_menupositionadjustplacement },
+	{ NLS0("PositionAdjust X"),    "menu.positionAdjust.x", &Settings_menuPositionAdjustX  },
+	{ NLS0("PositionAdjust Y"),    "menu.positionAdjust.y", &Settings_menuPositionAdjustY  },
+	{ NULL }
 };
 
 const struct cfgmenu cfg_sub_menualphamethod[] = {
-    { NLS0("Default"),            "menu.alphaMethod default",	Settings_menuAlphaMethod_cfg },
-    { NLS0("Classic"),            "menu.alphaMethod classic",	Settings_menuAlphaMethod_cfg },
-    { NLS0("Single Color"),       "menu.alphaMethod single",	Settings_menuAlphaMethod_cfg },
-    { NLS0("Mixture"),			  "menu.alphaMethod mixture",	Settings_menuAlphaMethod_cfg },
-    { NULL }
+	{ NLS0("Default"),            "menu.alphaMethod default",	Settings_menuAlphaMethod_cfg },
+	{ NLS0("Classic"),            "menu.alphaMethod classic",	Settings_menuAlphaMethod_cfg },
+	{ NLS0("Single Color"),       "menu.alphaMethod single",	Settings_menuAlphaMethod_cfg },
+	{ NLS0("Mixture"),			  "menu.alphaMethod mixture",	Settings_menuAlphaMethod_cfg },
+	{ NULL }
 };
 
 const struct cfgmenu cfg_sub_menupositionadjustplacement[] = {
-    { NLS0("Default"),			"menu.positionAdjustPlacement default",		Settings_menuPositionAdjustPlacement },
-    { NLS0("TopLeft"),			"menu.positionAdjustPlacement TopLeft",		Settings_menuPositionAdjustPlacement },
-    { NLS0("TopCenter"),		"menu.positionAdjustPlacement TopCenter",	Settings_menuPositionAdjustPlacement },
-    { NLS0("TopRight"),			"menu.positionAdjustPlacement TopRight",	Settings_menuPositionAdjustPlacement },
-    { NLS0("MiddleLeft"),		"menu.positionAdjustPlacement MiddleLeft",	Settings_menuPositionAdjustPlacement },
-    { NLS0("MiddleCenter"),		"menu.positionAdjustPlacement MiddleCenter",Settings_menuPositionAdjustPlacement },
-    { NLS0("MiddleRight"),		"menu.positionAdjustPlacement MiddleRight",	Settings_menuPositionAdjustPlacement },
-    { NLS0("BottomLeft"),		"menu.positionAdjustPlacement BottomLeft",	Settings_menuPositionAdjustPlacement },
-    { NLS0("BottomCenter"),		"menu.positionAdjustPlacement BottomCenter",Settings_menuPositionAdjustPlacement },
-    { NLS0("BottomRight"),		"menu.positionAdjustPlacement BottomRight",	Settings_menuPositionAdjustPlacement },
-    { NLS0("Custom"),			"menu.positionAdjustPlacement Custom",		Settings_menuPositionAdjustPlacement },
-    { NULL }
+	{ NLS0("Default"),			"menu.positionAdjustPlacement default",		Settings_menuPositionAdjustPlacement },
+	{ NLS0("TopLeft"),			"menu.positionAdjustPlacement TopLeft",		Settings_menuPositionAdjustPlacement },
+	{ NLS0("TopCenter"),		"menu.positionAdjustPlacement TopCenter",	Settings_menuPositionAdjustPlacement },
+	{ NLS0("TopRight"),			"menu.positionAdjustPlacement TopRight",	Settings_menuPositionAdjustPlacement },
+	{ NLS0("MiddleLeft"),		"menu.positionAdjustPlacement MiddleLeft",	Settings_menuPositionAdjustPlacement },
+	{ NLS0("MiddleCenter"),		"menu.positionAdjustPlacement MiddleCenter",Settings_menuPositionAdjustPlacement },
+	{ NLS0("MiddleRight"),		"menu.positionAdjustPlacement MiddleRight",	Settings_menuPositionAdjustPlacement },
+	{ NLS0("BottomLeft"),		"menu.positionAdjustPlacement BottomLeft",	Settings_menuPositionAdjustPlacement },
+	{ NLS0("BottomCenter"),		"menu.positionAdjustPlacement BottomCenter",Settings_menuPositionAdjustPlacement },
+	{ NLS0("BottomRight"),		"menu.positionAdjustPlacement BottomRight",	Settings_menuPositionAdjustPlacement },
+	{ NLS0("Custom"),			"menu.positionAdjustPlacement Custom",		Settings_menuPositionAdjustPlacement },
+	{ NULL }
 };
 
 const struct cfgmenu cfg_sub_menubullet[] = {
@@ -357,22 +357,22 @@ const struct cfgmenu cfg_sub_menubullet[] = {
 };
 
 const struct cfgmenu cfg_sub_menuseparatorstyle[] = {
-    { NLS0("Gradient"),           "menu.separatorStyle gradient", Settings_menuSeparatorStyle },
-    { NLS0("Flat"),               "menu.separatorStyle flat",     Settings_menuSeparatorStyle },
-    { NLS0("Bevel"),              "menu.separatorStyle bevel",    Settings_menuSeparatorStyle },
-    { NLS0("None"),               "menu.separatorStyle none",     Settings_menuSeparatorStyle },
-    { "", NULL, NULL },
-    { NLS0("Full width"),         "menu.fullSeparatorWidth",      &Settings_menuFullSeparatorWidth },
-    { NLS0("Compact mode"),       "menu.compactSeparators",       &Settings_compactSeparators },
-    { NULL }
+	{ NLS0("Gradient"),           "menu.separatorStyle gradient", Settings_menuSeparatorStyle },
+	{ NLS0("Flat"),               "menu.separatorStyle flat",     Settings_menuSeparatorStyle },
+	{ NLS0("Bevel"),              "menu.separatorStyle bevel",    Settings_menuSeparatorStyle },
+	{ NLS0("None"),               "menu.separatorStyle none",     Settings_menuSeparatorStyle },
+	{ "", NULL, NULL },
+	{ NLS0("Full width"),         "menu.fullSeparatorWidth",      &Settings_menuFullSeparatorWidth },
+	{ NLS0("Compact mode"),       "menu.compactSeparators",       &Settings_compactSeparators },
+	{ NULL }
 };
 
 const struct cfgmenu cfg_sub_menuscroll[] = {
-    { NLS0("Default"),            "menu.scrollPosition default", Settings_menuScrollPosition_cfg },
-    { NLS0("Left"),               "menu.scrollPosition left",    Settings_menuScrollPosition_cfg },
-    { NLS0("Right"),              "menu.scrollPosition right",   Settings_menuScrollPosition_cfg },
-    { NLS0("None"),              "menu.scrollPosition none",   Settings_menuScrollPosition_cfg },
-    { NULL }
+	{ NLS0("Default"),            "menu.scrollPosition default", Settings_menuScrollPosition_cfg },
+	{ NLS0("Left"),               "menu.scrollPosition left",    Settings_menuScrollPosition_cfg },
+	{ NLS0("Right"),              "menu.scrollPosition right",   Settings_menuScrollPosition_cfg },
+	{ NLS0("None"),              "menu.scrollPosition none",   Settings_menuScrollPosition_cfg },
+	{ NULL }
 };
 
 const struct cfgmenu cfg_sub_graphics[] = {
@@ -517,7 +517,7 @@ void exec_cfg_command(const char *argument)
     RedrawConfigMenu();
 
     // now take care for some item-specific refreshes
-    if (cfg_sub_menu == p_menu || cfg_sub_menubullet == p_menu || cfg_sub_menuseparatorstyle  == p_menu )
+	if (cfg_sub_menu == p_menu || cfg_sub_menubullet == p_menu || cfg_sub_menuseparatorstyle  == p_menu )
     {
         if (v == &Settings_menusExtensionSort)
             PostMessage(BBhwnd, BB_REDRAWGUI, BBRG_MENU|BBRG_FOLDER, 0);
@@ -552,11 +552,11 @@ void exec_cfg_command(const char *argument)
         set_opaquemove();
     }
     else
-    if (v == &Session_screensaverEnabled)
-    {
-    SetScreenSaverActive(Session_screensaverEnabled);
-    }
-    else
+	if (v == &Session_screensaverEnabled)
+	{
+		SetScreenSaverActive(Session_screensaverEnabled);
+	}
+	else
     if (v == &Settings_toolbarEnabled)
     {
         if (Settings_toolbarEnabled)

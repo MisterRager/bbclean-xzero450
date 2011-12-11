@@ -34,7 +34,7 @@
 #include "../Desk.h"
 #include "MenuMaker.h"
 #include "Menu.h"
-#include "../VolumeControl.h"
+#include "RecentItem.h"
 
 //===========================================================================
 //
@@ -54,12 +54,34 @@ CommandItem::CommandItem(const char* pszCommand, const char* pszTitle, bool isCh
 void CommandItem::Invoke(int button)
 {
     if (INVOKE_LEFT & button)
-	{
-		m_pMenu->hide_on_click();
-		if (m_pszCommand) post_command(m_pszCommand);
-		else
-		if (m_pidl) exec_pidl(m_pidl, NULL, NULL);
-		return;
+    {
+        char szPath[MAX_PATH]; szPath[0] = '\0';
+        m_pMenu->hide_on_click();
+        if (m_pszCommand){
+            if (const char *p = stristr(m_pszCommand, "@BBCore.exec "))
+                _strcpy(szPath, p+13);
+            post_command(m_pszCommand);
+        }
+        else{
+            if (m_pidl){
+                char buf[MAX_PATH];
+                if (SHGetPathFromIDList(m_pidl, buf))
+                    sprintf(szPath, "\"%s\"", buf);
+
+                exec_pidl(m_pidl, NULL, NULL);
+            }
+        }
+
+        char szMenuPath[MAX_PATH]; szMenuPath[0] = '\0';
+        unquote(szMenuPath, Settings_recentMenu);
+        int nKeep = Settings_recentItemKeepSize;
+        int nSort = Settings_recentItemSortSize;
+        bool bBeginEnd = Settings_recentBeginEnd;
+
+        if (szPath[0] && szMenuPath[0] && (nKeep || nSort))
+            CreateRecentItemMenu(szMenuPath, szPath, m_pszTitle, m_pszIcon, nKeep, nSort, bBeginEnd);
+
+        return;
     }
 
     if (INVOKE_RIGHT & button)

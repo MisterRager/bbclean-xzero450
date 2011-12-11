@@ -43,7 +43,8 @@ MENUOBJ = Menu/MenuMaker.o \
           Menu/SpecialFolder.o \
           Menu/Contextmenu.o \
           Menu/Dragsource.o \
-Menu/Droptarget.o
+          Menu/Droptarget.o \
+          Menu/RecentItem.o
 
 OBJ = $(COREOBJ) $(MENUOBJ)
 

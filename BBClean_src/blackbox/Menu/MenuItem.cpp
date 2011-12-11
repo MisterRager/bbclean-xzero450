@@ -64,6 +64,7 @@ MenuItem::MenuItem(const char* pszTitle)
 	m_pszCommand = NULL;
 	m_pidl      = NULL;
 	m_hIcon     = NULL;
+	m_pszIcon   = NULL;
 	m_iconMode  = IM_NONE;
 
 	++g_menu_item_count;
@@ -72,6 +73,7 @@ MenuItem::MenuItem(const char* pszTitle)
 MenuItem::~MenuItem()
 {
 	UnlinkSubmenu();
+free_str(&m_pszIcon);
 	if (m_pszTitle) m_free(m_pszTitle);
 	if (m_pszCommand) m_free(m_pszCommand);
 	if (m_pidl) m_free(m_pidl);
