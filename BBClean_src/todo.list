@@ -3,14 +3,20 @@ BBCore
 -menu grips as seen: http://xoblite.net/xoblite_20111207_menu_grip_example.png
 -merge with bbLeanMod
 -incorporate bb4win_mod's black and wave gradients
+-interlace colors like OpenBox
+-gradient borders(is this even possible? =\)
 
 SystemBarEx
 -Check SystemBarEx against most recent sladetaylor code(bb4win CVS) for slit issue
 -Have the ability and option to use larger icons
 -incorporate anything to make MinizeToTray functional(from bbLeanMod)
+-workspace movement buttons like bbLeanBar
 
 bbLeanBar
 -merge with bbLeanMod
 
 bbLeanSkin
 -merge with bb4win_mod's version
+
+bbInterface
+-outline text support
