@@ -440,7 +440,8 @@ enum {
     SN_NEWMETRICS               , /* bool (not a ptr) */
 
     SN_MENUVOLUME               , /* StyleItem* */
-
+	SN_MENUGRIP					,
+	
 	SN_LAST
 };
 
@@ -614,6 +615,9 @@ extern "C" {
 
     /* inserts an inactive item, optionally with text. 'Title' may be NULL. */
     API_EXPORT MenuItem *MakeMenuNOP(Menu *PluginMenu, LPCSTR Title ISNULL);
+
+	/* inserts an inactive item, optionally with text. 'Title' may be NULL. */
+	API_EXPORT MenuItem *MakeMenuGrip(Menu *PluginMenu, LPCSTR Title ISNULL);
 
 	/* inserts an item to adjust a numeric value */
     API_EXPORT MenuItem *MakeMenuItemInt(Menu *PluginMenu, LPCSTR Title, LPCSTR Cmd, int val, int minval, int maxval);

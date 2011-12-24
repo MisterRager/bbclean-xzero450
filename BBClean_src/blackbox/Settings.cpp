@@ -297,6 +297,7 @@ static struct items StyleItems[] = {
 {   &mStyle.ToolbarClock        , "toolbar.clock",          (void*) &DefStyleB, C_STY,  HAS_TEXTURE|HAS_SHADOW|VALID_TEXTCOLOR|VALID_OUTLINECOLOR },
 
 {   &mStyle.MenuTitle           , "menu.title",             (void*) &DefStyleB, C_STY,  HAS_TEXTURE|HAS_SHADOW|VALID_TEXTCOLOR|VALID_OUTLINECOLOR|VALID_MARGIN|HAS_FONT|VALID_JUSTIFY|DEFAULT_MARGIN },
+{	&mStyle.MenuGrip			, "menu.grip",				(void*) &DefStyleB,	C_STY,	HAS_TEXTURE|HAS_SHADOW|VALID_TEXTCOLOR|VALID_OUTLINECOLOR|VALID_MARGIN|HAS_FONT|VALID_JUSTIFY|DEFAULT_MARGIN },
 {   &mStyle.MenuFrame           , "menu.frame",             (void*) &DefStyleA, C_STY,  HAS_TEXTURE|HAS_SHADOW|VALID_TEXTCOLOR|VALID_OUTLINECOLOR|VALID_PICCOLOR|VALID_MARGIN|HAS_FONT|VALID_JUSTIFY|DEFAULT_BORDER },
 {   &mStyle.MenuHilite          , "menu.hilite",            (void*) &DefStyleB, C_STY,  HAS_TEXTURE|HAS_SHADOW|VALID_TEXTCOLOR|VALID_OUTLINECOLOR|VALID_PICCOLOR },
 {   &mStyle.MenuTransparentColor          , "menu.transparentColor",            (void*) &DefStyleB, C_STY,  VALID_TEXTCOLOR },
@@ -370,6 +371,7 @@ void * GetSettingPtr(int i)
     case SN_MENUTITLE               : return &mStyle.MenuTitle              ;
     case SN_MENUFRAME               : return &mStyle.MenuFrame              ;
     case SN_MENUHILITE              : return &mStyle.MenuHilite             ;
+	case SN_MENUGRIP				: return &mStyle.MenuGrip				;
 
     case SN_MENUBULLET              : return &mStyle.menuBullet             ;
     case SN_MENUBULLETPOS           : return &mStyle.menuBulletPosition     ;
@@ -422,7 +424,8 @@ int Settings_ItemSize(int i)
     case SN_TOOLBARCLOCK            :
     case SN_MENUTITLE               :
     case SN_MENUFRAME               :
-    case SN_MENUHILITE              : return sizeof (StyleItem);
+    case SN_MENUHILITE              : 
+	case SN_MENUGRIP				: return sizeof (StyleItem);
 
     case SN_MENUBULLET              :
     case SN_MENUBULLETPOS           : return -1; // string, have to take strlen
@@ -798,7 +801,7 @@ static struct rccfg rccfg[] = {
 	{ ".menu.closeDelay:",          C_INT, (void*)80,       &Settings_menuCloseDelay },
     { ".menu.mouseWheelFactor:",    C_INT, (void*)3,        &Settings_menuMousewheelfac },
 	//{ ".menu.alpha.enabled:",       C_BOL, (void*)false,    &Settings_menuAlphaEnabled },
-	{ ".menu.shadow:",			C_BOL, (void*)false,	&Settings_menuShadow },
+	//{ ".menu.shadow:",			C_BOL, (void*)false,	&Settings_menuShadow },
 	{ ".menu.alphaMethod:",		C_STR, (void*)"default", &Settings_menuAlphaMethod_cfg },
     { ".menu.alpha.value:",         C_INT, (void*)255,      &Settings_menuAlphaValue },
 	{ ".menu.shadows.Enabled:",     C_BOL, (void*)false,    &Settings_menuShadowsEnabled },
@@ -812,6 +815,7 @@ static struct rccfg rccfg[] = {
 	{ ".menu.compactSeparators:",   C_BOL, (void*)false,    &Settings_compactSeparators },
     { ".menu.sortbyExtension:",     C_BOL, (void*)false,    &Settings_menusExtensionSort },
 	{ ".menu.separateFolders:",     C_BOL, (void*)false,    &Settings_menusSeparateFolders },
+	{ ".menu.grip.enabled:",		C_BOL, (void*)false,	&Settings_menusGripEnabled },
 
     { "#workspaces:",               C_INT, (void*)4,        &Settings_workspaces },
     { "#workspaceNames:",           C_STR, (void*)"alpha,beta,gamma,delta", &Settings_workspaceNames },

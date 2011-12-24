@@ -566,12 +566,19 @@ skip:
                 }
                 continue;
 
-            //====================
-            case e_no_end:
-                MakeMenuNOP(pMenu, NLS0("missing [end]"));
-            case e_end:
-                pMenu->m_bIsDropTarg = true;
-                return pMenu;
+			//====================
+			case e_no_end:
+				if ( !Settings_menusGripEnabled ) {
+					MakeMenuNOP(pMenu, NLS0("missing [end]"));
+				} else {
+					MakeMenuGrip(pMenu, NLS0("missing [end]"));
+				}
+			case e_end:
+				pMenu->m_bIsDropTarg = true;
+				if ( Settings_menusGripEnabled ) {
+					MakeMenuGrip(pMenu, "");
+				}
+				return pMenu;
 
             //====================
             case e_include:
@@ -672,7 +679,10 @@ skip:
                 MakeMenuItem(pMenu, label, buffer, false, icon);
                 continue;
             }
-        }
+		}
+		if ( Settings_menusGripEnabled ) {
+			MakeMenuGrip(pMenu, "");
+		}
     }
 }
 

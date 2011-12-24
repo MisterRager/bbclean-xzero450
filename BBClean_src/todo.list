@@ -1,8 +1,7 @@
 BBCore
 -organize the configuration menus and incorporate more options
--menu grips as seen: http://xoblite.net/xoblite_20111207_menu_grip_example.png
 -merge with bbLeanMod
--incorporate bb4win_mod's black and wave gradients
+-incorporate bb4win_mod's block and wave gradients
 -interlace colors like OpenBox
 -gradient borders(is this even possible? =\)
 
@@ -16,6 +15,7 @@ bbLeanBar
 -merge with bbLeanMod
 
 bbLeanSkin
+-merge with bbLeanMod
 -merge with bb4win_mod's version
 
 bbInterface

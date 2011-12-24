@@ -87,7 +87,7 @@ BBSETTING bool Settings_menusExtensionSort;
 BBSETTING bool Settings_menusSeparateFolders;
 BBSETTING int Settings_menuScrollHue;
 //BBSETTING bool Settings_menuAlphaEnabled;
-BBSETTING bool Settings_menuShadow;
+//BBSETTING bool Settings_menuShadow;
 BBSETTING char Settings_menuAlphaMethod_cfg[16];
 BBSETTING int Settings_menuAlphaValue;
 BBSETTING int Settings_menuAlpha;
@@ -98,6 +98,7 @@ BBSETTING bool Settings_compactSeparators;
 BBSETTING int  Settings_menuVolumeWidth;
 BBSETTING int  Settings_menuVolumeHeight;
 BBSETTING bool Settings_menuVolumeHilite;
+BBSETTING bool Settings_menusGripEnabled;
 
 //====================
 // workspaces

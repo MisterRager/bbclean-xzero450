@@ -231,6 +231,7 @@ protected:
 	friend MenuItem* MakeMenuItemInt(Menu *PluginMenu, LPCSTR Title, LPCSTR Cmd, int val, int minval, int maxval);
 	friend MenuItem* MakeMenuItemString(Menu *PluginMenu, LPCSTR Title, LPCSTR Cmd, LPCSTR init_string);
 	friend MenuItem* MakeMenuNOP(Menu *PluginMenu, LPCSTR Title);
+	friend MenuItem* MakeMenuGrip(Menu *PluginMenu, LPCSTR Title);
 	friend MenuItem* MakeMenuVOL(Menu *PluginMenu, LPCSTR Title, LPCSTR DllName, LPCSTR Icon);
 	friend MenuItem* MakePathMenu(Menu *ParentMenu, LPCSTR Title, LPCSTR path, LPCSTR Cmd);
 	friend MenuItem* MakePathMenu(Menu *ParentMenu, LPCSTR Title, LPCSTR path, LPCSTR Cmd, LPCSTR Icon);
@@ -261,6 +262,7 @@ protected:
 	// friend classes
 	friend class MenuItem;
 	friend class TitleItem;
+	friend class MenuGrip;
 	friend class FolderItem;
 	friend class CommandItem;
 	friend class CommandItemEx;
@@ -427,6 +429,18 @@ class TitleItem : public MenuItem
 {
 public:
 	TitleItem(const char* pszTitle) : MenuItem(pszTitle) {}
+	void Paint(HDC hDC);
+	void Mouse(HWND hw, UINT nMsg, DWORD wP, DWORD lP);
+};
+
+//===========================================================================
+
+//===========================================================================
+
+class MenuGrip : public MenuItem
+{
+public:
+	MenuGrip(const char* pszTitle) : MenuItem(pszTitle) {}
 	void Paint(HDC hDC);
 	void Mouse(HWND hw, UINT nMsg, DWORD wP, DWORD lP);
 };

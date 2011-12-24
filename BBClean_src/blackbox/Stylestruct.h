@@ -44,6 +44,8 @@ typedef struct
     StyleItem MenuHilite;
     StyleItem MenuVolume;
 	StyleItem MenuTransparentColor;
+	StyleItem MenuGrip;
+	//StyleItem MenuTransparentColorAlpha;
 
     StyleItem windowTitleFocus;
     StyleItem windowLabelFocus;

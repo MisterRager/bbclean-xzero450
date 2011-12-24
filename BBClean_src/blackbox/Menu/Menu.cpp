@@ -2209,6 +2209,8 @@ MenuItem * make_helper_menu(Menu *PluginMenu, LPCSTR Title, int menuID, MenuItem
     }
     sub->AddMenuItem(Item);
     sub->m_MenuID = menuID;
+	//Grip: Add the grip to all configurative options in the menu
+	MakeMenuGrip(sub, "");
     return MakeSubmenu(PluginMenu, sub, Title);
 }
 
@@ -2250,6 +2252,17 @@ MenuItem* MakeMenuNOP(Menu *PluginMenu, LPCSTR Title)
 MenuItem* MakeMenuVOL(Menu *PluginMenu, LPCSTR Title, LPCSTR DllName, LPCSTR Icon)
 {
     return PluginMenu->AddMenuItem(new VolumeItem(Title, DllName, Icon));
+}
+
+//===========================================================================
+// API: MakeMenuGrip
+//===========================================================================
+
+MenuItem* MakeMenuGrip(Menu *PluginMenu, LPCSTR Title)
+{
+	if ( Settings_menusGripEnabled ) {
+		return PluginMenu->AddMenuItem(new MenuGrip(Title));
+	}
 }
 
 //===========================================================================

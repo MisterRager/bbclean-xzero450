@@ -312,7 +312,9 @@ void Menu::add_folder_contents(MenuItem *pItems, bool join)
     pItems = pItems->Sort(SpecialFolder_Compare);
     if (join) join_folders((SpecialFolderItem *)pItems);
 
-    while (pItems) pItems = AddMenuItem(pItems)->next;
+	while (pItems) pItems = AddMenuItem(pItems)->next;
+	//Add should add menu grip tp paths
+	AddMenuItem(new MenuGrip(""));
 }
 
 //===========================================================================

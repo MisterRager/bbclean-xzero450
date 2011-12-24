@@ -159,7 +159,13 @@ static Menu * GetPluginMenu(
         char buf[80]; sprintf(buf, cmd, q->name); //, false_true_string(false==checked));
         MakeMenuItem(pMenu, q->name, buf, checked);
     }
-    *save_id = 0;
+
+	//Add grip to plugin and plugin/slit menu's
+	if ( Settings_menusGripEnabled ) {
+		MakeMenuGrip(pMenu, "");
+	}
+
+	*save_id = 0;
     return pMenu;
 }
 
@@ -240,8 +246,13 @@ Menu *CfgMenuMaker(const char *title, const struct cfgmenu *pm, bool pop, char *
         }
         pm++;
     }
-    *save_id = 0;
-    return pMenu;
+	*save_id = 0;
+
+	if ( Settings_menusGripEnabled ) {
+		MakeMenuGrip(pMenu, "");
+	}
+
+	return pMenu;
 }
 
 //===========================================================================
@@ -310,7 +321,8 @@ const struct cfgmenu cfg_sub_menu[] = {
 	{ NLS0("Alpha Method"),		  NULL,	  cfg_sub_menualphamethod	},
     { NLS0("Alpha Value"),        "menu.alpha.Value",     &Settings_menuAlphaValue  },
     { "", NULL, NULL },
-	{ NLS0("Shadow"),			  "menu.shadow",		&Settings_menuShadow	},
+	{ NLS0("Grip"),				  "menu.grip.enabled",		&Settings_menusGripEnabled		},
+	{ NLS0("Shadow"),			  "menu.shadow.enabled",	&Settings_menuShadowsEnabled	},
 	{ NLS0("Separator style"),    NULL,  cfg_sub_menuseparatorstyle },
 	{ "", NULL, NULL },
     { NLS0("Always On Top"),      "menu.onTop",           &Settings_menusOnTop  },

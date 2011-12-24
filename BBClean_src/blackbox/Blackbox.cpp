@@ -243,7 +243,7 @@ void bb_about(void)
     GetBBVersion(),
     NLS2("$BBAbout$",
 		"Based stylistically on the Blackbox window manager for Linux by Brad Hughes\n\n"
-		"Built at " __DATE__ " " __TIME__ "\n"
+		"Built on " __DATE__ " at " __TIME__ "\n"
         "\n"
         "\nSwitches:"
         "\n-help  \t\tShow this text"
