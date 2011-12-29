@@ -576,7 +576,7 @@ skip:
 			case e_end:
 				pMenu->m_bIsDropTarg = true;
 				if ( Settings_menusGripEnabled ) {
-					MakeMenuGrip(pMenu, "");
+					MakeMenuGrip(pMenu, strlen(pMenu->m_pMenuItems->m_pszTitle)?(pMenu->m_pMenuItems->m_pszTitle):(""));
 				}
 				return pMenu;
 
@@ -680,9 +680,7 @@ skip:
                 continue;
             }
 		}
-		if ( Settings_menusGripEnabled ) {
-			MakeMenuGrip(pMenu, "");
-		}
+
     }
 }
 

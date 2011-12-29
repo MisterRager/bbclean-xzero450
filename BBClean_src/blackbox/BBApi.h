@@ -396,15 +396,15 @@ enum {
 
     SN_STYLESTRUCT      = 0     , /* StyleStruct* */
 
-    SN_TOOLBAR          = 1     , /* StyleItem* */
-    SN_TOOLBARBUTTON            , /* StyleItem* */
-    SN_TOOLBARBUTTONP           , /* StyleItem* */
-    SN_TOOLBARLABEL             , /* StyleItem* */
-    SN_TOOLBARWINDOWLABEL       , /* StyleItem* */
-    SN_TOOLBARCLOCK             , /* StyleItem* */
-    SN_MENUTITLE                , /* StyleItem* */
-    SN_MENUFRAME                , /* StyleItem* */
-    SN_MENUHILITE               , /* StyleItem* */
+	SN_TOOLBAR          = 1     , /* StyleItem* */
+	SN_TOOLBARBUTTON            , /* StyleItem* */
+	SN_TOOLBARBUTTONP           , /* StyleItem* */
+	SN_TOOLBARLABEL             , /* StyleItem* */
+	SN_TOOLBARWINDOWLABEL       , /* StyleItem* */
+	SN_TOOLBARCLOCK             , /* StyleItem* */
+	SN_MENUTITLE                , /* StyleItem* */
+	SN_MENUFRAME                , /* StyleItem* */
+	SN_MENUHILITE               , /* StyleItem* */
 
     SN_MENUBULLET               , /* char* */
     SN_MENUBULLETPOS              /* char* */

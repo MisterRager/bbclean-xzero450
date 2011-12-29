@@ -59,7 +59,7 @@ static Menu * build_task_folder(int desk, const char *title, bool popup)
 		struct en en = { m, desk, GetTopTask(), 0 };
 		EnumTasks(task_enum_func, (LPARAM)&en);
 	}
-	MakeMenuGrip(m, "");
+	MakeMenuGrip(m, title);
 	return m;
 }
 
@@ -108,8 +108,8 @@ Menu* MakeDesktopMenu(bool popup) {
 	MakeMenuItem(s, NLS0("New Workspace"), "@BBCore.AddWorkspace", false);
 	if (Settings_workspaces>1) MakeMenuItem(s, NLS0("Remove Last"), "@BBCore.DelWorkspace", false);
 	MakeMenuItem(s, NLS0("Edit Workspace Names"), "@BBCore.EditWorkspaceNames", false);
-	MakeMenuGrip(s, "");
-	MakeMenuGrip(m, "");
+	MakeMenuGrip(s, "New/Remove");
+	MakeMenuGrip(m, "Workspaces");
 
 	return m;
 }

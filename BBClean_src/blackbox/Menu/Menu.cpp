@@ -2210,8 +2210,8 @@ MenuItem * make_helper_menu(Menu *PluginMenu, LPCSTR Title, int menuID, MenuItem
     sub->AddMenuItem(Item);
     sub->m_MenuID = menuID;
 	//Grip: Add the grip to all configurative options in the menu
-	MakeMenuGrip(sub, "");
-    return MakeSubmenu(PluginMenu, sub, Title);
+	MakeMenuGrip(sub, Title);
+	return MakeSubmenu(PluginMenu, sub, Title);
 }
 
 //===========================================================================

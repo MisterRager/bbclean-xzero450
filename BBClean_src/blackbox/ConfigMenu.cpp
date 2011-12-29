@@ -162,7 +162,7 @@ static Menu * GetPluginMenu(
 
 	//Add grip to plugin and plugin/slit menu's
 	if ( Settings_menusGripEnabled ) {
-		MakeMenuGrip(pMenu, "");
+		MakeMenuGrip(pMenu, title);
 	}
 
 	*save_id = 0;

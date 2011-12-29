@@ -145,7 +145,9 @@ void MenuGrip::Paint(HDC hDC)
 	if (false == pSI->parentRelative)
 	{
 		MakeStyleGradient(hDC, &rect, pSI, pSI->marginWidth?(pSI->bordered):(false));
-		draw_line_h(hDC, rect.left, rect.right, rect.top, bw, bc);
+		if ( pSI->bordered && !(pSI->marginWidth) ) {
+			draw_line_h(hDC, rect.left, rect.right, rect.top, bw, bc);
+		}
 	}
 
 	if (pSI->parentRelative)
@@ -155,7 +157,7 @@ void MenuGrip::Paint(HDC hDC)
 		just = just & ~DT_VCENTER | DT_BOTTOM;
 	}
 
-	//BBDrawText(hDC, GetDisplayString(), -1, &rect, just, pSI);
+	BBDrawText(hDC, GetDisplayString(), -1, &rect, just, pSI);
 }
 
 void MenuGrip::Mouse(HWND hwnd, UINT uMsg, DWORD wParam, DWORD lParam)

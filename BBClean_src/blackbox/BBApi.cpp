@@ -1769,11 +1769,11 @@ ST struct styleprop styleprop_2[] = {
 ST struct styleprop styleprop_3[] = {
     {"solid"           ,B_SOLID            },
     {"splithorizontal" ,B_SPLITHORIZONTAL  }, // "horizontal" is match .*horizontal
-	{"mirrorhorizontal",B_MIRRORHORIZONTAL   },
-	{"horizontal"   ,B_HORIZONTAL      },
+    {"mirrorhorizontal",B_MIRRORHORIZONTAL },
+    {"horizontal"      ,B_HORIZONTAL       },
     {"splitvertical"   ,B_SPLITVERTICAL    }, // "vertical" is match .*vertical
     {"mirrorvertical"  ,B_MIRRORVERTICAL   },
-	{"vertical"     ,B_VERTICAL        },
+    {"vertical"        ,B_VERTICAL         },
     {"crossdiagonal"   ,B_CROSSDIAGONAL    },
     {"diagonal"        ,B_DIAGONAL         },
     {"pipecross"       ,B_PIPECROSS        },

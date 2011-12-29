@@ -1,9 +1,11 @@
 BBCore
 -organize the configuration menus and incorporate more options
--merge with bbLeanMod
+-merge with bbLeanMod[MinimizeToTray, Process Broams/Menu, VI key binding]
 -incorporate bb4win_mod's block and wave gradients
 -interlace colors like OpenBox
 -gradient borders(is this even possible? =\)
+-font size override(include in plugins..)
+-style extension(bump all non-common stylings to an extended file to bring more functionality to styling without breaking compatibility.)
 
 SystemBarEx
 -Check SystemBarEx against most recent sladetaylor code(bb4win CVS) for slit issue

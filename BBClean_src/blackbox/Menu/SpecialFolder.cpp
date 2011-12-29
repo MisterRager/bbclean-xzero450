@@ -176,6 +176,10 @@ void SpecialFolder::UpdateFolder(void)
     if (Items) add_folder_contents(Items, NULL != m_pidl_list->next);
     else if (r) MakeMenuNOP(this, NLS0("No Files"));
     else MakeMenuNOP(this, NLS0("Invalid Path"));
+	//Add should add menu grip tp paths
+	if ( Settings_menusGripEnabled ) {
+		AddMenuItem(new MenuGrip(strlen(m_pMenuItems->m_pszTitle)?(m_pMenuItems->m_pszTitle):("")));
+	}
 
     // ---------------------------------------
     // search by text the previously active item
@@ -314,7 +318,9 @@ void Menu::add_folder_contents(MenuItem *pItems, bool join)
 
 	while (pItems) pItems = AddMenuItem(pItems)->next;
 	//Add should add menu grip tp paths
-	AddMenuItem(new MenuGrip(""));
+	/*if ( Settings_menusGripEnabled ) {
+		AddMenuItem(new MenuGrip(""));
+	}*/
 }
 
 //===========================================================================
