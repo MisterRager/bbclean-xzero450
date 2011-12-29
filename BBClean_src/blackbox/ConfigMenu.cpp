@@ -248,8 +248,10 @@ Menu *CfgMenuMaker(const char *title, const struct cfgmenu *pm, bool pop, char *
     }
 	*save_id = 0;
 
+	//Adds menu grip to the Configuration Menu and it's immeadiate sub menu's
 	if ( Settings_menusGripEnabled ) {
-		MakeMenuGrip(pMenu, "");
+		MakeMenuGrip(pMenu, title);
+		//MakeMenuGrip(pMenu, strlen(pMenu->m_pMenuItems->m_pszTitle)?(pMenu->m_pMenuItems->m_pszTitle):(""));
 	}
 
 	return pMenu;
