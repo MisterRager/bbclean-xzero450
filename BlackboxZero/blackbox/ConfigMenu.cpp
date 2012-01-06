@@ -33,7 +33,9 @@ static const struct int_item {
     const int *v; short minval, maxval, offval;
 } int_items[] = {
     { &Settings_menu.mouseWheelFactor       ,   1,    10, -2  },
-    { &Settings_menu.popupDelay             ,   0,   400, -2  },
+	{ &Settings_menu.popupDelay             ,   0,  1000, -2  },/* BlackboxZero 1.3.2012 - Was 400 */
+    { &Settings_menu.closeDelay             ,   0,  1000, -2  },/* BlackboxZero 1.3.2012 */
+	{ &Settings_menu.minWidth               ,  25,   600, -2  },/* BlackboxZero 12.17.2011 */
     { &Settings_menu.maxWidth               , 100,   600, -2  },
     { &Settings_menu.alphaValue             ,   0,   255, 255 },
     { (int*)&Settings_desktopMargin.left    ,  -1, 10000, -1  },
@@ -46,6 +48,9 @@ static const struct int_item {
     { &Settings_toolbar.alphaValue          ,   0,   255, 255 },
     { &Settings_autoRaiseDelay              ,   0, 10000, -1  },
     { &Settings_workspaces                  ,   1,    24, -1  },
+	{ &Settings_menu.iconSize				,	0,	  32,  0  },
+	{ &Settings_menu.iconSaturation			,	0,	 255, 255 },
+	{ &Settings_menu.iconHue				,	0,	 255,  0  },
     { NULL, 0, 0, 0}
 };
 
@@ -85,7 +90,11 @@ static const struct cfgmenu cfg_sub_plugins[] = {
     { NLS0("About Plugins"),        "@BBCore.aboutPlugins", NULL },
     { NULL,NULL,NULL },
 };
-
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+/* BlackboxZero 1.3.2012
+Submenu 2.1(Menus -> Open Direction) */
 static const struct cfgmenu cfg_sub_opendirection[] = {
     { NLS0("Bullet"),               "menu.openDirection bullet",    Settings_menu.openDirection },
     { NLS0("Left"),                 "menu.openDirection left",      Settings_menu.openDirection },
@@ -93,19 +102,48 @@ static const struct cfgmenu cfg_sub_opendirection[] = {
     { NULL,NULL,NULL }
 };
 
+/* BlackboxZero 1.3.2012
+Submenu 2.4(Menus -> Files) */
 static const struct cfgmenu cfg_sub_menu_files[] = {
     { NLS0("Sort By Extension"),    "menu.sortByExtension", &Settings_menu.sortByExtension  },
     { NLS0("Show Hidden Files"),    "menu.showHiddenFiles", &Settings_menu.showHiddenFiles  },
     { NULL,NULL,NULL }
 };
 
-
-static const struct cfgmenu cfg_sub_menu[] = {
-    { NLS0("Open Direction"),        NULL, cfg_sub_opendirection },
+/* BlackboxZero 1.3.2012
+Submenu 2.2(Menus -> Width) */
+static const struct cfgmenu cfg_sub_menu_width[] = { /* BlackboxZero 1.3.2012 */
+	{ NLS0("Minimal Width"),        "menu.minWidth",        &Settings_menu.minWidth  },/* BlackboxZero 12.17.2011 */
     { NLS0("Maximal Width"),        "menu.maxWidth",        &Settings_menu.maxWidth  },
-    { NLS0("Popup Delay"),          "menu.popupDelay",      &Settings_menu.popupDelay  },
+	{ NULL,NULL,NULL }
+};
+
+/* BlackboxZero 1.3.2012
+Submenu 2.3(Menus -> Delay) */
+static const struct cfgmenu cfg_sub_menu_delay[] = { /* BlackboxZero 1.3.2012 */
+	{ NLS0("Popup Delay"),          "menu.popupDelay",      &Settings_menu.popupDelay  },
+	{ NLS0("Close Delay"),          "menu.closeDelay",      &Settings_menu.closeDelay  }, /* BlackboxZero 1.3.2012 */
+	{ NULL,NULL,NULL }
+};
+
+/* BlackboxZero 1.3.2012
+Submenu 2.5(Menus -> Icons) */
+static const struct cfgmenu cfg_sub_menu_icons[] = { /* BlackboxZero 1.3.2012 */
+	{ NLS0("Default Icon Size"),	"menu.icon.Size",       &Settings_menu.iconSize  },
+	{ NLS0("Icon Saturation"),		"menu.icon.Saturation", &Settings_menu.iconSaturation  },
+	{ NLS0("Icon Hue"),				"menu.icon.Hue",        &Settings_menu.iconHue  },
+	{ NULL,NULL,NULL }
+};
+
+/* BlackboxZero 1.3.2012
+Main portion of config menu #2(Menus) */
+static const struct cfgmenu cfg_sub_menu[] = {
+    { NLS0("Open Direction"),		NULL, cfg_sub_opendirection },	/* Menu #2.1 - BlackboxZero 1.3.2012 */
+	{ NLS0("Width"),				NULL, cfg_sub_menu_width },		/* Menu #2.2 - BlackboxZero 1.3.2012 */
+	{ NLS0("Delay"),				NULL, cfg_sub_menu_delay },		/* Menu #2.3 - BlackboxZero 1.3.2012 */
     { NLS0("Wheel Factor"),         "menu.mouseWheelFactor", &Settings_menu.mouseWheelFactor  },
-    { NLS0("Files"),                NULL, cfg_sub_menu_files },
+    { NLS0("Files"),                NULL, cfg_sub_menu_files },		/* Menu #2.4 - BlackboxZero 1.3.2012 */
+	{ NLS0("Icons"),				NULL, cfg_sub_menu_icons },		/* Menu #2.5 - BlackboxZero 1.4.2012 */
     { "", NULL, NULL },
     { NLS0("Transparency"),         "menu.alpha.Enabled",   &Settings_menu.alphaEnabled  },
     { NLS0("Alpha Value"),          "menu.alpha.Value",     &Settings_menu.alphaValue  },
@@ -120,7 +158,11 @@ static const struct cfgmenu cfg_sub_menu[] = {
     { NLS0("Show Bro@ms"),          "menu.showBro@ms",      &Settings_menu.showBroams },
     { NULL,NULL,NULL }
 };
-
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+/* BlackboxZero 1.3.2012
+Main portion of config menu #3(Graphics) */
 static const struct cfgmenu cfg_sub_graphics[] = {
     { NLS0("Enable Background"),    "enableBackground",     &Settings_enableBackground },
 #ifndef BBTINY
@@ -134,7 +176,11 @@ static const struct cfgmenu cfg_sub_graphics[] = {
     { NLS0("Global Font Override"), "globalFonts",          &Settings_globalFonts  },
     { NULL,NULL,NULL }
 };
-
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+/* BlackboxZero 1.3.2012
+Submenu 4.1(Misc. -> Desktop Margins) */
 static const struct cfgmenu cfg_sub_dm[] = {
     { NLS0("Top"),                  "desktop.marginTop",    &Settings_desktopMargin.top  },
     { NLS0("Bottom"),               "desktop.marginBottom", &Settings_desktopMargin.bottom  },
@@ -144,6 +190,8 @@ static const struct cfgmenu cfg_sub_dm[] = {
     { NULL,NULL,NULL }
 };
 
+/* BlackboxZero 1.3.2012
+Submenu 4.2(Misc. -> Focus Model) */
 static const struct cfgmenu cfg_sub_focusmodel[] = {
     { NLS0("Click To Focus"),       "focusModel ClickToFocus",  Settings_focusModel },
     { NLS0("Sloppy Focus"),         "focusModel SloppyFocus",   Settings_focusModel },
@@ -152,6 +200,8 @@ static const struct cfgmenu cfg_sub_focusmodel[] = {
     { NULL,NULL,NULL }
 };
 
+/* BlackboxZero 1.3.2012
+Submenu 4.3(Misc. -> Snap) */
 static const struct cfgmenu cfg_sub_snap[] = {
     { NLS0("Snap To Plugins"),      "snap.plugins",     &Settings_snapPlugins },
     { NLS0("Padding"),              "snap.padding",     &Settings_snapPadding },
@@ -159,6 +209,9 @@ static const struct cfgmenu cfg_sub_snap[] = {
     { NULL,NULL,NULL }
 };
 
+
+/* BlackboxZero 1.3.2012
+Submenu 4.4(Misc. -> Workspaces) */
 static const struct cfgmenu cfg_sub_workspace[] = {
     { NLS0("Alternative Method"),   "workspaces.altMethod",         &Settings_altMethod },
     { NLS0("Style-XP Fix"),         "workspaces.styleXPFix",        &Settings_styleXPFix },
@@ -167,11 +220,13 @@ static const struct cfgmenu cfg_sub_workspace[] = {
     { NULL,NULL,NULL }
 };
 
+/* BlackboxZero 1.3.2012
+Main portion of config menu #4(Misc.) */
 static const struct cfgmenu cfg_sub_misc[] = {
-    { NLS0("Desktop Margins"),      NULL, cfg_sub_dm },
-    { NLS0("Focus Model"),          NULL, cfg_sub_focusmodel },
-    { NLS0("Snap"),                 NULL, cfg_sub_snap },
-    { NLS0("Workspaces"),           NULL, cfg_sub_workspace },
+    { NLS0("Desktop Margins"),      NULL, cfg_sub_dm },			/* Menu #4.1 - BlackboxZero 1.3.2012 */
+    { NLS0("Focus Model"),          NULL, cfg_sub_focusmodel },	/* Menu #4.2 - BlackboxZero 1.3.2012 */
+    { NLS0("Snap"),                 NULL, cfg_sub_snap },		/* Menu #4.3 - BlackboxZero 1.3.2012 */
+    { NLS0("Workspaces"),           NULL, cfg_sub_workspace },	/* Menu #4.4 - BlackboxZero 1.3.2012 */
     { "", NULL, NULL },
 #ifndef BBTINY
     { NLS0("Enable Toolbar"),       "toolbar.enabled",      &Settings_toolbar.enabled  },
@@ -184,14 +239,22 @@ static const struct cfgmenu cfg_sub_misc[] = {
     { NULL,NULL,NULL }
 };
 
+/* BlackboxZero 1.3.2012
+The initial menu for Configuration is just sub menus */
 static const struct cfgmenu cfg_main[] = {
-    { NLS0("Plugins"),              NULL, cfg_sub_plugins },
-    { NLS0("Menus"),                NULL, cfg_sub_menu },
-    { NLS0("Graphics"),             NULL, cfg_sub_graphics },
-    { NLS0("Misc."),                NULL, cfg_sub_misc },
+    { NLS0("Plugins"),              NULL, cfg_sub_plugins },	/* Menu #1 - BlackboxZero 1.3.2012 */
+    { NLS0("Menus"),                NULL, cfg_sub_menu },		/* Menu #2 - BlackboxZero 1.3.2012 */
+    { NLS0("Graphics"),             NULL, cfg_sub_graphics },	/* Menu #3 - BlackboxZero 1.3.2012 */
+    { NLS0("Misc."),                NULL, cfg_sub_misc },		/* Menu #4 - BlackboxZero 1.3.2012 */
     { NULL,NULL,NULL }
 };
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
 
+//===========================================================================
+/* BlackboxZero 1.3.2012
+Here -> down is just stuff to build the configuration menus */
 Menu *MakeConfigMenu(bool popup)
 {
     char menu_id[200];

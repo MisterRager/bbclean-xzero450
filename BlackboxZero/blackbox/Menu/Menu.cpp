@@ -65,6 +65,7 @@ Menu::Menu(const char *pszTitle)
 
     m_bOnTop = Settings_menu.onTop;
     m_maxwidth = MenuInfo.MaxWidth;
+	m_minwidth = MenuInfo.MinWidth; /* BlackboxZero 12.17.2011 */
     m_bPopup = true;
 
     // Add TitleItem. This will remain until the menu is
@@ -461,22 +462,36 @@ void Menu::on_killfocus(HWND newfocus)
 
 //===========================================================================
 // Timer to do the submenu open and close delay.
-void Menu::set_timer(bool set)
+void Menu::set_timer(bool active, bool set) /* BlackboxZero 1.3.2012 */
 {
     int d;
     if (false == set) {
         KillTimer(m_hwnd, MENU_POPUP_TIMER);
         return;
     }
-    d = Settings_menu.popupDelay;
-    if (false == m_bHasFocus && d < 100)
-        d = 100;
-    if (0 == d) {
-        UpdateWindow(m_hwnd); // update hilite bar first
-        PostMessage(m_hwnd, WM_TIMER, MENU_POPUP_TIMER, 0);
-    } else {
-        SetTimer(m_hwnd, MENU_POPUP_TIMER, d, NULL);
-    }
+	if ( active ) { /* BlackboxZero 1.3.2012 */
+		//Native Popup handling
+		d = Settings_menu.popupDelay;
+		if (false == m_bHasFocus && d < 100)
+			d = 100;
+		if (0 == d) {
+			UpdateWindow(m_hwnd); // update hilite bar first
+			PostMessage(m_hwnd, WM_TIMER, MENU_POPUP_TIMER, 0);
+		} else {
+			SetTimer(m_hwnd, MENU_POPUP_TIMER, d, NULL);
+		}
+	} else { /* BlackboxZero 1.3.2012 */
+		//Do closeDelay
+		d = Settings_menu.closeDelay;
+		if (false == m_bHasFocus && d < 0)
+			d = 1;
+		if (0 == d) {
+			UpdateWindow(m_hwnd); // update hilite bar first
+			PostMessage(m_hwnd, WM_TIMER, MENU_POPUP_TIMER, 0);
+		} else {
+			SetTimer(m_hwnd, MENU_POPUP_TIMER, d, NULL);
+		}
+	}
 }
 
 //===========================================================================
@@ -837,6 +852,12 @@ void Menu::Validate()
              w2 + 2*margin + MenuInfo.nItemLeftIndent + MenuInfo.nItemRightIndent
              ));
 
+	/* BlackboxZero 12.17.2011 */
+	//Check and set minimum width
+	if ( m_width < m_minwidth && m_minwidth <= m_maxwidth ) {
+		m_width = m_minwidth;
+	}
+
     // ---------------------------------------------------
     // assign item positions
 
@@ -950,7 +971,7 @@ void Menu::MenuTimer(UINT nTimer)
 {
     if (MENU_POPUP_TIMER == nTimer)
     {
-        set_timer(false);
+        set_timer(true, false);
         if (NULL == m_pActiveItem) {
             HideChild();
             return;
@@ -1046,7 +1067,7 @@ void Menu::mouse_over(bool indrag)
 
     //hilite my parentItem
     if (m_pParent) {
-        m_pParent->set_timer(false);
+        m_pParent->set_timer(true, false);
         m_pParentItem->Active(2);
     }
 
@@ -1082,7 +1103,7 @@ void Menu::mouse_leave(void)
     if (NULL == m_pChild || false == m_pChild->m_bMouseOver)
         UnHilite();
     if (m_pChild)
-        set_timer(true); // to close submenu
+        set_timer(false, true); // to close submenu
 
 }
 
@@ -2187,19 +2208,22 @@ void Menu_Reconfigure(void)
         itemHeight = MFrame->FontHeight + (mStyle.bevelWidth+1)/2;
     //xxxxxxxxxxxxxxxxxxxxxx
 
-#ifdef BBOPT_MENUICONS
-    itemHeight = imax(14, itemHeight);
-    MenuInfo.nItemHeight =
-    MenuInfo.nItemLeftIndent =
-    MenuInfo.nItemRightIndent = itemHeight;
-    MenuInfo.nIconSize = imin(itemHeight - 2, 16);
-    if (DT_LEFT == MFrame->Justify)
-        MenuInfo.nItemLeftIndent += 2;
-#else
-    MenuInfo.nItemHeight = itemHeight;
-    MenuInfo.nItemLeftIndent =
-    MenuInfo.nItemRightIndent = imax(11, itemHeight);
-#endif
+//#ifdef BBOPT_MENUICONS
+	if ( Settings_menu.iconSize ) { /* BlackboxZero 1.3.2012 */
+		itemHeight = imax(14, itemHeight);
+		MenuInfo.nItemHeight =
+		MenuInfo.nItemLeftIndent =
+		MenuInfo.nItemRightIndent = itemHeight;
+		MenuInfo.nIconSize = imin(itemHeight - 2, Settings_menu.iconSize); /* BlackboxZero 1.4.2012 - Was 16 */
+		if (DT_LEFT == MFrame->Justify)
+			MenuInfo.nItemLeftIndent += 2;
+	} else {
+//#else
+		MenuInfo.nItemHeight = itemHeight;
+		MenuInfo.nItemLeftIndent =
+		MenuInfo.nItemRightIndent = imax(11, itemHeight);
+	}
+//#endif
 
 #ifdef BBXMENU
     if (DT_CENTER != MFrame->Justify) {
@@ -2216,6 +2240,11 @@ void Menu_Reconfigure(void)
     MenuInfo.MaxWidth = Settings_menu.showBroams
         ? iminmax(Settings_menu.maxWidth*2, 320, 640)
         : Settings_menu.maxWidth;
+
+	/* BlackboxZero 12.17.2011 */
+	MenuInfo.MinWidth = Settings_menu.showBroams
+        ? iminmax(Settings_menu.minWidth*2, 320, 640)
+        : Settings_menu.minWidth;
 
     // --------------------------------------
     // setup a StyleItem for the scroll rectangle
@@ -2620,17 +2649,19 @@ void MenuItemOption(MenuItem *pItem, int option, ...)
             pItem->m_Justify = va_arg(vl, int);
             break;
 
-#ifdef BBOPT_MENUICONS
+//#ifdef BBOPT_MENUICONS
         // set an icon for this item by "path\to\icon[,#iconid]"
         case BBMENUITEM_SETICON:
-            replace_str(&pItem->m_pszIcon, va_arg(vl, const char*));
+			if ( Settings_menu.iconSize ) /* BlackboxZero 1.3.2012 */
+				replace_str(&pItem->m_pszIcon, va_arg(vl, const char*));
             break;
 
         // set an icon for this item by HICON
         case BBMENUITEM_SETHICON:
+			if ( Settings_menu.iconSize ) /* BlackboxZero 1.3.2012 */
             pItem->m_hIcon = CopyIcon(va_arg(vl, HICON));
             break;
-#endif
+//#endif
     }
 }
 

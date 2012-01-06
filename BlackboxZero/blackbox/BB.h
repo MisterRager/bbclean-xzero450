@@ -61,6 +61,9 @@
 
 #define SIZEOFPART(s,e) (offsetof(s,e) + sizeof(((s*)0)->e))
 
+#define _OffsetRect(lprc, dx, dy) *lprc.left += (dx), *lprc.right += (dx), *lprc.top += (dy), *lprc.bottom += (dy)
+#define _CopyOffsetRect(lprcDst,lprcSrc,dx,dy) (*(lprcDst)).left = (*(lprcSrc)).left + (dx), (*(lprcDst)).right = (*(lprcSrc)).right + (dx), (*(lprcDst)).top = (*(lprcSrc)).top + (dy), (*(lprcDst)).bottom = (*(lprcSrc)).bottom + (dy)
+
 #ifdef __BBCORE__
 // ==============================================================
 /* global variables */

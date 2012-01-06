@@ -33,8 +33,12 @@ INST    = $(call BSL,$(TOP)/build/inst.exe)
 # --------------------------------------------------------------------
 
 all : all.progs
+#Added for codeblocks
+Release : all.progs
 
 clean : clean.progs clean.stuff
+#Added for codeblocks
+cleanRelease : clean.progs clean.stuff
 
 install : install.progs
 

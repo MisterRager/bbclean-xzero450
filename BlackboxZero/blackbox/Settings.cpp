@@ -398,6 +398,7 @@ enum other_defaults
     STR_TRIANGLE,
 };
 
+/* BlackboxZero 1.5.2012 - Added |V_OUTLINECOLOR|V_SHADOW where V_TXT */
 static const struct items StyleItems[] = {
 // bb4nix 065 style props --->>
 { C_INT, SN_BORDERWIDTH         , "borderWidth",           0, 1 },
@@ -411,29 +412,29 @@ static const struct items StyleItems[] = {
 //{ C_COL, SN_WINUNFOCUS_FRAME_COLOR, "window.frame.unfocusColor", SN_BORDERCOLOR, 0 },
 // --------------------------<<
 { C_STR, SN_ROOTCOMMAND         , "rootCommand",            STR_EMPTY       , sizeof mStyle.rootCommand },
-{ C_STY, SN_TOOLBAR             , "toolbar",                SN_DEFITEM_1    , A_TEX|V_MAR|V_TXT|A_FNT|I_DEF },
-{ C_STY, SN_TOOLBARLABEL        , "toolbar.label",          SN_DEFITEM_1    , A_TEX|V_MAR|V_TXT },
-{ C_STY, SN_TOOLBARWINDOWLABEL  , "toolbar.windowLabel",    SN_DEFITEM_2    , A_TEX|V_TXT },
-{ C_STY, SN_TOOLBARCLOCK        , "toolbar.clock",          SN_DEFITEM_1    , A_TEX|V_TXT },
+{ C_STY, SN_TOOLBAR             , "toolbar",                SN_DEFITEM_1    , A_TEX|V_MAR|V_TXT|A_FNT|I_DEF|V_OUTLINECOLOR|V_SHADOW },
+{ C_STY, SN_TOOLBARLABEL        , "toolbar.label",          SN_DEFITEM_1    , A_TEX|V_MAR|V_TXT|V_OUTLINECOLOR|V_SHADOW },
+{ C_STY, SN_TOOLBARWINDOWLABEL  , "toolbar.windowLabel",    SN_DEFITEM_2    , A_TEX|V_TXT|V_OUTLINECOLOR|V_SHADOW },
+{ C_STY, SN_TOOLBARCLOCK        , "toolbar.clock",          SN_DEFITEM_1    , A_TEX|V_TXT|V_OUTLINECOLOR|V_SHADOW },
 { C_STY, SN_TOOLBARBUTTON       , "toolbar.button",         SN_DEFITEM_2    , A_TEX|V_PIC|V_MAR },
 { C_STY, SN_TOOLBARBUTTONP      , "toolbar.button.pressed", SN_DEFITEM_1    , A_TEX|V_PIC },
 #ifndef BBSETTING_NOMENU
-{ C_STY, SN_MENUTITLE           , "menu.title",             SN_DEFITEM_2    , A_TEX|V_MAR|V_TXT|A_FNT|I_DEF },
-{ C_STY, SN_MENUFRAME           , "menu.frame",             SN_DEFITEM_1    , A_TEX|V_MAR|V_TXT|V_PIC|A_FNT|V_DIS|I_DEF|I_BUL },
-{ C_STY, SN_MENUHILITE          , "menu.active",            SN_DEFITEM_2    , A_TEX|V_TXT|V_PIC|V_MAR|I_ACT|I_BUL },
+{ C_STY, SN_MENUTITLE           , "menu.title",             SN_DEFITEM_2    , A_TEX|V_MAR|V_TXT|A_FNT|I_DEF|V_OUTLINECOLOR|V_SHADOW },
+{ C_STY, SN_MENUFRAME           , "menu.frame",             SN_DEFITEM_1    , A_TEX|V_MAR|V_TXT|V_PIC|A_FNT|V_DIS|I_DEF|I_BUL|V_OUTLINECOLOR|V_SHADOW },
+{ C_STY, SN_MENUHILITE          , "menu.active",            SN_DEFITEM_2    , A_TEX|V_TXT|V_PIC|V_MAR|I_ACT|I_BUL|V_OUTLINECOLOR|V_SHADOW },
 { C_STR, SN_MENUBULLET          , "menu.bullet",            STR_TRIANGLE    , sizeof mStyle.menuBullet  },
 { C_STR, SN_MENUBULLETPOS       , "menu.bullet.position",   STR_RIGHT       , sizeof mStyle.menuBulletPosition  },
 #endif
 #ifndef BBSETTING_NOWINDOW
 { C_STY, SN_WINFOCUS_TITLE      , "window.title.focus",     SN_TOOLBAR      , A_TEX|I_DEF },
-{ C_STY, SN_WINFOCUS_LABEL      , "window.label.focus",     SN_TOOLBARWINDOWLABEL, A_TEX|V_TXT },
+{ C_STY, SN_WINFOCUS_LABEL      , "window.label.focus",     SN_TOOLBARWINDOWLABEL, A_TEX|V_TXT|V_OUTLINECOLOR|V_SHADOW },
 { C_STY, SN_WINFOCUS_HANDLE     , "window.handle.focus",    SN_TOOLBAR      , A_TEX|I_DEF },
 { C_STY, SN_WINFOCUS_GRIP       , "window.grip.focus",      SN_TOOLBARWINDOWLABEL, A_TEX|I_DEF },
 { C_STY, SN_WINFOCUS_BUTTON     , "window.button.focus",    SN_TOOLBARBUTTON, A_TEX|V_PIC },
 { C_STY, SN_WINFOCUS_BUTTONP    , "window.button.pressed",  SN_TOOLBARBUTTONP, A_TEX|V_PIC },
 
 { C_STY, SN_WINUNFOCUS_TITLE    , "window.title.unfocus",   SN_TOOLBAR      , A_TEX|I_DEF },
-{ C_STY, SN_WINUNFOCUS_LABEL    , "window.label.unfocus",   SN_TOOLBAR      , A_TEX|V_TXT },
+{ C_STY, SN_WINUNFOCUS_LABEL    , "window.label.unfocus",   SN_TOOLBAR      , A_TEX|V_TXT|V_OUTLINECOLOR|V_SHADOW },
 { C_STY, SN_WINUNFOCUS_HANDLE   , "window.handle.unfocus",  SN_TOOLBAR      , A_TEX|I_DEF },
 { C_STY, SN_WINUNFOCUS_GRIP     , "window.grip.unfocus",    SN_TOOLBARLABEL , A_TEX|I_DEF },
 { C_STY, SN_WINUNFOCUS_BUTTON   , "window.button.unfocus",  SN_TOOLBARBUTTON, A_TEX|V_PIC },
@@ -477,7 +478,7 @@ static int read_style_item (
 {
     static const struct s_prop {
         const char *k, *o;
-        short mode, f;
+        int mode, f; /* BlackboxZero 1.5.2012 - Was short */
     } s_prop[] = {
     // texture type
     { ".appearance",      ""                , C_TEX , V_TEX },
@@ -496,6 +497,14 @@ static int read_style_item (
     { ".borderWidth",     NULL              , C_BOW , V_BOW },
     { ".borderColor",     NULL              , C_BOC , V_BOC },
     { ".marginWidth",     NULL              , C_MAR , V_MAR },
+	/* BlackboxZero 1.4.2012 */
+	{ ".shadowX:",			NULL			, C_SHAX , V_SHADOWX },
+	{ ".shadowY:",			NULL			, C_SHAY , V_SHADOWY },
+	{ ".shadowColor:",		NULL			, C_CO5 , V_SHADOWCOLOR },
+	{ ".outlineColor:",		NULL			, C_CO6 , V_OUTLINECOLOR },
+    { ".color.splitTo:", ".color1.splitTo"	, C_CO1ST , V_FROMSPLITTO },
+    { ".colorTo.splitTo:", ".color2.splitTo", C_CO2ST , V_TOSPLITTO },
+
     };
 
     const struct s_prop *cp = s_prop;
@@ -648,7 +657,34 @@ restart:
                     if (sn != SN_MENUHILITE || found_last_value() == 1) {
                         si->marginWidth = atoi(p);
                         break;
-                    }}
+                    }
+				}
+
+			/* BlackboxZero 1.5.2012 */
+			case C_SHAX:
+				si->ShadowX = p ? atoi(p) : 0;
+				break;
+
+			case C_SHAY:
+				si->ShadowY = p ? atoi(p) : 0;
+				break;
+
+			case C_CO5:
+				si->ShadowColor = ReadColorFromString(p);
+				break;
+
+			case C_CO6:
+				si->OutlineColor = ReadColorFromString(p);
+				break;
+
+			case C_CO1ST:
+                si->ColorSplitTo = ReadColorFromString(p);
+                break;
+
+            case C_CO2ST:
+                si->ColorToSplitTo = ReadColorFromString(p);
+                break;
+			/* BlackboxZero 1.5.2012 */
 
                 // --- default margins, a sensible issue ---
                 switch (sn) {
@@ -962,8 +998,10 @@ static const struct rccfg bbrc_cfg[] = {
 
     { ".menu.position.x",          C_INT, (void*)100,      &Settings_menu.pos.x },
     { ".menu.position.y",          C_INT, (void*)100,      &Settings_menu.pos.y },
+	{ ".menu.minWidth",            C_INT, (void*)50,       &Settings_menu.minWidth },/* BlackboxZero 12.17.2011 */
     { ".menu.maxWidth",            C_INT, (void*)240,      &Settings_menu.maxWidth },
     { ".menu.popupDelay",          C_INT, (void*)80,       &Settings_menu.popupDelay },
+	{ ".menu.closeDelay",          C_INT, (void*)80,       &Settings_menu.closeDelay },/*BlackboxZero 1.3.2012 */
     { ".menu.mouseWheelFactor",    C_INT, (void*)3,        &Settings_menu.mouseWheelFactor },
     { ".menu.alpha.enabled",       C_BOL, (void*)false,    &Settings_menu.alphaEnabled },
     { ".menu.alpha.value",         C_INT, (void*)255,      &Settings_menu.alphaValue },
@@ -976,6 +1014,10 @@ static const struct rccfg bbrc_cfg[] = {
     { ".menu.showHiddenFiles",     C_BOL, (void*)false,    &Settings_menu.showHiddenFiles },
     { ".menu.drawSeparators",      C_BOL, (void*)true,     &Settings_menu.drawSeparators },
     { ".menu.dropShadows",         C_BOL, (void*)false,    &Settings_menu.dropShadows },
+	{ ".menu.icon.size",			C_INT, (void*)16,		&Settings_menu.iconSize },
+	{ ".menu.icon.saturation",		C_INT, (void*)255,		&Settings_menu.iconSaturation },
+	{ ".menu.icon.hue",				C_INT, (void*)0,		&Settings_menu.iconHue },
+
 
     { "#workspaces",               C_INT, (void*)4,        &Settings_workspaces },
     { "#workspaceNames",           C_STR, (void*)"alpha,beta,gamma,delta", &Settings_workspaceNames },

@@ -377,7 +377,19 @@ typedef struct StyleItem
     bool bordered;
     bool FontShadow; /* xoblite */
 
-    char reserved[102]; /* keep sizeof(StyleItem) = 300 */
+	/* BlackboxZero 1.4.2012 */
+	union
+	{
+		struct { char ShadowX; char ShadowY; };
+		unsigned short ShadowXY;
+	};
+	COLORREF ShadowColor;
+	COLORREF OutlineColor;
+    COLORREF ColorSplitTo;
+    COLORREF ColorToSplitTo;
+	/* BlackboxZero 1.4.2012 */
+
+    char reserved[82]; /* keep sizeof(StyleItem) = 300 */
 
 } StyleItem;
 
@@ -680,6 +692,10 @@ extern "C" {
     API_EXPORT void bbDrawPix(HDC hDC, RECT *p_rect, COLORREF picColor, int style);
     /* Create a font handle from styleitem, with parsing and substitution. */
     API_EXPORT HFONT CreateStyleFont(StyleItem * si);
+
+	/* Draw text with shadow, etc. */
+	API_EXPORT int BBDrawText(HDC hDC, LPCTSTR lpString, int nCount, LPRECT lpRect, UINT uFormat, StyleItem * si);
+
 
     /* ------------------------------------ */
     /* UTF-8 support */

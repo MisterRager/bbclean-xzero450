@@ -94,6 +94,7 @@ protected:
     HWND        m_hwndChild;    // edit control of StringItems
     HWND        m_hwndRef;      // hwnd to send notifications to */
 
+	int         m_minwidth; /* BlackboxZero 12.17.2011 */
     int         m_maxwidth;
     int         m_maxheight;
 
@@ -151,7 +152,7 @@ protected:
     LRESULT wnd_proc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
     // popup/close delay
-    void set_timer(bool set);
+    void set_timer(bool active, bool set); /*BlackboxZero 1.3.2012 */
     void set_capture(int flg);
 
     // init / exit
@@ -355,11 +356,11 @@ public:
     bool m_bDisabled;       // draw with disabledColor
     bool m_bChecked;        // draw check mark
 
-#ifdef BBOPT_MENUICONS
+//#ifdef BBOPT_MENUICONS
     HICON m_hIcon;
     char *m_pszIcon;
     void DrawIcon(HDC hDC);
-#endif
+//#endif
 };
 
 //---------------------------------
@@ -419,6 +420,7 @@ struct MenuInfo
     int nTitleMargin; // frame margin around title (normally 0)
 
     int nSubmenuOverlap;
+    int MinWidth;     // as configured /* BlackboxZero 12.17.2011 */
     int MaxWidth;     // as configured
 
     COLORREF separatorColor;

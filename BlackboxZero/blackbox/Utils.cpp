@@ -345,6 +345,50 @@ void bbDrawText(HDC hDC, const char *text, RECT *p_rect, unsigned format, COLORR
         DrawText(hDC, text, -1, p_rect, format);
 }
 
+int BBDrawText(HDC hDC, LPCTSTR lpString, int nCount, LPRECT lpRect, UINT uFormat, StyleItem* pSI){
+    bool bShadow = (pSI->validated & V_SHADOWCOLOR) && (pSI->ShadowColor != (CLR_INVALID));
+    bool bOutline = (pSI->validated & V_OUTLINECOLOR) && (pSI->OutlineColor != (CLR_INVALID));
+	
+	if (bShadow){ // draw shadow
+        RECT rcShadow;
+		rcShadow.top = lpRect->top + pSI->ShadowY;
+		rcShadow.bottom = lpRect->bottom + pSI->ShadowY;
+		rcShadow.left = lpRect->left + pSI->ShadowX;
+		rcShadow.right = lpRect->right + pSI->ShadowX;
+
+        //SetTextColor(hDC, pSI->ShadowColor);
+		bbDrawText(hDC, lpString, &rcShadow, uFormat, pSI->ShadowColor);
+    }
+	
+    if (bOutline){ // draw outline
+			//Draw the outline
+	        RECT rcOutline;
+	        _CopyOffsetRect(&rcOutline, lpRect, 1, 0);
+	        //SetTextColor(hDC, pSI->OutlineColor);
+			
+			bbDrawText(hDC, lpString, &rcOutline, uFormat, pSI->OutlineColor);
+			_OffsetRect(&rcOutline,   0,  1);
+			bbDrawText(hDC, lpString, &rcOutline, uFormat, pSI->OutlineColor);
+			_OffsetRect(&rcOutline,  -1,  0);
+			bbDrawText(hDC, lpString, &rcOutline, uFormat, pSI->OutlineColor);
+			_OffsetRect(&rcOutline,  -1,  0);
+			bbDrawText(hDC, lpString, &rcOutline, uFormat, pSI->OutlineColor);
+			_OffsetRect(&rcOutline,   0, -1);
+			bbDrawText(hDC, lpString, &rcOutline, uFormat, pSI->OutlineColor);
+			_OffsetRect(&rcOutline,   0, -1);
+			bbDrawText(hDC, lpString, &rcOutline, uFormat, pSI->OutlineColor);
+			_OffsetRect(&rcOutline,   1,  0);
+			bbDrawText(hDC, lpString, &rcOutline, uFormat, pSI->OutlineColor);
+			_OffsetRect(&rcOutline,   1,  0);
+			bbDrawText(hDC, lpString, &rcOutline, uFormat, pSI->OutlineColor);
+		//}
+    }
+    // draw text
+    //SetTextColor(hDC, pSI->TextColor);
+    bbDrawText(hDC, lpString, lpRect, uFormat, pSI->TextColor);
+	return 1;//FIXME: Supposed to be DrawText(); - Should probably not call into bbDrawText to do the dirty work
+}
+
 //===========================================================================
 // API: bbMB2WC
 

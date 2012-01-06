@@ -62,21 +62,27 @@ BBSETTING struct toolbar_setting {
 // Menu Config
 BBSETTING struct menu_setting {
     struct { int x, y; } pos;
-    int  popupDelay;
-    int  mouseWheelFactor;
-    int  maxWidth;
-    char openDirection[20];
-    bool onTop;
-    bool sticky;
-    bool pluginToggle;
-    bool showBroams;
-    bool showHiddenFiles;
-    bool sortByExtension;
-    bool drawSeparators;
-    bool snapWindow;
-    bool dropShadows;
-    bool alphaEnabled;
-    int  alphaValue;
+    int		popupDelay;
+	int		closeDelay;/* BlackboxZero 1.3.2012 */
+    int		mouseWheelFactor;
+	int		minWidth;/* BlackboxZero 12.17.2011 */
+    int		maxWidth;
+    char	openDirection[20];
+    bool	onTop;
+    bool	sticky;
+    bool	pluginToggle;
+    bool	showBroams;
+    bool	showHiddenFiles;
+    bool	sortByExtension;
+    bool	drawSeparators;
+    bool	snapWindow;
+    bool	dropShadows;
+    bool	alphaEnabled;
+    int		alphaValue;
+	/* BlackboxZero 1.3.2012 - */
+	int		iconSize;
+	int		iconSaturation;
+	int		iconHue;
 } Settings_menu;
 
 //====================
@@ -149,6 +155,16 @@ BBSETTING bool Settings_disableMargins;
 // Settings.cpp internal definitions
 
 #define V_MAR 0x0200
+/* BlackboxZero 1.4.2012 */
+#define V_SHADOWX		0x2000
+#define V_SHADOWY		0x4000
+#define V_SHADOWCOLOR	0x8000
+#define V_OUTLINECOLOR	0x10000
+#define V_FROMSPLITTO	0x20000
+#define	V_TOSPLITTO		0x40000
+
+#define V_SHADOW (V_SHADOWX|V_SHADOWY|V_SHADOWCOLOR)
+
 void ReadStyle(const char *style, StyleStruct *pStyle);
 
 #ifdef BBSETTINGS_INTERNAL
@@ -166,6 +182,7 @@ void ReadStyle(const char *style, StyleStruct *pStyle);
 #define V_BOW 0x0400
 #define V_BOC 0x0800
 #define V_DIS 0x1000
+
 
 struct items {
     short type;
@@ -211,6 +228,15 @@ enum style_init_types
     C_SHT,
     C_SHP,
     C_SHE
+
+	/* BlackboxZero 1.4.2012 */
+	,
+	C_SHAX,
+	C_SHAY,
+	C_CO5,
+	C_CO6,
+	C_CO1ST,
+	C_CO2ST
 };
 #endif
 

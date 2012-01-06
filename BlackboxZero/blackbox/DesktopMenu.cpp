@@ -43,10 +43,10 @@ static BOOL task_enum_func(struct tasklist *tl, LPARAM lParam)
 
         sprintf(buf, "@BBCore.ActivateWindow %d", en->i);
         mi = MakeMenuItem(en->m, tl->caption, buf, is_top);
-#ifdef BBOPT_MENUICONS
-        if (tl->icon)
+//#ifdef BBOPT_MENUICONS
+        if (tl->icon && Settings_menu.iconSize) /* BlackboxZero 1.3.2012 */
             MenuItemOption(mi, BBMENUITEM_SETHICON, tl->icon);
-#endif
+//#endif
         if (en->desk != -1) {
             sprintf(buf, "@BBCore.MinimizeWindow %d", en->i);
             MenuItemOption(mi, BBMENUITEM_RCOMMAND, buf);

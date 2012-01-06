@@ -51,7 +51,9 @@ void TitleItem::Paint(HDC hDC)
         draw_line_h(hDC, rect.left, rect.right, rect.bottom, bw, bc);
     }
 
-    bbDrawText(hDC, GetDisplayString(), &rect, justify, pSI->TextColor);
+    //bbDrawText(hDC, GetDisplayString(), &rect, justify, pSI->TextColor);
+	/* BlackboxZero 1.5.2012 */
+	BBDrawText(hDC, GetDisplayString(), -1, &rect, justify, pSI);
 }
 
 //===========================================================================

@@ -337,10 +337,12 @@ skip:
             break;
         }
 
-#ifdef BBOPT_MENUICONS
-        if (pItem && get_string_within(label,  sizeof label, &cp, "<>"))
-            MenuItemOption(pItem, BBMENUITEM_SETICON, label);
-#endif
+//#ifdef BBOPT_MENUICONS
+		if ( Settings_menu.iconSize ) {
+			if (pItem && get_string_within(label,  sizeof label, &cp, "<>"))
+				MenuItemOption(pItem, BBMENUITEM_SETICON, label);
+		}
+//#endif
     }
 }
 

@@ -47,11 +47,11 @@ MenuItem::~MenuItem()
     free_str(&m_pszRightCommand);
     delete_pidl_list(&m_pidl_list);
 
-#ifdef BBOPT_MENUICONS
+//#ifdef BBOPT_MENUICONS
     free_str(&m_pszIcon);
     if (m_hIcon)
         DestroyIcon(m_hIcon);
-#endif
+//#endif
 
     --g_menu_item_count;
 }
@@ -203,7 +203,7 @@ void MenuItem::Active(int active)
     m_pMenu->m_pActiveItem = this;
 
     if (active == 1)
-        m_pMenu->set_timer(true);
+        m_pMenu->set_timer(true, true);
 
     if (m_pMenu->m_MenuID == MENU_ID_STRING && bbactive) {
         if (m_ItemID == MENUITEM_ID_STR)
@@ -288,10 +288,10 @@ void MenuItem::Measure(HDC hDC, SIZE *size)
     bbDrawText(hDC, title, &r, DT_MENU_MEASURE_STANDARD, 0);
     size->cx = r.right;
     size->cy = MenuInfo.nItemHeight;
-#ifdef BBOPT_MENUICONS
-    if (m_hIcon)
+//#ifdef BBOPT_MENUICONS
+    if (m_hIcon && Settings_menu.iconSize)/* BlackboxZero 1.3.2012 */
         size->cy = imax(MenuInfo.nIconSize+2, size->cy);
-#endif
+//#endif
 }
 
 //===========================================================================
@@ -325,31 +325,37 @@ void MenuItem::Paint(HDC hDC)
         if (MENUITEM_STANDARD_JUSTIFY == j)
             j = mStyle.MenuFrame.Justify;
         // draw menu item text
-        bbDrawText(hDC, GetDisplayString(), &rc, j | DT_MENU_STANDARD, TC);
+        //bbDrawText(hDC, GetDisplayString(), &rc, j | DT_MENU_STANDARD, TC);
+		/* BlackboxZero 1.5.2012 */
+		BBDrawText(hDC, GetDisplayString(), -1, &rc, j | DT_MENU_STANDARD, pSI);
     }
 
-#ifdef BBOPT_MENUICONS
-    this->DrawIcon(hDC);
-#endif
+//#ifdef BBOPT_MENUICONS
+	if ( Settings_menu.iconSize ) /* BlackboxZero 1.3.2012 */
+		this->DrawIcon(hDC);
+//#endif
 
     if (m_bChecked) // draw check-mark
     {
         int d, atright;
 
-#ifdef BBOPT_MENUICONS
-        if (m_ItemID & MENUITEM_ID_FOLDER)
-            atright = MenuInfo.nBulletPosition == FOLDER_LEFT;
-        else
-            atright = true;
-#else
-        if (MenuInfo.nItemLeftIndent != MenuInfo.nItemRightIndent)
-            atright = MenuInfo.nBulletPosition != FOLDER_LEFT;
-        else
-        if (m_ItemID & MENUITEM_ID_FOLDER)
-            atright = MenuInfo.nBulletPosition == FOLDER_LEFT;
-        else
-            atright = j != DT_LEFT;
-#endif
+//#ifdef BBOPT_MENUICONS
+		if ( Settings_menu.iconSize ) { /* BlackboxZero 1.3.2012 */
+			if (m_ItemID & MENUITEM_ID_FOLDER)
+				atright = MenuInfo.nBulletPosition == FOLDER_LEFT;
+			else
+				atright = true;
+		} else {
+//#else
+			if (MenuInfo.nItemLeftIndent != MenuInfo.nItemRightIndent)
+				atright = MenuInfo.nBulletPosition != FOLDER_LEFT;
+			else
+			if (m_ItemID & MENUITEM_ID_FOLDER)
+				atright = MenuInfo.nBulletPosition == FOLDER_LEFT;
+			else
+				atright = j != DT_LEFT;
+		}
+//#endif
         rc.bottom = (rc.top = m_nTop) + m_nHeight + 1;
         if (atright) {
             d = MenuInfo.nItemRightIndent + mStyle.MenuHilite.borderWidth;
@@ -408,7 +414,7 @@ void SeparatorItem::Paint(HDC hDC)
 }
 
 //===========================================================================
-#ifdef BBOPT_MENUICONS
+//#ifdef BBOPT_MENUICONS
 
 #include <shellapi.h>
 #include "../../plugins/bbPlugin/drawico.cpp"
@@ -441,7 +447,7 @@ void MenuItem::DrawIcon(HDC hDC)
             ExtractIconEx(path, index, NULL, &m_hIcon, 1);
 
         } else if (m_pidl_list) {
-            m_hIcon = sh_geticon(first_pidl(m_pidl_list), 16);
+			m_hIcon = sh_geticon(first_pidl(m_pidl_list), (Settings_menu.iconSize>16)?(32):(16));
 
         }
 
@@ -462,11 +468,13 @@ void MenuItem::DrawIcon(HDC hDC)
 */
     DrawIconSatnHue(hDC,
         px, py, m_hIcon,
-        size, size, 0,
+        //size, size, 0,
+		Settings_menu.iconSize, Settings_menu.iconSize, 0, /* BlackboxZero 1.4.2012 */
         NULL, DI_NORMAL,
-        false == m_bActive, 40, 0
+        //false == m_bActive, 40, 0
+		false == m_bActive, Settings_menu.iconSaturation, Settings_menu.iconHue /* BlackboxZero 1.3.2012 */
         );
 }
-#endif
+//#endif
 
 //===========================================================================

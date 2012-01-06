@@ -502,7 +502,9 @@ ST void PaintToolbar(HDC hdc, RECT *rcPaint)
     MakeStyleGradient(buf, &r, pSI, pSI->bordered);
     r.left  += tbLabelIndent;
     r.right -= tbLabelIndent;
-    bbDrawText(buf, Toolbar_WorkspaceName, &r, justify, pSI->TextColor);
+    //bbDrawText(buf, Toolbar_WorkspaceName, &r, justify, pSI->TextColor);
+	/* BlackboxZero 1.5.2012 */
+	BBDrawText(buf, Toolbar_WorkspaceName, -1, &r, justify, pSI);
 
     // Paint window label background...
     r.right = (r.left = tbWinLabelX) + tbWinLabelW;
@@ -510,7 +512,9 @@ ST void PaintToolbar(HDC hdc, RECT *rcPaint)
     MakeStyleGradient(buf, &r, pSI, pSI->bordered);
     r.left  += tbLabelIndent;
     r.right -= tbLabelIndent;
-    bbDrawText(buf, Toolbar_CurrentWindow, &r, justify, pSI->TextColor);
+    //bbDrawText(buf, Toolbar_CurrentWindow, &r, justify, pSI->TextColor);
+	/* BlackboxZero 1.5.2012 */
+	BBDrawText(buf, Toolbar_CurrentWindow, -1, &r, justify, pSI);
 
     // Paint clock background...
     r.right = (r.left = tbClockX) + tbClockW;
@@ -518,7 +522,9 @@ ST void PaintToolbar(HDC hdc, RECT *rcPaint)
     MakeStyleGradient(buf, &r, pSI, pSI->bordered);
     r.left  += tbLabelIndent;
     r.right -= tbLabelIndent;
-    bbDrawText(buf, Toolbar_CurrentTime, &r, justify, pSI->TextColor);
+    //bbDrawText(buf, Toolbar_CurrentTime, &r, justify, pSI->TextColor);
+	/* BlackboxZero 1.5.2012 */
+	BBDrawText(buf, Toolbar_CurrentTime, -1, &r, justify, pSI);
 
     //====================
 
