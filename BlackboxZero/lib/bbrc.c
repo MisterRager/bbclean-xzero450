@@ -885,6 +885,10 @@ int read_next_line(FILE *fp, char* szBuffer, unsigned dwLength)
 // parse a given string and assigns settings to a StyleItem class
 
 ST const struct styleprop styleprop_1[] = {
+ {"splithorizontal" ,B_SPLITHORIZONTAL  }, // "horizontal" is match .*horizontal
+ {"mirrorhorizontal",B_MIRRORHORIZONTAL },
+ {"splitvertical"   ,B_SPLITVERTICAL    }, // "vertical" is match .*vertical
+ {"mirrorvertical"  ,B_MIRRORVERTICAL   },
  {"solid"        ,B_SOLID           },
  {"horizontal"   ,B_HORIZONTAL      },
  {"vertical"     ,B_VERTICAL        },

@@ -244,14 +244,14 @@ static void bevel(struct bimage *bi, bool sunken, int pos)
 inline static void table_fn(struct bimage *bi, unsigned char *p, int length, bool invert)
 {
     unsigned char *c = p;
-    int i, e, d;
+    int i, end, d;
 
     if (invert)
-        i = length-1, d = e = -1;
+        i = length-1, d = end = -1;
     else
-        i = 0, d = 1, e = length;
+        i = 0, d = 1, end = length;
 
-    while (i != e) {
+    while (i != end) {
         c[0] = (unsigned char)(bi->from_blue  + bi->diff_blue  * i / length);
         c[1] = (unsigned char)(bi->from_green + bi->diff_green * i / length);
         c[2] = (unsigned char)(bi->from_red   + bi->diff_red   * i / length);
@@ -259,6 +259,37 @@ inline static void table_fn(struct bimage *bi, unsigned char *p, int length, boo
         c += BBP;
         i += d;
     }
+}
+
+/* BlackboxZero 1.5.2012 */
+int iminmax(int a, int b, int c)
+{
+    if (a>c) a=c;
+    if (a<b) a=b;
+    return a;
+}
+
+/* BlackboxZero 1.5.2012 */
+inline static void table_fn_mirror(struct bimage *bi, unsigned char *p, int length, bool invert)
+{
+	unsigned char *c = p;
+	int i, end, d, v;
+
+	if (invert)
+        i = length-1, d = end = -1;
+    else
+        i = 0, d = 1, end = (length);
+
+	while (i != end)
+	{
+		v = ( i <= (length /2)) ? (i * 2) : ((length - i) * 2);
+        c[0] = (unsigned char)iminmax((bi->from_blue  + bi->diff_blue  * v / (length)), 0, 255);
+        c[1] = (unsigned char)iminmax((bi->from_green + bi->diff_green * v / (length)), 0, 255);
+        c[2] = (unsigned char)iminmax((bi->from_red   + bi->diff_red   * v / (length)), 0, 255);
+        c[3] = (unsigned char)BI_HIBITS;
+        c += BBP;
+        i += d;
+	}
 }
 
 inline static void diag_fn(struct bimage *bi, unsigned char *c, int x, int y)
@@ -388,15 +419,51 @@ struct bimage *bimage_create(int width, int height,  StyleItem *si)
             goto copy_lines;
         }
 
+		case B_MIRROR_HORIZONTAL:
+		case B_MIRRORHORIZONTAL:
+			table_fn_mirror(bi, bi->xtab, width, false);
+
+			// draw 2 lines, to cover the 'interlaced' case
+            y = 0;
+			do {
+                x = 0;
+				s = (unsigned long *)bi->xtab;
+				do {
+                    *(unsigned long*)p = *s++;
+                    if (interlaced) {
+                        if (1 & y)
+							darker(bi, p);
+                        else
+							lighter(bi, p);
+                    }
+                    p+=BBP;
+                } while (++x < width);
+            } while (++y < 2);
+
+            // copy down the lines
+        //copy_lines:
+            d = (unsigned long*)p;
+            while (y < height) {
+                s = (unsigned long*)bi->pixels + (y&1)*width;
+                memcpy(d, s, width*BBP);
+                d += width; y++;
+            }
+            break;
+
         case B_HORIZONTAL:
             table_fn(bi, bi->xtab, width, false);
             // draw 2 lines, to cover the 'interlaced' case
-            y = 0; do {
-                x = 0; s = (unsigned long *)bi->xtab; do {
+            y = 0;
+			do {
+                x = 0;
+				s = (unsigned long *)bi->xtab;
+				do {
                     *(unsigned long*)p = *s++;
                     if (interlaced) {
-                        if (1 & y) darker(bi, p);
-                        else lighter(bi, p);
+                        if (1 & y)
+							darker(bi, p);
+                        else
+							lighter(bi, p);
                     }
                     p+=BBP;
                 } while (++x < width);
@@ -413,6 +480,33 @@ struct bimage *bimage_create(int width, int height,  StyleItem *si)
             break;
 
         // -------------------------------------
+		case B_MIRRORVERTICAL:
+		case B_MIRROR_VERTICAL:
+			table_fn_mirror(bi, bi->ytab, height, true);
+			// draw 1 column
+            y = 0; s = (unsigned long *)bi->ytab; z = width*BBP;
+            do {
+                *(unsigned long*)p = *s++;
+                if (interlaced) {
+                    if (1 & y)
+						darker(bi, p);
+                    else
+						lighter(bi, p);
+                }
+                p += z;
+            } while (++y < height);
+
+            // copy colums
+            s = (unsigned long*)bi->pixels;
+            y = 0;
+			do {
+                d = s, s += width;
+				c = *d++;
+                do *d = c;
+				while (++d<s);
+            } while (++y < height);
+            break;
+
         case B_VERTICAL:
             table_fn(bi, bi->ytab, height, true);
 
@@ -666,6 +760,102 @@ void MakeGradient(
 
     MakeStyleGradient(hdc, &rect, &si, true);
 }
+
+/* BlackboxZero 1.5.2012 */
+/*void MakeGradientEx(HDC hDC, RECT rect, int type, COLORREF colour_from, COLORREF colour_to, 
+					COLORREF colour_from_splitto, COLORREF colour_to_splitto, bool interlaced, int bevelStyle,
+					int bevelPosition, int bevelWidth, COLORREF borderColour, int borderWidth)
+{
+    if (borderWidth)
+    {
+        HBRUSH  hBrush    = CreateSolidBrush(borderColour);
+        HGDIOBJ hOldBrush = SelectObject(hDC, hBrush);
+        while (--borderWidth >= 0)
+        {
+            FrameRect(hDC, &rect, hBrush);
+            _InflateRect(&rect, -1, -1);
+        }
+        DeleteObject(SelectObject(hDC, hOldBrush));
+    }
+
+    if (type >= 0)
+    {
+        bImage *bImg;
+        int w = GetRectWidth(&rect);
+        int h = GetRectHeight(&rect);
+
+        bool is_vertical	= false;
+        bool is_horizontal	= false;
+        bool is_split		= false;
+        bool is_mirror		= false;
+
+		switch (type) {
+			case B_SPLITVERTICAL:
+			case B_SPLIT_VERTICAL:
+				is_vertical = is_split = true;
+				break;
+				
+			case B_SPLITHORIZONTAL:
+			case B_SPLIT_HORIZONTAL:
+				is_horizontal = is_split = true;
+				break;
+			
+			case B_MIRRORVERTICAL:
+			case B_MIRROR_VERTICAL:
+				is_vertical = is_mirror = true;
+				break;
+				
+			case B_MIRRORHORIZONTAL:
+			case B_MIRROR_HORIZONTAL:
+				is_horizontal = is_mirror = true;
+				break;
+				
+		}
+
+        if (is_vertical || is_horizontal || is_split || is_mirror){
+            // specify params depending on style
+            int exception0 = 0;
+            int exception1 = 0;
+            COLORREF Color0 = colour_from;
+            COLORREF Color1 = colour_from;
+            COLORREF Color2 = colour_to;
+            COLORREF Color3 = colour_to;
+
+            if (is_vertical){
+                type = B_VERTICAL;
+                h = (h+1)>>1;
+                exception0 = BEVEL_EXCEPT_BOTTOM;
+                exception1 = BEVEL_EXCEPT_TOP;
+            }
+            if (is_horizontal){
+                type = B_HORIZONTAL;
+                w = (w+1)>>1;
+                exception0 = BEVEL_EXCEPT_RIGHT;
+                exception1 = BEVEL_EXCEPT_LEFT;
+            }
+            if(is_split){
+                Color0 = colour_from_splitto;
+                Color3 = colour_to_splitto;
+            }
+            if(is_mirror){
+                Color1 = colour_to;
+                Color3 = colour_from;
+            }
+
+            bImg = new bImage(w, h, type, Color0, Color1, interlaced, bevelStyle, bevelPosition, exception0);
+            bImg->copy_to_hdc(hDC, rect.left, rect.top, w, h);
+            delete bImg;
+            bImg = new bImage(w, h, type, Color2, Color3, interlaced, bevelStyle, bevelPosition, exception1);
+            bImg->copy_to_hdc(hDC, rect.right - w, rect.bottom - h, w, h);
+            delete bImg;
+        }
+        else{
+            bImg = new bImage(w, h, type, colour_from, colour_to, interlaced, bevelStyle, bevelPosition, 0);
+            bImg->copy_to_hdc(hDC, rect.left, rect.top, w, h);
+            delete bImg;
+        }
+    }
+}*/
 
 //===========================================================================
 // API: MakeGradientBitmap
