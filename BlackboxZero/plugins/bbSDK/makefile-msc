@@ -1,0 +1,64 @@
+# -------------------------------------------
+# bbSDK - Blackbox for Windows Plugin SDK
+
+# makefile for msvc 6.0 or VCExpress 2005
+
+# Build:    nmake -f makefile-msc
+# Cleanup:  nmake -f makefile-msc clean
+
+# -------------------------------------------
+# names
+
+NAME    = bbSDK
+
+OBJ     = $(NAME).obj
+BIN     = $(NAME).dll
+
+# -------------------------------------------
+# paths
+
+BBAPI   = .
+BBLIB   = $(BBAPI)/blackbox.lib
+DEFINES = -I$(BBAPI)
+
+# -------------------------------------------
+# targets
+
+all : $(BIN)
+
+clean :
+	for %%f in ($(OBJ) $(BIN) *.pdb *.manifest) do if exist %%f del %%f
+
+# this makes blackbox.lib from libBlackbox.def
+$(BBLIB):
+	lib /out:$(BBLIB) /def:$(BBAPI)/libBlackbox.def
+
+# -------------------------------------------
+# compiler settings and rules
+
+CC      = cl
+LINK    = link
+RC      = rc
+
+CFLAGS  = /O1 /W3 /nologo /Zi /MD /I$(BBAPI)
+# Use with VCExpress etc
+# CFLAGS  = $(CFLAGS) /wd4996
+LFLAGS  = /DLL /SUBSYSTEM:WINDOWS /NOLOGO /OPT:REF,ICF,NOWIN98 /DEBUG
+LIBS = kernel32.lib user32.lib gdi32.lib
+
+$(BIN): $(OBJ) $(RES) $(BBLIB)
+	$(LINK) $(LFLAGS) /OUT:$(BIN) $(OBJ) $(BBLIB) $(LIBS)
+	if exist $@.manifest mt /nologo /manifest $@.manifest /outputresource:$@;2
+	del $(NAME).exp
+	del $(NAME).lib
+
+.c.obj:
+	$(CC) $(CFLAGS) -c $<
+
+.cpp.obj:
+	$(CC) $(CFLAGS) -c $<
+
+.rc.res:
+	$(RC) $<
+
+# -------------------------------------------

@@ -1,0 +1,69 @@
+/* ==========================================================================
+
+  This file is part of the bbLean source code
+  Copyright © 2001-2003 The Blackbox for Windows Development Team
+  Copyright © 2004-2009 grischka
+
+  http://bb4win.sourceforge.net/bblean
+  http://developer.berlios.de/projects/bblean
+
+  bbLean is free software, released under the GNU General Public License
+  (GPL version 2). For details see:
+
+  http://www.fsf.org/licenses/gpl.html
+
+  This program is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+  for more details.
+
+  ========================================================================== */
+
+#include <windows.h>
+
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+100 ICON DISCARDABLE "Blackbox_inverted.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,0,0,0
+ PRODUCTVERSION 2,0,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "000004b0"
+        BEGIN
+            VALUE "FileVersion", "2.0\0"
+            VALUE "FileDescription", "A tool for Blackbox for Windows.\0"
+            VALUE "LegalCopyright", "Copyright © 2004-2009 grischka\0"
+            VALUE "OriginalFilename", "bsetbg.exe\0"
+            VALUE "ProductName", "Blackbox for Windows\0"
+            VALUE "Comments", "bsetbg.exe is a Blackbox for Windows tool to set your desktop background.\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0, 1200
+    END
+END
+
+/////////////////////////////////////////////////////////////////////////////
+

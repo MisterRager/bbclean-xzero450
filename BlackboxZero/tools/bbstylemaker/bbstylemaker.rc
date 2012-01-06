@@ -1,0 +1,107 @@
+# ----------------------------------------------------------------
+# bbStyleMaker.rc - configuration file for bbStyleMaker 1.3
+#
+# Put this file in the same directory as bbStyleMaker.exe
+#
+
+# ----------------------------------------------------------------
+# styleinfo defaults:
+
+# author
+bbstylemaker.style.author: <set your name in bbstylemaker.rc>
+
+# date format - see the bblean docs for date formats
+bbstylemaker.date.format: %d %b %Y
+
+# date language locale - empty or C or it, fr, sp, us, uk, ru ...
+bbstylemaker.date.locale: C
+
+# ----------------------------------------------------------------
+# stylefile output modes:
+
+# style syntax to use: '065' or '070' or 'style'
+bbstylemaker.syntax: 070
+
+# how to write the colors: 'html' or 'rgb'
+bbstylemaker.colorMode: html
+
+# how to output the font spec's:
+# 1 = separate values "font:", "fontHeight:", "fontWeight:" (default)
+# 2 = xoblite format "snap/12/normal"
+# 3 = linux-like simple format "lucida-12-bold"
+# 4 = linux-like xfd format "-*-facename-weight-r-*-*-height-*-*-*-*-*-*-*"
+# Note: 3 and 4 will not work with dashes in the font name, e.g. 'mints-mild'.
+bbstylemaker.fontMode: 1
+
+# align right side on column: true or false
+bbstylemaker.tabify: false
+
+# EOL mode: 'dos' or 'unix'
+bbstylemaker.eolMode: dos
+
+# ----------------------------------------------------------------
+# bbstylemaker appearance
+
+# window size
+bbstylemaker.widthPercent: 92
+bbstylemaker.heightPercent: 92
+
+# window position (auto saved)
+bbstylemaker.xpos: -1
+bbstylemaker.ypos: -1
+
+# true for default windows caption bar:
+bbstylemaker.captionbar: false
+
+# guistyle for bbstylemaker (default: this file, see below)
+bbstylemaker.guistyle: 
+
+# style editor (default: the 'blackbox editor' from extensions.rc)
+! bbstylemaker.editor: bbnote.exe
+
+# ----------------------------------------------------------------
+# style for bbstylemaker itself - subset of a blackbox style
+
+# font to use
+*font: verdana
+*fontHeight: 12
+*fontWeight: normal
+*title.fontWeight: bold
+
+# main and group titles
+menu.title.appearance: parentrelative border
+menu.title.textColor: #000000
+menu.title.borderColor: #222
+menu.title.borderWidth: 2
+menu.title.marginWidth: 2
+menu.title.alignment: left
+
+# option groups
+menu.frame.appearance: solid border
+menu.frame.backgroundColor: #bbb
+menu.frame.foregroundColor: #000
+menu.frame.textColor: #000
+menu.frame.disabledColor: #999
+menu.frame.borderColor: #777
+menu.frame.borderWidth: 0
+
+# checked options
+menu.active.appearance: sunken solid
+menu.active.backgroundColor: #ddd
+menu.active.foregroundColor: #000
+menu.active.textColor: #000
+menu.active.borderColor: #888
+
+# buttons and slider knobs
+toolbar.button.appearance: solid border
+toolbar.button.backgroundColor: #000
+toolbar.button.foregroundColor: #ccc
+toolbar.button.borderColor: #ccc
+toolbar.button.borderWidth: 1
+
+# pressed buttons
+toolbar.button.pressed.appearance: sunken solid
+toolbar.button.pressed.backgroundColor: #aaa
+toolbar.button.pressed.foregroundColor: #444
+
+# ----------------------------------------------------------------

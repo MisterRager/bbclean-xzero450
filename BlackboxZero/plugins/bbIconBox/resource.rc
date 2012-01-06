@@ -1,0 +1,25 @@
+/*
+ ============================================================================
+
+  This file is part of bbIconBox source code.
+  bbIconBox is a plugin for Blackbox for Windows
+
+  Copyright © 2004-2009 grischka
+  http://bb4win.sf.net/bblean
+
+  bbIconBox is free software, released under the GNU General Public License
+  (GPL version 2).
+
+  http://www.fsf.org/licenses/gpl.html
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+ ============================================================================
+*/
+
+101 CURSOR "drag1.cur"
+102 CURSOR "drag2.cur"
+

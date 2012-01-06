@@ -1,0 +1,32 @@
+# ---------------------------------------------
+# bblean 1.17 - plugin.rc - the plugins to load
+
+# - Items may be added, enabled or disabled from
+# - the config menu as needed. Removal is left to
+# - manual editing.
+
+# - the BB hotkeys, see bbkeys.rc
+plugins\bbKeys\bbKeys.dll
+
+# - Integrated toolbar with tasks and tray
+plugins\bbLeanBar\bbLeanBar.dll
+
+# - Lean window skinner
+plugins\bbLeanSkin\bbLeanSkin.dll
+
+# - The Slit - a common place for other plugins
+plugins\bbSlit\bbSlit.dll
+
+# - separator line for the plugin menu
+[sep]
+
+# - Plugins in the slit
+& plugins\bbAnalog\bbAnalog.dll
+& plugins\bbIconBox\bbIconBox.dll
+plugins\bbColor3dc\bbColor3dc.dll
+
+# - submenu with more plugins
+[sep]
+[submenu] (other)
+! plugins\bbWorkspaceWheel\bbWorkspaceWheel.dll
+[end]

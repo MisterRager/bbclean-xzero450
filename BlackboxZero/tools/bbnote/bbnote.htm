@@ -1,0 +1,358 @@
+<HTML><HEAD><TITLE>bbNote</TITLE>
+<STYLE>
+body {
+background-color: #000000;
+margin-top: 30px;
+margin-left: 5px;
+scrollbar-arrow-color:      #99bbcc;
+scrollbar-base-color:       #002233;
+scrollbar-shadow-color:     #002233;
+scrollbar-darkshadow-color: #002233;
+scrollbar-track-color:      #002233;
+scrollbar-highlight-color:  #002233;
+scrollbar-3d-light-color:   #002233;
+scrollbar-face-color:       #225577;
+}
+
+hr { height: 1px; color: #666666;}
+
+table {
+font-family: Tahoma;
+font-size: 8pt;
+font-weight: normal;
+text-align: left;
+color: #95aabb;
+}
+
+span { color: #778899;}
+span.desc {color: #ccaa00;}
+pre { color: #779966; margin: 0; margin-left:32px; }
+.title  {
+    background-color: #112233;
+    color:          #9fafc3;
+
+    text-align:     center;
+    font-weight:    bold;
+    margin-top:     0;
+    margin-bottom:  0;
+    line-height:    100%;
+}
+.title2  {
+    text-align:     center;
+    font-weight:    bold;
+    color:          #9fafc3;
+}
+.header  {
+    background-color: #112233;
+    color: #9fafc3;
+}
+.border {
+    background-color: #224466;
+}
+.field {
+    background-color: #000000;
+}
+.field2 {
+    background-color: #001122;
+    border: #005577 1px solid;
+    border-top: 0px;
+    color: #99aabb;
+}
+
+.border2a {
+    border: #005577 1px solid;
+    border-left: 0px solid;
+    padding-left: 3px;
+}
+.border2b {
+    border: #005577 1px solid;
+    border-right: 0px solid;
+    padding-left: 3px;
+}
+
+.border2a0 {
+    border: #005577 1px solid;
+    border-left: 0px solid;
+    padding-left: 3px;
+}
+.border2b0 {
+    border: #005577 1px solid;
+    border-right: 0px solid;
+    padding-left: 3px;
+}
+
+UL { margin-left: 4; padding-left: 12;}
+
+a           { color: #ccaa00 }
+a:hover     { color: #eedd00 }
+a.link      { color: #ccaa00 }
+a.active    { color: #ccaa00 }
+a.visited   { color: #ccaa00 }
+
+</STYLE>
+</HEAD>
+
+<BODY topmargin="5" leftmargin="5">
+<TABLE border="0" cellpadding="8" cellspacing="3" align="center" width="800" class=border>
+    <TR>
+        <TD colspan="2" class=header>
+        <P><FONT size="4"><B>bbNote 1.08</B></FONT></TD>
+    </TR>
+    <TR class=field>
+        <TD width="30%">
+        <P class=title2>description</TD>
+        <TD valign="top" width="70%" rowspan="9">
+            <P class=title2>bbNote - Keys</P>
+            <TABLE class=field2 cellspacing="0" width="100%" cellpadding="0">
+                <TR>
+                    <TH class=border2a0 valign="top" colspan="3">
+                        <P><SPAN class="desc">file<BR></SPAN></P>
+                    </TH>
+                    <TD width="15" valign="top">
+                        <P>&nbsp;</P>
+                    </TD>
+                    <TH class=border2b0 valign="top" colspan="3">
+                        <P><SPAN class="desc">block</SPAN></P>
+                    </TH>
+                </TR>
+                <TR>
+                    <TD valign="top">
+                        <P align="right">
+                            <BR>ctrl-n
+                            <BR>ctrl-o
+                            <BR>ctrl-s
+                            <BR>ctrl-f4
+                            <BR>alt-left/right
+                            <BR>f10
+                            <BR>esc
+                            </P>
+                        <P align="right">right-click, alt<BR>with ctrl/mid-btn</P>
+                        <P align="right">drag and drop<BR>with shift</P>
+                        <P align="right">F4<BR>&nbsp;<BR>shift-F4</P>
+                        <P align="right">&nbsp;</P>
+                    </TD>
+                    <TD valign="top" width="10">
+                        <P>&nbsp;</P>
+                        <P>&nbsp;</P>
+                    </TD>
+                    <TD valign="top">
+                        <P><BR>new file
+                           <BR>open file
+                           <BR>save file
+                           <BR>close file
+                           <BR>next/previous file
+                           <BR>zoom
+                           <BR>quit
+                           </P>
+                        <P>menu<BR>files picklist</P>
+                        <P>open file(s)<BR>apply style</P>
+                        <P>save all and<br>reconfigure the box<BR>write all files</P>
+                        <P>&nbsp;</P>
+                    </TD>
+                    <TD width="15" valign="top">
+                        <P>&nbsp;</P>
+                    </TD>
+                    <TD valign="top">
+                        <P align="right"><BR>mark<BR>column mark</P>
+                        <P align="right">ctrl-x<BR>ctrl-c<BR>ctrl-v, ins<BR>del</P>
+                        <P align="right">ctrl-a<BR>ctrl-b<BR>ctrl-u</P>
+                        <P align="right">ctrl-0<BR>ctrl-7,8,9</P>
+                        <P align="right">tab/shift-tab</P>
+                    </TD>
+                    <TD valign="top" width="10">
+                        <P>&nbsp;</P>
+                        <P>&nbsp;</P>
+                    </TD>
+                    <TD valign="top">
+                        <P><BR>with shift-key or mouse<BR>with alt-key</P>
+                        <P>cut to clipboard<BR>copy to clipboard<BR>paste from clipboard<BR>delete</P>
+                        <P>mark all<BR>column mark on/off<BR>make upper/lower case</P>
+                        <P>windows clipboard<BR>private clipboards</P>
+                        <P>indent/unindent<BR>&nbsp;</P>
+                    </TD>
+                </TR>
+                <TR>
+                    <TH class=border2a valign="top" colspan="3">
+                        <P><SPAN class="desc">edit<BR></SPAN></P>
+                    </TH>
+                    <TD width="15" valign="top">
+                        <P>&nbsp;</P>
+                    </TD>
+                    <TH class=border2b valign="top" colspan="3">
+                        <P><SPAN class="desc">search</SPAN></P>
+                    </TH>
+                </TR>
+                <TR>
+                    <TD valign="top" rowspan="3">
+                        <P align="right">
+                        <BR>ctrl-up/dn
+                        <BR>ctrl-home/end
+                        <BR>ctrl-left/right
+                        <BR>ctrl-pgup/pgdn
+                        <BR>alt-up/dn
+                        </P>
+                        <P align="right">enter<BR>shift-bksp<BR>ctrl-enter/bksp<BR>alt-enter<BR>alt-ins/del</P>
+                        <P align="right">ctrl-del<BR>tab/shift-tab</P>
+                        <P align="right">ctrl-z<BR>ctrl-shift-z</P>
+                        <P align="right">ctrl-f / f3<BR>scroll-lock</P>
+                    </TD>
+                    <TD valign="top" rowspan="3">
+                        <P>&nbsp;</P>
+                    </TD>
+                    <TD valign="top" rowspan="3">
+                        <P>
+                        <BR>scroll down/up
+                        <BR>scroll left/right
+                        <BR>previous/next word
+                        <BR>start/end of text
+                        <BR>previous/next block
+                        </P>
+                        <P>break line
+                        <BR>join lines
+                        <BR>insert/delete line
+                        <BR>duplicate line
+                        <BR>shift line up/down</P>
+                        <P>delete right
+                        <BR>tab/backtab</P>
+                        <P>undo
+                        <BR>redo</P>
+                        <P>find
+                        <BR>lock scroll</P>
+                    </TD>
+                    <TD width="15" valign="top" rowspan="3">
+                        <P>&nbsp;</P>
+                    </TD>
+                    <TD valign="top">
+                        <P align="right"><BR>up/down arrow<BR>ctrl-f / f3<BR>esc</P>
+                        <P align="right">case<BR>word<BR>regx<BR>files</P>
+                    </TD>
+                    <TD valign="top">
+                        <P>&nbsp;</P>
+                    </TD>
+                    <TD valign="top">
+                        <P>
+                        <BR>find next/previous
+                        <BR>back to text
+                        <BR>close</P>
+                        <P>case sensitive
+                        <BR>find whole words only
+                        <BR>use regular expression
+                        <BR>search all open files
+                        <BR>&nbsp;</P>
+                    </TD>
+                </TR>
+                <TR>
+                    <TH class=border2b valign="top" colspan="3">
+                        <P><SPAN class="desc"><B>regular expression<BR></B></SPAN></P>
+                    </TH>
+                </TR>
+                <TR>
+                    <TD valign="top">
+                        <P align="center">
+                        <BR>^
+                        <BR>$
+                        <BR>.
+                        <BR>!
+                        <BR>[a-z] &nbsp; [^aeiou]
+                        <BR>?
+                        <BR>*
+                        <BR>+
+                        <BR>|
+                        <BR>()
+                        <BR>{}
+                        <BR>&nbsp;</P>
+                        <P align="center">/<BR>/i<BR>/c</P>
+                    </TD>
+                    <TD valign="top">
+                        <P>&nbsp;</P>
+                    </TD>
+                    <TD valign="top">
+                        <P><BR>start of line
+                        <BR>end of line
+                        <BR>any char
+                        <BR>any char but space
+                        <BR>class, not-class
+                        <BR>optional
+                        <BR>optional repeat
+                        <BR>repeat
+                        <BR>or
+                        <BR>treat as single expression
+                        <BR>as before and assign to
+                        <BR>'%1..%9' in replace-string</P>
+                        <P>escape char
+                        <BR>ignore case from nowon
+                        <BR>care for case from nowon
+                        <BR>&nbsp;</P>
+                    </TD>
+                </TR>
+            </TABLE>
+            <P class=title2>initial setup</P>
+            <P>You can put bbNote.exe together with bbnote.rc in whatever directory you like.
+               bbNote will create a .ini file there to save it's basic configurations.</P>
+            <P>The included bbnote.dll is not needed with bbLean, but with other branches of
+               Blackbox for Windows to tell bbNote about the currently loaded blackbox-style.
+               To load the plugin you need to add its relative path to plugins.rc.
+               For example, if you installed blackbox into c:\blackbox, and bbnote.dll
+               is located in c:\blackbox\plugins\bbnote, you should add the line
+               <pre>plugins\bbnote\bbnote.dll</pre>to plugins.rc.</P>
+            <P>To use bbNote as your preferred blackbox editor, you may wish to add its full
+               path to the extensions.rc configuration file. For example:
+               <pre>blackbox.editor: &quot;c:\blackbox\bbnote.exe&quot;</pre>
+               </P>
+            <P>If you use bbNote without a running blackbox shell, it loads bbnote.rc from it's directory
+               as a default style file. You actually can take any of your favorite styles,
+               copy it beside the executable, and rename it to bbnote.rc.</P>
+            <P>The title-font and the menu-font are taken from the blackbox style, but the font of
+               the edit window is stored in the .ini file. bbNote will work with fixed width
+               fonts only. &nbsp;(drift, edges, lime, lucida console, courier, ...)<BR>&nbsp;</P>
+        </TD>
+    </TR>
+    <TR class=field>
+        <TD width="30%" valign="top">
+            <P>bbNote is a <A href="http://www.bb4win.org">Blackbox for Windows</A>
+                tool, providing blackbox-stylized ascii-text editing.</P>
+            <P>bbNote works with <SPAN class="desc">Blackbox for Windows</SPAN> 0.0.70 or later.</P>
+            <P>&nbsp;</P>
+        </TD>
+    </TR>
+    <TR>
+        <TD width="30%" class=title>
+        <P>revision history</TD>
+    </TR>
+    <TR class=field>
+        <TD width="30%" valign="top">
+            <UL>
+                <LI>1.08 - 05/2009 update to bbLean 1.17</LI>
+                <LI>1.07 - 09/2006 new style syntax</LI>
+                <LI>1.06 - 03/2005 *nix EOL option</LI>
+                <LI>1.05 - 08/2003 colorizer</LI>
+                <LI>1.04 - 05/2003 mouse wheel</LI>
+                <LI>1.03 - 04/2003 added more keys</LI>
+                <LI>1.02 - 04/2003 added keys</LI>
+                <LI>1.01 - 03/2003 preferences</LI>
+                <LI>1.00 - 02/2003 original release</LI>
+            </UL>
+            <P>&nbsp;</P>
+        </TD>
+    </TR>
+    <TR>
+        <TD width="30%" class=title>
+        <P>license information</TD>
+    </TR>
+    <TR class=field>
+        <TD width="30%" valign="top">
+            <P><SPAN class="desc">Copyright 2003-2009 grischka</SPAN></P>
+            <P><SPAN>bbNote IS PROVIDED &quot;AS IS&quot; WITHOUT WARRANTY OF ANY KIND.
+            THE AUTHOR DISCLAIM ALL WARRANTIES, EITHER EXPRESS OR IMPLIED, INCLUDING
+            THE WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+            IN NO EVENT SHALL THE AUTHOR OR ITS SUPPLIERS BE LIABLE FOR ANY DAMAGES
+            WHATSOEVER INCLUDING DIRECT, INDIRECT, INCIDENTAL, CONSEQUENTIAL, LOSS OF
+            BUSINESS PROFITS OR SPECIAL DAMAGES, EVEN IF THE AUTHOR OR ITS SUPPLIERS
+            HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</SPAN>
+            <P>&nbsp;</P>
+        </TD>
+    </TR>
+</TABLE>
+</BODY>
+
+</HTML>

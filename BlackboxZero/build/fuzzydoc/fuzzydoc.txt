@@ -1,0 +1,403 @@
+
+Fuzzydoc
+********
+
+Fuzzydoc v0.1
+
+
+Introduction
+************
+
+Fuzzydoc reads an input text file and creates an output file with the
+same name and the extension ".htm".
+
+Fuzzydoc works by recognising layout, and converting this to HTML.
+Basically, fuzzydoc relies on layout rules that also help to make
+the text readable in any case. For example, blank lines and indentation
+are significant in most places. One consequence of this is that the
+plain text file is very readable even before it is converted.
+
+
+Fuzzydoc is based on 'gurudoc' by iMatix<http://www.imatix.com> and
+keeps close to it's features. Also large portions of this documentation
+are taken unchanged from gurudoc. Implementation is different though.
+
+
+
+Section Headers
+===============
+
+Fuzzydoc handles four levels of headers. In the text these look like
+this:
+
+
+    Chapter Header
+    **************
+
+    Section Header
+    ==============
+
+    Subsection Header
+    -----------------
+
+    Subsubsection Header
+    ....................
+
+The line following the header text must start with 4 or more asterisks
+'*', equals '=', hyphens '-' or dots '.'. There is no way to specify H5
+or other headers. The header text line must come after a blank line,
+or at the start of the document.
+
+The first chapter header is assigned to the page 'title' and to the
+'header' variables unless these are already defined. It is recommended
+to start with a chapter header.
+
+
+You can also request a horizontal rule by putting four or more
+underscore '\_', plus '+' or tilde '~' characters on a line by
+themselves:
+
+    ++++
+
+++++
+
+
+
+Paragraphs
+==========
+
+A paragraph is anything following a blank line that does not look like
+something else. Basically, any plain text following a blank line is
+given a <paragraph> tag. Note however the exceptions that follow...
+
+When lines are indented by two or three spaces, line breaks are
+assumed after each line.
+
+      This is line1.
+      This is line2.
+
+  This is line1.
+  This is line2.
+
+
+
+Preformatted Text
+=================
+
+If a line is indented by 4 or more spaces, or a tab, Fuzzydoc treats the
+line as 'preformatted' text. You can mix blank lines with preformatted text.
+
+        preformatted Text
+
+
+
+Lists
+=====
+
+Bulleted Lists:
+...............
+
+A paragraph starting with a hyphen '-', a plus '+' or a asterisk '*'
+followed by a space is considered to be a bulleted list item.
+
+Numbered Lists:
+...............
+
+A paragraph starting with a digit [0-9] followed by a dash '-', a dot
+'.' or a right parenthesis ')' and followed by a space is considered to
+be a numbered list item.
+
+Lists usage:
+............
+
+You can put blank lines between list items, but it's not necessary.
+Cosmetically, when list items are short, blank lines are disturbing. But
+when list items are several lines, blank lines make the text more
+readable. Either way, Fuzzydoc is happy.
+
+For example:
+
+    - you can do unnumbered lists
+    + as many
+    * as you like
+
+    1- You can also do numbered lists
+    2. With numbers at the beginning of the line
+    3) As many as you like.
+       We should be able to span this one over
+       more lines than just one.
+
+- you can do unnumbered lists
++ as many
+* as you like
+
+1- You can also do numbered lists
+2. With numbers at the beginning of the line
+3) As many as you like.
+   We should be able to span this one over
+   more lines than just one.
+
+
+
+Definitions
+===========
+
+A definition list is a line ending with a colon ':' and followed by some
+lines indented by one or more spaces.
+
+For example:
+
+    Indention of text:
+        Explanation one.
+    Second indention:
+        Explanation two. We should be able to span
+         this one over more lines than just one.
+
+Indention of text:
+    Explanation one.
+Second indention:
+    Explanation two. We should be able to span
+     this one over more lines than just one.
+
+You can put blank lines between definition items, but again, it's a
+matter of cosmetics. There should be a blank line before the first
+definition item, however.
+
+
+
+Quoted Text
+===========
+
+Quoted text is marked by indentation and a leading ", as follows:
+
+     "Life is a stage and we are all but actors in a play"
+      -- William Shakespear
+
+ "Life is a stage and we are all but actors in a play"
+  -- William Shakespear
+
+
+
+Tables
+======
+
+Fuzzydoc tries to solve the most common case; a rectangular table
+consisting of a N columns and M rows.
+
+A table can start with a header, which is a line like this:
+
+    Some column:  Followed by some explanation:
+
+Some column:  Followed by some explanation:
+
+Here, the colons (':') are important. Fuzzydoc wants one or more
+spaces after the colons and one at the end of the line. Fuzzydoc
+also needs a blank line before the table. A table item looks like this:
+
+    Column: Explanation:
+    Table_item_with_some_spaces: Here is what is all means
+        We should be able to span this one over
+        more lines than just one.
+    Another_table_item: More things follow in this table.
+
+Column: Explanation:
+Table_item_with_some_spaces: Here is what is all means
+    We should be able to span this one over
+    more lines than just one.
+Another_table_item: More things follow in this table.
+
+A bigger one:
+
+    Col 1: Col 2: Col 3: Col 4:
+    a11: a12: a13: a14
+    a21: a22: a23: a24
+    a31: a32: a33: a34
+    a41: a42: a43: a44
+
+Col 1: Col 2: Col 3: Col 4:
+a11: a12: a13: a14
+a21: a22: a23: a24
+a31: a32: a33: a34
+a41: a42: a43: a44
+
+The explanation can come on several lines, which MUST be indented by
+one or more spaces.
+
+
+
+Figures
+=======
+
+To insert a figure, use these conventions:
+
+    [Figure filename]
+
+For example:
+
+    Figure 1: [Figure figure1.jpg]
+
+Figure 1: [Figure figure1.jpg]
+
+
+
+Hyperlinks
+==========
+
+This is converted into a hyperlink:
+
+    http://www.address.org/document
+
+http://www.address.org/document
+
+
+This is converted into a hyperlink as well:
+
+    mailto:name@address
+
+mailto:name@address
+
+
+You can preceed the URL by the display-text like this:
+
+    go_here<http://www.address.org/document>
+
+go_here<http://www.address.org/document>
+
+
+For relative URL's use this convention:
+
+    read_this<./other_document>
+
+read_this<./other_document>
+
+
+
+Special Characters
+==================
+
+Underscores are converted to non-breaking spaces:
+
+    This_is_a_long_word.
+
+This_is_a_long_word.
+
+
+Two asterics make bold what's in between.
+
+    This is *very* nice!
+
+This is *very* nice!
+
+
+Two slashes at the start of a line disables the line
+
+    //This does not show up.
+    But this.
+
+//This does not show up.
+But this.
+
+Also <!-- at the start of a line and --> at the end of a line
+may be used to exclude multiple lines from output.
+
+
+
+Usage:
+*****
+
+To build the document from the plain text file, type from the command line:
+
+    fuzzydoc <inputfile>
+
+
+
+Multiple Files
+==============
+
+To include text from another file, use this convention:
+
+    [See filename]
+
+This takes the text from the specified filename and inserts it in place of
+the line containing the [See] instruction.
+
+
+
+Templates
+=========
+
+Fuzzydoc creates the output files from templates. Fuzzydoc can output
+files in simple mode or in framed mode. It will switch automatically
+to framed mode, when it sees a '<frameset>' tag in the template.
+You can tweak the templates to get some final outputs.
+
+
+Default template for simple mode:
+- tpl\_simple.htm
+
+Default templates for framed mode:
+- tpl\_frame.htm
+- tpl\_frame\_toc.htm
+- tpl\_frame\_body.htm
+
+To include another file into the template, use:
+
+    $(include filename)
+
+
+
+Variables
+=========
+
+Fuzzydoc always checks if the file contains some variable definitions.
+Variable definitions are enclosed by [fuzzydoc] and [endfuzzy] on a
+separate line.
+
+These variables may be set to alter the default behaviour:
+
+Variable:       Example:        Effect:
+template        : = tpl_file    : Specify template basename
+table-start     : = <table ...> : Specify html open tag to be inserted for tables.
+table-column-width-1: = 30%     : Specify width for table column 1(2,3...)
+basename        : = mydoc       : Output filename base
+extension       : = .htm        : Output file extension
+tocmode         : = para|list|lines   : Table of Contents outlay mode
+
+These variables are automatically set for use in templates:
+
+Variable:       Content:
+toc             : Prints the table of contents
+body            : Prints the html body code
+title           : Defaults to first chapter header
+header          : Defaults to first chapter header
+chapter-name    : Name of current chapter (framed mode only)
+chapter-anchor  : Top anchor of current chapter (framed mode only)
+chapter-1..n    : File-suffix of chapter 1..n (framed mode only)
+
+Other variables may be specified and then referred to in templates. You
+can add any informations to tune the results of Fuzzydoc.
+
+
+
+License
+*******
+
+Fuzzydoc is copyright 2004-2009 grischka@users.sourceforge.net
+
+Fuzzydoc is free software, released under the GNU General Public
+License (GPL version 2). For details see:
+
+http://www.fsf.org/licenses/gpl.html
+
+THIS PROGRAM IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+BUT WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+-------------------------------------------------------------------------
+[fuzzydoc]
+    footer      = copyright 2004-2009 grischka@users.sourceforge.net
+    title       = fuzzydoc
+    template    = tpl_simple
+    cssfile     = style.css
+[endfuzzy]
+-------------------------------------------------------------------------

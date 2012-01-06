@@ -1,0 +1,1006 @@
+****************************************************************************
+bbLean
+******
+
+ "A new Blackbox for Windows generation..."
+
+Overview
+********
+
+bbLean is the lean version of Blackbox for Windows. It tries
+to keep balance between features and complexity, to give you
+some efficient means within a compact shell.
+
+bbLean is based stylistically on the
+Blackbox_window_manager<http://blackboxwm.sourceforge.net/>
+for the X Window System by Brad Hughes.
+
+****************************************************************************
+Quick Start
+===========
+
+First:
+- Extract the zip-package to a folder on your computer, such as c:\bbLean.
+- Click on blackbox.exe to start.
+- Right-click on the desktop background to show the main menu.
+
+Later:
+- Checkout the universe of plugins available for Blackbox for Windows.
+- You may want to set bbLean as default_shell. See -> 'Install as Shell'.
+
+****************************************************************************
+User Interface
+==============
+
+The Blackbox for Windows shell consists of the following elements:
+- Desktop   - the background of the screen
+- Toolbar   - the undispensible representative of all members of the blackbox family
+- Menus     - configurables, predefined ones and folder listings.
+- Keyboard  - Hotkeys for various action, implememted in the bbKeys plugin.
+- Many others, available as plugins.
+
+****************************************************************************
+Desktop
+-------
+Mouse event:                        Effect:
+right-click                         : show main menu 
+mid-click_/_right-click_with_shift  : show workspaces menu
+left-click                          : hide menus / bring pinned menus on top
+
+These and other desktop mouse-clicks are configurable in extensions.rc.
+
+Drop_Image:                         Display mode:
+no modifier                         : centered
+with shift held down                : stretched
+with control held down              : tiled
+
+****************************************************************************
+Toolbar
+-------
+Mouse event:                        Effect:
+right-click                         : show options menu
+right-click on label                : show workspaces menu
+right-click on clock                : show main menu
+double-click on clock               : date & time control
+ctrl + left-drag                    : drag toolbar temporarily
+ctrl + double-left-click            : reset position
+
+The toolbar may be turned on or off from Configuration->Misc. Please note
+that what you see in the default installation is not the toolbar but bbLeanBar.
+See readme.txt and bbLeanBar.rc in the plugins/bbLeanBar folder.
+
+****************************************************************************
+bbLeanBar
+---------
+on taskentry : :
+left-click                          : activate task
+gesture to the left/right           : move window to previous/next workspace
+shift-left-click                    : zoom task into current workspace
+right-click                         : minimize task / show window system menu (depending
+                                      on the setting in Configuration->Tasks->System menu)
+shift-right-click                   : close task
+middle-click                        : move task to next workspace
+shift-middle-click                  : move task to previous workspace
+alt-left-click                      : change task display mode (text, icon, text+icon)
+alt-right-click                     : toggle 'current only' mode
+
+on workspace label : :
+left/right-click                    : switch to next/previous workspace
+left-double-click                   : open clock properties
+<other>                             : take over the configuration for desktop-clicks in extension.rc
+
+on tray icon : :
+ctrl-right                          : show icons menu
+alt-right                           : toggle all hidden icons
+shift-right                         : toggle one icon
+<other>                             : forwarded to the icons' application>
+
+on current-only button : :
+left click                          : toggle display tasks for all/current workspace
+right click                         : toggle display all trayicons
+
+on the entire bar : :
+ctrl-right                          : bbleanbar options menu
+ctrl-left-drag                      : move the bar
+ctrl-left-double-click              : reset the bar to its previous location
+
+****************************************************************************
+Menus
+-------
+Mouse event:                        Effect:
+right-click on desktop background   : open main menu
+left-click on desktop background    : close menus / bring menus on top
+right-click on titlebar             : close this menu
+left-click the titlebar and drag    : move / pin menu
+double-left-click the titlebar      : toggle on top property
+left-click on folder                : bring back pinned submenu
+double-left-click on folder         : explore folder (*)
+left-drag of file-item              : drag item elsewhere
+right-click on file-item            : open context menu for file or folder
+shift+right-click on folder titlebar : open folder's context menu
+alt-double-left on file/folder      : show properties
+mouse wheel / drag scroll-button    : scroll long menus
+
+(*) This command is configurable in extensions.rc, for instance:
+
+    blackbox.options.openFolderCommand: explorer.exe /e,"%1"
+
+Keyboard navigation:                Effect:
+up/down/left/right arrows           : navigate
+page-up/down home/end               : navigate
+crtl+up/down                        : scroll menu
+alt+up/down/left/right arrows       : move menu
+letters A-Z,0-9,...                 : shortcut (underscored or first letter)
+enter, spacebar                     : activate item
+alt-enter                           : show properties (file/folder)
+app-key                             : show context menu
+tab                                 : cycle through pinned menus
+F5                                  : update folder
+ctrl+n,e,t,s                        : sort folder by name, extension, time, size
+insert                              : pin menu / toggle onTop mode
+del, escape                         : close menu
+
+Notes:
+
+See the included bbkeys.rc<Keyboard> for examples, how to invoke the menu from
+the keyboard. The LWIN and RWIN key shortcuts work only if bbLean
+is installed as default shell.
+
+Hold down control for faster progress with the -number+ items.
+
+Keyboard
+--------
+Shortcut hotkeys for various actions like changing workspaces or
+switching windows are done with the *BBKeys* plugin. Edit 'bbkeys.rc'
+to change or add key bindings.
+
+Default bbkeys.rc bindings:
+
+Menu: :
+LWin:                       ShowMenu -key root
+RWin:                       ShowMenu -key
+Win + Ctrl + M:             ShowMenu
+Win + Shift + M:            ShowWorkspaceMenu
+
+Workspaces: :
+Win + Num1..6:              Workspace1..6
+Win + Left:                 PrevWorkspace
+Win + Right:                NextWorkspace
+Win + Ctrl + Left:          PrevWindow
+Win + Ctrl + Right:         NextWindow
+Win + Ctrl + Up:            PrevWindowAllWorkspaces
+Win + Ctrl + Down:          NextWindowAllWorkspaces
+Win + Up:                   MoveWindowLeft
+Win + Down:                 MoveWindowRight
+Win + G:                    GatherWindows
+
+Windows: :
+Win + X:                    MaximizeWindow
+Win + V:                    MaximizeVertical
+Win + H:                    MaximizeHorizontal
+Win + N:                    MinimizeWindow
+Win + Y:                    RestoreWindow
+Win + D:                    MinimizeAll
+Win + End:                  ShadeWindow
+Win + PageUp:               RaiseWindow
+Win + PageDown:             LowerWindow
+Win + Insert:               StickWindow
+Win + Delete:               CloseWindow
+
+Blackbox: :
+Win + M:                    EditMenu
+Win + P:                    EditPlugins
+Win + S:                    EditStyle
+Win + Ctrl + S:             AboutStyle
+Win + Ctrl + P:             TogglePlugins
+Win + T:                    ToggleTray
+Win + Ctrl + R:             Reconfigure
+Win + Alt + R:              Restart
+Win + Q:                    Quit
+
+System: :
+Win + F10:                  Logoff
+Win + F11:                  Reboot
+Win + F12:                  Shutdown
+Win + Ctrl + F12:           Hibernate
+Win + Alt + F12:            Suspend
+Win + Spacebar:             LockWorkstation
+Win + R:                    Run
+
+Extern commands: :
+Win + E:                    Exec explorer.exe /e,c:\  (explorer window)
+Win + Pause:                Exec control.exe sysdm.cpl (system properties)
+Win + Home:                 Exec docs\bblean.htm (bbLean documentation)
+
+****************************************************************************
+Plugins
+-------
+
+To load a plugin
+................
+
+Either use bbLean's configuration menu or add it manually to
+plugins.rc and restart bbLean.
+
+Clicking the right mouse button on a plugin with the control key held down
+will usually show its configuration menu.
+
+Dragging with the left mouse button with the control key held down
+will usually allow you to move the plugin over the screen.
+
+To load a plugin into BBSlit, you need to:
+- have BBSlit itself loaded (of course)
+- load the plugin
+- check the plugin in bbLean's "Configuration->Plugins->In Slit" menu.
+- check "Use Slit" or "Docked to Slit" in the plugin's own configuration menu.
+
+Some basic plugins
+..................
+
+Plugin:         Author:     Note:
+BBAnalogExMod   : ysuke     : Analogue clock, with alarm etc.
+BBCalendar      : Theo      : Calendar that lets you set events on days.
+BBEdgeFlip      : BladeStaylor : Switches workspace when mouse touches screen edge
+BBIcons         : Tres`ni   : Icons to start programs, sitting on desktop or in the slit.
+    Get docs from the pack here<http://xoblite.net/plugins.html>,
+    but use latest version from here<http://bb4win.sourceforge.net/latest/Latest/>.
+bbIconBox       : grischka  : Icons in boxes.
+BBInterface     : psyci     : Buttons, sliders, icons and more...
+BBMail          : qwilk     : Checks your email accounts.
+bbNote          : grischka  : Little stylized editor to edit your rc-files and other things.
+BBPager         : NC-17     : Virtual workspace display and control.
+//BBSlit          : Tres`ni   :   A container window to place other plugins in it.
+//    Use latest_version<http://bb4win.sourceforge.net/latest/Latest/>.
+BBSoundFx       : qwilk     : Plays sound snippets on various events.
+BBTaskSwitch    : kana      : BB-stylized Alt-Tab SwitchWindow.
+BBXEyes         : Procic Konstantin : Eyes following your cursor around the screen
+SystembarEx     : BladeStaylor : Very configurable advanced taskbar.
+    Available here<http://bb4win.sourceforge.net/systembarex/>. Use the
+    latest built (07-14) from here<http://bb4win.sourceforge.net/systembarex/bin/test/>.
+bbFoomp         : freeborn  : Front-end for foobar2k (must be loaded into slit).
+
+There are many other plugins available. See -> 'Links'.
+
+
+Note: If you get an error loading a plugin it might require extra runtime
+libraries (msvcr71/msvcp71.dll, msvcr80/msvcp80.dll, gdiplus.dll, ...).
+Kana's plugins require bbcmd.dll from his website.
+
+You can put these into the system32 directory or into the same directory
+as blackbox.exe.
+
+****************************************************************************
+Details
+*******
+
+Building The Menu
+=================
+
+To build or change your main menu, open menu.rc in a text editor. See also the
+included default menu.rc as an example.
+
+Notes:
+- Lines starting with # or ! are ignored.
+- In a menu label, a single '&' makes a shortcut letter, to display '&', use '&&'.
+- You can use environment variables (e.g. %USERNAME%) to make your menu
+  work for different setups.
+
+Each menu item consists of 1..3 fields:
+
+    [command]  (label)  {data}
+
+Menu structure: :
+[begin] (label)             : indicates the begin of the menu, label is optional.
+[end]                       : indicates the end of the menu or submenu, required.
+[submenu] (label)           : inserts a submenu into the menu, must be closed by [end]
+[include] {filename}        : This will continue reading items from the indicated file.
+[nop] (label)               : inserts an inactive item with an optional label
+[sep]                       : inserts a separator (same as [nop] with no label)
+
+Inserting submenus: :
+[path] (label) {folder}     : inserts an submenu with a folder from your computer as specified
+[path] (label) {folder1|folder2} : merges two folders into a single menu
+[insertpath] {folder}       : inserts items from a folder into the current menu
+[stylesmenu] (label) {folder} : insert a submenu with stylefiles from a folder
+[stylesdir] {folder}        : insert style files from a folder into the current menu
+[config] (label)            : inserts the configuration menu
+[workspaces] (label)        : insert the workspaces menu
+[tasks] (label)             : insert a menu with the current tasks
+[icons] (label)             : insert a menu with the currently minimized tasks
+
+In addition to normal paths like {c:/program files/...}, a number of items may
+be used to indicate a special shellfolder. See shellfolders.rc for examples.
+
+Blackbox commands: :
+[style] (label) {filename}  : insert an item to apply a new style.
+[toggleplugins] (label)     : show/hide plugins
+[aboutplugins] (label)      : display 'about plugins' info
+[aboutstyle] (label)        : display 'about style' info
+[gather] (label)            : gather windows in current workspace
+[reconfig] (label)          : re-read the configuration files
+[restart] (label)           : reload plugins
+[exit] (label)              : exit blackbox
+
+Edit commands: :
+[edit] (label) {file}       : edit the specified 'file' 
+[editstyle] (label)         : edit the current style 
+[editmenu] (label)          : edit menu.rc 
+[editlugins] (label)        : edit plugins.rc 
+[editextensions] (label)    : edit extension.rc 
+[editblackbox] (label)      : edit blackbox.rc 
+
+The 'edit' commands use the 'blackbox.editor', which is specified in
+extensions.rc. For example:
+
+    blackbox.editor: bbnote.exe
+
+Shutdown commands: :
+[logoff] (label)            : logoff (*)
+[suspend] (label)           : suspend the computer (*)
+[hibernate] (label)         : hibernate (*)
+[reboot] (label)            : reboot the computer (*)
+[shutdown] (label)          : shutdown the computer (*)
+[lockworkstation] (label)   : lock workstation
+[switchuser] (label)        : fast user switch
+[exitwindows] (label)       : display standard shutdown dialog
+
+(*) You can add -q(uiet) for no confirmation. For example
+
+    [logoff -q] (Log Out)
+
+External commands: :
+[run] (label)               : show the windows 'run' dialog
+[exec] (label) {command}    : run a program (*) or execute a broam<Broadcast Messages>.
+
+(*) Optionally a working directory or a start workspace can be specified,
+    or a (console-) program can be started in an hidden window:
+
+    [exec] (label) { -in "c:\working-dir" : program args ... }
+    [exec] (label) { -workspace2 : program args ... }
+    [exec] (label) { -hidden : program args ... }
+
+****************************************************************************
+Backgrounds
+===========
+
+Generally, the background can be an image or a dynamically generated
+gradient. The background is specified in the current style with
+a line that starts like:
+
+    rootCommand: bsetroot -full "backgrounds\your_image.jpg"
+
+Click on bsetroot.exe to get some help with it. See also the
+documentation<./bsetroot.htm> for bsetroot.exe.
+
+bbLean uses bsetroot.exe to generate the background and then either
+displays it on its own or lets Windows set the wallpaper, depending
+on the setting of 'Smart Wallpaper' in 'Configuration->Graphics'.
+
+Also any processing of the rootCommand may be disabled in
+'Configuration->Graphics'.
+
+****************************************************************************
+Desktop Margins
+===============
+
+Desktop Margins are the areas of the screen that aren't covered by
+maximized windows. They can be set to adjust automatically according
+to the placement of the bars or manually from the configuration menu.
+
+- 'auto' (-1 in extensions.rc) means automatic adjustment
+  to the toolbar's or Systembar's thickness.
+- Values '0..x' mean fixed margin settings in pixels.
+- With 'Full Maximisation' all margin settings are ignored.
+
+Multiple monitors: Automatic adjustement is supposed to
+work independently on monitors. Margins for a 2nd monitor
+may be set manually in extensions.rc like:
+
+    blackbox.desktop.2.marginLeft: ...
+
+****************************************************************************
+Sticky Windows
+==============
+
+List each application to be common among all workspaces on a separate
+line in 'StickyWindows.ini' (located in the blackbox.exe's folder), save
+the changes, and 'reconfigure.' 
+  
+Click 'Show Appnames' from 'Configuration->Misc.' to get a list of
+the currently running tasks and their internal names. 
+  
+****************************************************************************
+Install as Shell
+============
+
+bbLean can be run on top of explorer or installed as default shell.  To install
+bbLean as default shell, use the included *bsetshell* tool.
+
+On Win2k/XP/Vista you can install bbLean for all users or for certain users
+only. To install bbLean for certain users only you first need to run bsetshell
+as administrator (right-click -> "Run as ...") and enable "per-user" shell
+setting. Then from the user account set blackbox as shell for that user.
+
+Notes:
+- With unexpected problems after installation, hold down 'Control' during
+  startup. This will give you the option to uninstall bbLean before it actually
+  loads.
+- When running bbLean over explorer the systray icons won't show in many cases.
+
+****************************************************************************
+CommandLine
+===========
+
+Switches: :
+-help:          Show version and commandline info
+-install:       Install Blackbox as default shell
+-uninstall:     Reset Explorer as default shell
+-nostartup:     Do not run startup programs
+-rc <file>:     Specify alternate blackbox.rc
+-exec <@broam>:  Send broadcast message to running shell
+
+****************************************************************************
+Broadcast Messages
+==================
+
+Broadcast messages (Broams) are messages sent to Blackbox and plugins
+to trigger some actions.
+
+They may be sent
+- from the menu, such as:
+
+    [exec] (label) {@BroadcastMessage}
+
+- from a key shortcut, in bbkeys.rc:
+
+    ..., WithAction(@BBCore.ShowMenu)
+
+- by other means, for instance by a 'BBInterface' button.
+
+Broadcast messages recognized by the core:
+.........................................
+
+Menu: :
+@BBCore.ShowMenu            : show pinned menu, or main menu as default
+@BBCore.ShowMenu Root       : show the main menu
+@BBCore.ShowMenu_Workspaces : show workspaces menu
+@BBCore.ShowMenu Tasks      : show menu with all tasks
+@BBCore.ShowMenu Icons      : show menu with minimized tasks
+@BBCore.ShowMenu_Configuration : show configuration menu
+@BBCore.ShowMenu <path>     : show folder as specified
+@BBCore.ShowMenu_<menu.rc>  : display alternative menu as specified
+@BBCore.HideMenu            : hide all menus that are not 'pinned'
+
+ShowMenu Options: :
+@BBCore.ShowMenu -at x,y ...    : show menu at position x,y as specified
+@BBCore.ShowMenu -at rb x,y ... : align at position with right and/or bottom edge
+@BBCore.ShowMenu -key ...       : show menu at position as in blackbox.rc
+@BBCore.ShowMenu -toggle        : hide menu if it currently has focus
+@BBCore.ShowMenu -pinned ...    : make menu stay permanently
+@BBCore.ShowMenu -ontop ...     : make menu stay on top
+@BBCore.ShowMenu -notitle ...   : show title-less menu
+
+Windows: :
+@BBCore.PrevWindow          : activate previous window
+@BBCore.NextWindow          : activate next window
+@BBCore.PrevWindowAllWorkspaces : activate previous window (all workspaces)
+@BBCore.NextWindowAllWorkspaces : activate next window (all workspaces)
+@BBCore.RaiseWindow         : bring bottom window on top
+@BBCore.LowerWindow         : send top window to bottom
+@BBCore.ShadeWindow         : shade window
+@BBCore.StickWindow         : make window appear on all workspaces
+@BBCore.OnTopWindow         : make window always on top
+@BBCore.MinimizeWindow      : minimize window
+@BBCore.MaximizeWindow      : maximize window
+@BBCore.MaximizeVertical    : maximize window vertically
+@BBCore.MaximizeHorizontal  : maximize window horizontally
+@BBCore.RestoreWindow       : restore window
+@BBCore.MoveWindow          : move the window
+@BBCore.ResizeWindow        : resize the window
+@BBCore.CloseWindow         : close window
+@BBCore.ActivateWindow      : activate the window in the foreground
+
+All Windows: :
+@BBCore.MinimizeAll         : minimize all windows
+@BBCore.RestoreAll          : restore all windows
+@BBCore.Cascade             : cascade windows
+@BBCore.TileVertical        : tile windows vertically
+@BBCore.TileHorizontal      : tile windows horizontally
+
+Workspaces: :
+@BBCore.PrevWorkspace       : previous workspace
+@BBCore.NextWorkspace       : next workspace
+@BBCore.SwitchToWorkspace_#n : switch to workspace number #n
+@BBCore.LastWorkspace       : switch to last used workspace
+@BBCore.MoveWindowLeft      : move window to previous workspace
+@BBCore.MoveWindowRight     : move window to next workspace
+@BBCore.MoveWindowToWS_#n   : move window to workspace number #n and switch WS
+@BBCore.SendWindowToWS_#n   : send window to workspace number #n and don't switch
+@BBCore.GatherWindows       : gather all windows in the current workspace
+@BBCore.AddWorkspace        : add another workspace
+@BBCore.DelWorkspace        : remove the last workspace
+@BBCore.EditWorkspaceNames  : edit the names of workspaces
+
+Blackbox: :
+@BBCore.toggleplugins       : toggle plugins (if configured to 'toggle with plugins')
+@BBCore.toggleplugins_true/false : show/hide plugins (if configured to 'toggle with plugins')
+@BBCore.aboutstyle          : display style info
+@BBCore.aboutplugins        : display plugin info
+@BBCore.about               : display core info
+@BBCore.reconfig            : reload style-settings and rc-settings
+@BBCore.restart [-p]        : unload and reload all plugins. (*) -p(ause) = paused restart.
+@BBCore.exit [-q]           : exit the blackbox shell. -q(uiet) = no confirmation.
+
+Edit:  :
+@BBCore.editstyle           : run the 'blackbox editor' on the current style
+@BBCore.editmenu            : run the 'blackbox editor' on menu.rc
+@BBCore.editplugins         : run the 'blackbox editor' on plugins.rc
+@BBCore.editextensions      : run the 'blackbox editor' on extensions.rc
+@BBCore.editblackbox        : run the 'blackbox editor' on blackbox.rc
+@BBCore.edit <file>         : run the 'blackbox editor' on the specified file
+
+The 'blackbox editor' is specified in extensions.rc.
+
+Shutdown: :
+@BBCore.shutdown [-q]       : shutdown the computer. -q(uiet) = no confirmation.
+@BBCore.reboot [-q]         : reboot the computer
+@BBCore.logoff [-q]         : logoff
+@BBCore.hibernate [-q]      : hibernate
+@BBCore.suspend [-q]        : suspend the computer
+@BBCore.lockworkstation     : lock workstation
+@BBCore.switchuser          : fast user switch
+@BBCore.exitwindows         : display standard shutdown dialog
+
+Other: :
+@BBCore.exec_<command>      : execute command
+@BBCore.style <stylefile>   : apply the specified style
+@BBCore.rootCommand_<command> : set wallpaper, command is any line, 'style' or 'none'.
+@BBCore.run                 : display the windows 'run' dialog
+@BBCore.message_<message>   : popup a message box for confirmation
+@BBCore.label_<message>     : display message on the toolbar label for 2 seconds
+@BBCore.pause #n            : pause for #n milliseconds
+@BBCore.nop                 : do nothing
+@BBCore.post_<command>      : execute command slightly later. Useful to unload a plugin from itself.
+@BBCore.showAppnames        : display module information of running tasks.
+@BBCore.showRecoverMenu     : display a menu that can be used to recover hidden windows
+                              after a crash while alternate workspace method was enabled.
+                              Use with care.
+
+Configuration: :
+@BBCfg.plugin.load_<plugin>         : load/unload a plugin
+@BBCfg.plugin.inslit_<plugin>       : toggle slit mode for plugin
+@BBCfg.plugin.add_<pathToPlugin>    : add a plugin to the list and load it
+
+Any '@BBCfg...' command that toggles a setting, can have an optional
+argument 'true' or 'false' to specify the new state. For example to unload
+bbLeanBar if loaded and do nothing otherwise:
+
+    @BBCfg.plugin.load bbLeanBar false
+
+Use the *Show Bro@ms* option in Configuration->Menus to view other
+broadcast messages for core configuration and plugins.
+
+Mini-Script
+............
+
+This is to execute multiple commands on one broadcast message. The
+command list must be enclosed into '[_]'s, and single commands are
+separated by '|'s and may be broams or external executables.
+
+    @Script [@SomeBroam | some_prog arguments | @AnotherBroam]
+
+****************************************************************************
+Hotkeys
+=======
+
+Hotkeys are done with the 'bbKeys' plugin and its configuration file 'bbKeys.rc'.
+The line-format in bbkeys.rc is like this:
+
+    KeyToGrab(<hotkey>), WithModifier(<modifiers>), WithAction(<action>)
+
+Available hotkeys:
+- A..Z and 0..9
+- F1..F12
+- LEFT RIGHT UP DOWN HOME END PAGEUP PAGEDOWN INSERT DELETE
+- TAB BACKSPACE SPACEBAR ENTER ESCAPE APPS PRTSCN PAUSE
+- NUM0..NUM9
+- MUL DIV ADD SUB DEC
+- LWIN RWIN
+- VK### - General virtual key code (decimal). For example VK112 is the same
+  as F1. Tables for virtual key codes can be found on the internet.
+
+Available modifiers:
+- CTRL SHIFT ALT WIN
+
+Available actions:
+- Any of the @BBCore_commands<Broadcast Messages>, but omitting the '@BBCore.'
+  part. To run programs or to send other broadcast messages, the 'exec' action
+  can be used.
+
+Default Hotkey Bindings:
+- Read -> here<Keyboard>.
+
+****************************************************************************
+Clock Formatting
+================
+ 
+These codes are used for formatting the clock displays, for ...
+
+- the Toolbar, in blackbox.rc:
+
+    session.screen0.strftimeFormat: %#I:%M:%S %p
+
+- bbLeanbar, in bbleanbar.rc:
+
+    bbleanbar.strftimeFormat: %d %a %#H:%M
+
+Label: Value:
+%a:  Abbreviated weekday name 
+%A:  Full weekday name
+%b:  Abbreviated month name
+%B:  Full month name
+%c:  Date and time representation appropriate for locale
+%d:  Day of month as decimal number (01 - 31)
+%H:  Hour in 24-hour format (00 - 23)
+%I:  Hour in 12-hour format (01 - 12)
+%j:  Day of year as decimal number (001 - 366)
+%m:  Month as decimal number (01 - 12)
+%M:  Minute as decimal number (00 - 59)
+%p:  Current locale's A.M./P.M. indicator for 12-hour clock
+%S:  Second as decimal number (00 - 59)
+%U:  Week of year as decimal number, with Sunday as first day of week (00 - 53)
+%w:  Weekday as decimal number (0 - 6; Sunday is 0)
+%W:  Week of year as decimal number, with Monday as first day of week (00 - 53)
+%x:  Date representation for current locale
+%X:  Time representation for current locale
+%y:  Year without century, as decimal number (00 - 99)
+%Y:  Year with century, as decimal number
+%z:  Either the time-zone name or time zone abbreviation, depending on registry
+     settings; no characters if time zone is unknown
+%Z:  same as above
+%%:  Percent sign
+%K:  Special extension with bbLeanBar: Two letter abbreviation for the active
+     keyboard layout
+
+The # flag modifies some of the above as follows:
+
+Format: Effect:
+%#c:  Long date and time representation, appropriate for current locale. 
+%#x:  Long date representation, appropriate to current locale. 
+%#d,H,I,j,m,M,S,U,w,W,y,Y:  Remove leading zeros (if any). 
+%#a,A,b,B,p,X,z,Z,%:       # flag is ignored
+
+
+You can set another language for the clock display in extensions.rc.
+
+    blackbox.options.locale: <locale-id>
+
+For locale-id's see http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
+
+****************************************************************************
+Hacks
+=====
+
+Experimental options in extensions.rc
+......................................
+
+Some options are supported to disable parts of the bbLean shell for
+special purposes:
+
+Option : Default : Description :
+blackbox.options.hideExplorer   : true  : hide desktop icons when run under explorer (Q)
+blackbox.options.hideTaskbar    : true  : hide explorer taskbar when run under explorer (Q)
+blackbox.options.disableTray    : false : do not receive tray events (Q)
+blackbox.options.disableMargins : false : do not set desktop margins (Q)
+blackbox.options.disableVWM     : false : disable workspaces (Q)
+blackbox.options.disableDDE     : false : do not initialize DDE in shdocvw.dll (Q)
+blackbox.options.shellContextMenu : false : use plain grey context menu (right-click)
+blackbox.options.disableDesk    : false : do not create an own desktop window (Q)
+blackbox.options.desktopHook    : false : use deskhook.dll to receive desktop clicks (Q) (D)
+
+(R) Restart the shell to apply -
+(Q) Quit and restart the shell to apply -
+(L) Logout and login again to apply
+
+(D) deskhook.dll can be used in combination with no own desktop window to receive mouse
+clicks on the explore desktop background. deskhook.dll is not part of the binary package,
+but is included in the source code.
+
+
+Other options for extensions.rc:
+
+Option : Default : Description :
+blackbox.options.openFolderCommand : explorer : for menu double-click, e.g. explorer.exe /e,"%1" (R)
+blackbox.options.locale         : C : locale identifier for clock and date strings (R)
+blackbox.options.UTF8Encoding   : false : use unicode and read menu.rc etc. as UTF-8 files (R)
+blackbox.options.OldTray        : false : Vista Support with older Taskbars (e.g. SystembarEx) (Q)
+blackbox.options.translation    :       : translation file for messages and menus. See "docs/nls-c.txt" (R)
+blackbox.options.log            :       : enable blackbox.log. Possible options: Startup, Tray (L)
+blackbox.editor                 : notepad : editor to edit styles and rc files (R)
+blackbox.startup.run            :       : program or script to run after system startup (L)
+blackbox.contextmenu.itemAdjust : 28/28 : left adjust for contextmenus/sendto. (R)
+blackbox.appearance.bullet.bitmap :     : bitmap for menu bullets. See "docs/menu-bullets.bmp" (R)
+
+(R) Restart the shell to apply -
+(Q) Quit and restart the shell to apply -
+(L) Logout and login again to apply
+
+****************************************************************************
+Issues
+======
+
+bbLean runs on windows versions 95/98/me/2000/xp/vista.  Still there may be
+potential problems:
+
+Systray icons missing:
+  You need to install blackbox as shell to get all systray icons.
+  See -> 'Install as Shell'
+
+Shell crashes, hangs, does not start, etc.:
+  Unload all plugins first, then try again.  Also some anti-virus/spyware
+  programs cah cause problems with bbLeanSkin and/or blackbox itself.
+
+Drawing issues with applications, unresponsive applications:
+  May be caused by bbLeanSkin. See bbLeanSkin/readme.txt for details on
+  how to exclude applications from being skinned. Also, on XP/Vista it is
+  recommended to use the 'Windows Classic' design option (in 'Display Properties').
+
+Titlebars flickers:
+  May happen with bbLeanSkin when the caption text is frequently updated.
+  Can't be fixed.
+
+Find files:
+  Does not work from the context menu. Hit F3 or Ctrl-F in an explorer window
+  instead. Or use an alternate tool like Agent Ransack...
+
+Network Places and Recent Documents folder don't update:
+  This also does not seem to work without the explorer shell. On a blackbox
+  menu you can press F5 to refresh.
+
+'SendTo' or 'Open With' menus empty or scrambled:
+  Turn off 'ClearType' fonts (XP/Vista).
+
+Plugins conflict with gaming:
+  Disable 'Always On Top' and 'AutoHide' with plugins. Or hit Win+Ctrl+P
+  to toggle plugin visibility.
+
+Lost Windows, other issues with workspaces:
+  Hit Win-G to 'Gather Windows' in the current workspace. If the problem
+  continues, try 'Alternate Workspace Method' off or on, respectively.
+  With Winamp, checkout its 'LiteStep Virtual Desktop' options, or
+  add it to StickyWindows.ini<Sticky Windows>.
+
+Browse long menus:
+  Drag the scroll button (under the menu titlebar) or use the mouse wheel
+  or the arrow keys.
+
+Show file extensions in menus:
+  Uncheck "Hide Extensions for Known File Types" in windows explorer options.
+
+Memory usage:
+  bbLean itself uses about 1..2MB.  However as it is the shell, bbLean is also
+  responsible to load other things into its own process. For example on Vista
+  just loading the systray applets causes something like 15MB additional memory
+  usage.  Of course if you don't need the network and volume icons, you could
+  always compile your own bb-super-lean version.
+
+Unknow procedure DrawShadowText in comctl32.dll:
+ This is a problem in the Microsoft products. See http://support.microsoft.com/?kbid=884883
+ It means basically that some application has an old comctl32.dll installed,
+ most likely in its own directory. Try to remove that dll or rename it to
+ something else.
+
+Windows 95:
+ You might need to install msvcrt.dll.
+
+****************************************************************************
+Info
+****
+
+License
+=======
+
+bbLean is copyright 2003-2009 grischka@users.sourceforge.net
+
+bbLean is free software, released under the GNU General Public License
+(GPL version 2). For details see: http://www.fsf.org/licenses/gpl.html
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE.
+
+[Figure bblean_logo.png]
+
+****************************************************************************
+Links
+===== 
+
+General: :
+bbLean              : http://bb4win.sourceforge.net/bblean/
+bb4win              : http://bb4win.org/
+xoblite             : http://xoblite.net/
+blackboxwm for linux : http://blackboxwm.sourceforge.net/
+Forum               : http://www.lostinthebox.com/
+Screenshots & Styles : http://www.boxshots.org/
+Qwilk's plugin list  : http://xoblite.net/plugins.html
+
+Plugins Authors: :
+Bladestaylor        : http://bb4win.sourceforge.net/systembarex/
+Kaloth              : http://www.finalfury.co.uk/
+Kana                : http://nicht.s8.xrea.com/
+NC-17               : http://www.ratednc-17.com/
+Theo                : http://theo.host.sk/ ?gone?
+Ysuke               : http://zzbb.hp.infoseek.co.jp/
+Pitris              : http://pitris.org/BBlean
+
+****************************************************************************
+Upgrade Notes
+=============
+
+Changes in bbLean 1.17 that are incompatible with previous versions.
+
+bbkeys.rc:
+..........
+@BBCore.ShowMenu will now always show at mouse position by default.
+To keep existing behaviour with menus invoked by the keyboard, use
+the -key or the -toggle switch:
+
+    @BBCore.ShowMenu -key root
+
+menu.rc:
+........
+[insertpath] does not remove duplicate items anymore. To merge
+two folders, use instead:
+
+    [path] (label) {folder1|folder2}
+
+bbLeanSkin.rc:
+..............
+Now uses a dash to separate left from right buttons:
+
+    bbleanskin.titlebar.buttons: 4-321
+
+bsetroot.rc:
+..............
+Now uses simple searchpaths instead of wildcards. See bsetroot.rc
+
+****************************************************************************
+Changes
+=======
+
+08 Dec 2009 - bbLean 1.17.1
+.........................
+- Minor bugfixes for blackbox.exe and bbLeanBar.dll
+- Remove control chars from artwiz fonts
+
+20 May 2009 - bbLean 1.17
+.........................
+- bbLean is more precise with the blackboxwm 0.70 style conventions.
+- Automatically registers all .fnt|fon|ttf fonts in blackbox/fonts
+- Detects whether startup items have been run (win 2k/xp/vista)
+- Optional UTF-8 support with filenames, application titles and menu entries
+- Switch '-in <workdir>' to run commands.
+- Translation file for messages and menus
+- Menus: separators, drop shadows, custom bullets, new title appearances
+  (label, notitle), sort folders, more options for @bbCore.ShowMenu
+- bbLeanBar: window menus, move to workspace with mouse gesture,
+    hide tray icons feature, %K special format for keyboard layout
+- bbLeanSkin: display icon, broam to set custom buttons
+- bbKeys: no more 'winkeyhook', -debug and -nolabel options (bbKeys.rc)
+- bbIconBox: new pager box, drag & drop applications between boxes
+
+02 Mai 2005 - bbLean 1.16
+.........................
+- Ability to show alternate menus (See Details->Bro@ms->@BBCore->Menu).
+- Configurable desktop mouse-clicks (in extensions.rc)
+- New semantics to merge folders: [path] (label) {folder1|folder2}
+- Snap Plugins to each other
+- New workspace code
+
+22 Feb 2004 - bbLean 1.12 U1
+.........................
+- Global font override option, see extensions.rc
+- Some multimon fixes, mostly untested though
+- bbKeys - no more crashes with long commands
+- bbLeanBar - standard icon size is now 16/16
+- bbLeanSkin - added titlebar click options
+
+10 Jan 2004 - bbLean 1.10
+.........................
+- Drag & drop from and to menus.
+- Keyboard navigation for menus.
+- All menu commands available as bro@ms
+- Load and unload plugins on the fly from the config menu.
+  (Credits to qwilk for the idea and the working example).
+- New menu item [insertpath] to join several folders in one menu.
+- Toolbar and menus toggle with plugins.
+- Added menuitems to set numbers. Hold down Ctrl for faster progress
+- Task flashing support
+
+09 Sep 2003 - bbLean 1.00
+.........................
+- Transparency for menus and bars.
+- Scroll button for menus
+- Force menu bullet orientation.
+- Enable/disable the background/rootcommand.
+- New version, new name!
+
+12 Jul 2003 - bb008lc update
+.........................
+- New gradient code. Better Elliptic gradients and sunken bevels.
+- Sharpened the 'diamond' bullet.
+- Workspaces and desktop are preserved on restart.
+- Toolbar display can be disabled for key commands.
+
+07 Jul 2003 - bb008lc update
+.........................
+- BBSystemBar got a 'show current tasks only' option.
+
+27 Jun 2003 - bb008lc update
+.........................
+- Workspaces remember their top window
+- Toolbarclock is less self - resizing
+
+16 Jun 2003 - bb008lc update
+.........................
+- The systray icon code has been reworked. Thanks to Roger for
+  running several tests.
+
+01 Jun 2003 - bb008lc update
+.........................
+- bb008lc has been made fit for xp-pro. Thanks to Pete for
+  running numerous tests.
+- Menues 'not always on top' option.
+- Click on desktop-background brings menues into foreground.
+- Double left click on menu-title toggles the 'on top' property
+  for this menu only.
+
+23 May 2003 - bb008lc update
+.........................
+- Clean up, removed unused configuration items.
+
+10 May 2003 - bb008lc update
+.........................
+- Added parsing for <styleitem>.fontweight.
+- Added some experimental parsing for *nix type font desriptions.
+- Made any wildcards in styles work
+
+22 Apr 2003 - bb008lc, first release
+.........................
+- bb008lc is a lean build for Blackbox for Windows. It is fully compatible
+  to current 0.90 builds and plugins
+- New menu code
+- Built-in contextmenus
+- Shellfolder support.
+- Popup and close delay for menus
+- Browse your styles without getting the menu closed
+- Full access to large folders
+
+Jan 2003
+.........................
+- grischka found Blackbox for Windows.
+
+// [See bb4win-changes.txt]
+****************************************************************************
+// BBlean est sûrement le shell le plus minimalistique sur le web,
+// et c'est une des raisons pour laquelle j'aime bien ce petit.
+****************************************************************************
+[fuzzydoc]
+    footer      = Copyright 2003-2009 grischka@users.sourceforge.net
+    title       = bbLean - Readme
+    version     = 1.17.1
+    basename    = bblean
+    table-column-width-1 = 35%
+    header      = \
+        <span class="bb1">bb</span>\
+        <span class="bb2">Lean</span>&nbsp;\
+        <span class="bb3">1.17</span>
+    template    = tpl_frame
+    cssfile     = bblean_style.css
+    //numbers   = true
+    //tocmode     = list
+    //styles       = .frame_toc h1 {text-align:left}
+
+[endfuzzy]
+****************************************************************************
+

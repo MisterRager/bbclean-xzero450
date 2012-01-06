@@ -1,0 +1,62 @@
+# -------------------------------------------
+# bbSDK - Blackbox for Windows Plugin SDK
+
+# makefile for mingw - GCC
+
+# Build:    make -f makefile-gcc
+# Cleanup:  make -f makefile-gcc clean
+
+# -------------------------------------------
+# names
+
+NAME    = bbSDK
+
+BIN     = $(NAME).dll
+OBJ     = $(NAME).obj
+
+# -------------------------------------------
+# paths
+
+BBAPI   = .
+BBLIB   = $(BBAPI)/libBlackbox.a
+DEFINES = -I$(BBAPI)
+
+# -------------------------------------------
+# targets
+
+all : $(BIN)
+
+clean cleanall :
+	for %%f in ($(OBJ) $(BIN)) do if exist %%f del %%f
+
+# this makes libBlackbox.a from libBlackbox.def
+$(BBLIB):
+	dlltool -d $(BBAPI)/libBlackbox.def -l $(BBLIB)
+
+# -------------------------------------------
+# compiler settings and rules
+
+CC      = gcc.exe
+CP      = g++.exe
+WINDRES = windres.exe -I rc -O coff
+SHELL   = cmd
+
+CFLAGS  = -Os -Wall $(DEFINES) -fno-strict-aliasing
+LFLAGS  = -s -mwindows -shared
+LIBS    = -lkernel32 -luser32 -lgdi32
+
+$(BIN): $(OBJ) $(BBLIB)
+	$(CP) $(LFLAGS) -o $@ $^ $(LIBS)
+
+.SUFFIXES: .obj .res .c .cpp .rc
+
+.cpp.obj:
+	$(CC) $(CFLAGS) -c $< -o $@
+
+.c.obj:
+	$(CC) $(CFLAGS) -c $< -o $@
+
+.rc.res:
+	$(WINDRES) -i $< -o $@
+
+# -------------------------------------------

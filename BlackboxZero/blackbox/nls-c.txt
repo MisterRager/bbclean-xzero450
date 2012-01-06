@@ -1,0 +1,467 @@
+# ------------------------------------------------------------------------------
+# nls-c.txt - Native language support for bbLean 1.17
+#
+# For translation of messages and menu entries.  Please rename this file,
+# then translate any lines that don't start with '#' or '$'.  More
+# translations for e.g. plugin menus may be added at the end of this file
+# accordingly.
+#
+# To use the file, put it into the blackbox directory and put this line
+# into extensions.rc:
+#     blackbox.options.translation: nls-xx.txt
+# Reconfigure blackbox to apply.
+#
+# ------------------------------------------------------------------------------
+
+# ------------------------
+# BBApi.cpp
+# ------------------------
+
+$Error_WriteFile$
+Error: Could not open "%s" for writing.
+
+$Error_ReadFile$
+Error: Unable to open file "%s".
+Please check location and try again.
+
+$Error_MBox$
+Error: %s
+
+$Error_Execute$
+Error: Could not execute: %s
+(%s)
+
+$ <empty>
+<empty>
+
+# ------------------------
+# Blackbox.cpp
+# ------------------------
+
+$About_Blackbox$
+Based stylistically on the Blackbox window manager for Linux by Brad Hughes
+
+Switches:
+-help           \tShow this text
+-install        \tInstall Blackbox as default shell
+-uninstall      \tReset Explorer as default shell
+-nostartup      \tDo not run startup programs
+-rc <path>      \tSpecify alternate blackbox.rc path
+-exec <@broam>  \tSend broadcast message to running shell
+
+For more information visit:
+- http://bb4win.sourceforge.net/bblean/
+- http://bb4win.org/
+
+$Error_StartedTwice$
+Blackbox already running!
+Do you want to close the other instance?
+
+$Query_Escape$
+Control Key was held down.
+Do you want to start an explorer window instead of Blackbox?
+
+$Query_Quit$
+Are you sure you want to quit the shell?
+
+$Restart_Paused$
+Restart paused, press OK to continue...
+
+$About_Style_Title$
+Style Information
+
+$About_Style_NoName$
+[Style name not specified]
+
+$About_Style_By$
+by
+
+$About_Style_NoAuthor$
+[Author not specified]
+
+$Show_Apps$
+Current Applications:
+(Use the name from the first column for StickyWindows.ini)
+%s
+
+$Error_UnknownBroam$
+Error: Unknown Broadcast Message:
+%s
+
+$ shut down
+shut down
+
+$ reboot
+reboot
+
+$ log off
+log off
+
+$ hibernate
+hibernate
+
+$ suspend
+suspend
+
+$ lock workstation
+lock workstation
+
+$ exit windows
+exit windows
+
+$ switch user
+switch user
+
+$Query_Shutdown$
+Are you sure you want to %s?
+
+# ------------------------
+# ConfigMenu.cpp
+# ------------------------
+
+$ Load/Unload
+Load/Unload
+
+$ In Slit
+In Slit
+
+$ Add Plugin ...
+Add Plugin ...
+
+$ Edit plugins.rc
+Edit plugins.rc
+
+$ About Plugins
+About Plugins
+
+$ Bullet
+Bullet
+
+$ Left
+Left
+
+$ Right
+Right
+
+$ Sort By Extension
+Sort By Extension
+
+$ Show Hidden Files
+Show Hidden Files
+
+$ Open Direction
+Open Direction
+
+$ Maximal Width
+Maximal Width
+
+$ Popup Delay
+Popup Delay
+
+$ Wheel Factor
+Wheel Factor
+
+$ Files
+Files
+
+$ Transparency
+Transparency
+
+$ Alpha Value
+Alpha Value
+
+$ Draw Separators
+Draw Separators
+
+$ Drop Shadows
+Drop Shadows
+
+$ Always On Top
+Always On Top
+
+$ Snap To Edges
+Snap To Edges
+
+$ Toggle With Plugins
+Toggle With Plugins
+
+$ Show Bro@ms
+Show Bro@ms
+
+$ Enable Background
+Enable Background
+
+$ Smart Wallpaper
+Smart Wallpaper
+
+$ *Nix Bullets
+*Nix Bullets
+
+$ *Nix Arrows
+*Nix Arrows
+
+$ Image Dithering
+Image Dithering
+
+$ Global Font Override
+Global Font Override
+
+$ Top
+Top
+
+$ Bottom
+Bottom
+
+$ Full Maximization
+Full Maximization
+
+$ Click To Focus
+Click To Focus
+
+$ Sloppy Focus
+Sloppy Focus
+
+$ Auto Raise
+Auto Raise
+
+$ Auto Raise Delay
+Auto Raise Delay
+
+$ Snap To Plugins
+Snap To Plugins
+
+$ Padding
+Padding
+
+$ Threshold
+Threshold
+
+$ Follow Active Task
+Follow Active Task
+
+$ Restore To Current
+Restore To Current
+
+$ Alternative Method
+Alternative Method
+
+$ Style-XP Fix
+Style-XP Fix
+
+$ Recover Windows
+Recover Windows
+
+$ Desktop Margins
+Desktop Margins
+
+$ Focus Model
+Focus Model
+
+$ Snap
+Snap
+
+$ Workspaces
+Workspaces
+
+$ Enable Toolbar
+Enable Toolbar
+
+$ Opaque Window Move
+Opaque Window Move
+
+$ Use UTF-8 Encoding
+Use UTF-8 Encoding
+
+$ Blackbox Editor
+Blackbox Editor
+
+$ Show Appnames
+Show Appnames
+
+$ Plugins
+Plugins
+
+$ Menus
+Menus
+
+$ Graphics
+Graphics
+
+$ Misc.
+Misc.
+
+$ Configuration
+Configuration
+
+$ auto
+auto
+
+# ------------------------
+# Desk.cpp
+# ------------------------
+
+$Error_DesktopHook$
+Error: %s not found!
+
+# ------------------------
+# DesktopMenu.cpp
+# ------------------------
+
+$ Tasks
+Tasks
+
+$ Icons
+Icons
+
+$ New/Remove
+New/Remove
+
+$ New Workspace
+New Workspace
+
+$ Remove Last
+Remove Last
+
+$ Workspace Names
+Workspace Names
+
+$ Toggle Window Visibilty
+Toggle Window Visibilty
+
+# ------------------------
+# PluginManager.cpp
+# ------------------------
+
+$Error_Plugin_IsBuiltIn$
+Dont load this plugin with bbLean. It is built-in.
+
+$Error_Plugin_NotFound$
+The plugin was not found.
+
+$Error_Plugin_MissingModule$
+The plugin cannot be loaded. Possible reason:
+- The plugin requires another dll that is not there.
+
+$Error_Plugin_DoesNotLoad$
+The plugin cannot be loaded. Possible reasons:
+- The plugin requires another dll that is not there.
+- The plugin is incompatible with the windows version.
+- The plugin is incompatible with this blackbox version.
+
+$Error_Plugin_MissingEntry$
+The plugin misses the begin- and/or endPlugin entry point. Possible reasons:
+- The dll is not a plugin for Blackbox for Windows.
+
+$Error_Plugin_IniFailed$
+The plugin could not be initialized.
+
+$Error_Plugin_CrashedOnLoad$
+The plugin caused a general protection fault on initializing.
+Please contact the plugin author.
+
+$Error_Plugin_CrashedOnUnload$
+The plugin caused a general protection fault on shutdown.
+Please contact the plugin author.
+
+$Error_Plugin$
+Error: %s
+%s
+
+$About_Plugins_By$
+by
+
+$About_Plugins_Title$
+About loaded plugins
+
+$ No plugins loaded.
+No plugins loaded.
+
+$ Add Plugin
+Add Plugin
+
+# ------------------------
+# Toolbar.cpp
+# ------------------------
+
+$ Top Left
+Top Left
+
+$ Top Center
+Top Center
+
+$ Top Right
+Top Right
+
+$ Bottom Left
+Bottom Left
+
+$ Bottom Center
+Bottom Center
+
+$ Bottom Right
+Bottom Right
+
+$ Width Percent
+Width Percent
+
+$ Clock Format
+Clock Format
+
+$ Placement
+Placement
+
+$ Settings
+Settings
+
+$ Auto Hide
+Auto Hide
+
+$ Toolbar
+Toolbar
+
+# ------------------------
+# Utils.cpp
+# ------------------------
+
+$Error_RegisterClass$
+Error: Could not register "%s" window class.
+
+# ------------------------
+# Workspaces.cpp
+# ------------------------
+
+$Workspace_EditNames$
+Workspace Names:
+
+$Workspace_DefaultName$
+Workspace %d
+
+# ------------------------
+# Menu/Menu.cpp
+# ------------------------
+
+$ off
+off
+
+# ------------------------
+# Menu/MenuMaker.cpp
+# ------------------------
+
+$ missing [begin]
+missing [begin]
+
+$ missing [end]
+missing [end]
+
+$ [include] failed
+[include] failed
+
+# ------------------------
+# Menu/SpecialFolder.cpp
+# ------------------------
+
+$ No Files
+No Files
+
+$ Invalid Path
+Invalid Path

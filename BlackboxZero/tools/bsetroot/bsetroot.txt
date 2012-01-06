@@ -1,0 +1,300 @@
+
+ bsetroot 2.1
+ ************
+
+ bsetroot is a tool for Blackbox for Windows.
+
+   © 2001-2003 The Blackbox for Windows Development Team
+   © 2003-2009 grischka at-users-dot-sourceforge.net
+   http://bb4win.sourceforge.net/bblean/
+   http://bb4win.org/
+
+   Based on bsetroot for Blackbox on Linux by Brad Hughes.
+
+ bsetroot is free software, released under the GNU General Public
+ License (GPL version 2). See: http://www.fsf.org/licenses/gpl.html
+
+ bsetroot 2.1 uses CxImage 5.11. Supported image formats:
+ bmp png jpg gif.
+
+
+ Introduction
+ ============
+
+ bsetroot lets you set your desktop background to either a
+ solid colour, a gradient, a square pattern, an image, or a
+ combination of these. bsetroot usually is called from the
+ 'rootCommand' line in a blackbox style.
+
+ The included bsetbg.exe works just as an alias to bsetroot.
+
+
+ Note on v2.1
+ ............
+
+ The format of bsetroot.rc has been changed to a more intuitive format.
+ No more cryptic wildcards, just simple search paths. See -> 'Configuration'.
+
+ Switches
+ ========
+
+ -solid <colour> :
+  Change the desktop background to the colour you specify.
+
+ -gradient <type> -from <colour> -to <colour> :
+  Apply a gradient (See 'Gradients') of specified type to the
+  background.
+
+ -mod <x> <y> -fg <colour> [-bg <colour>] :
+  Apply a square pattern to the background. <x> and <y> set the size
+  of the squares.
+
+ -full <image> :
+  Display an image stretched to cover the desktop.   
+
+ -tile <image> :
+  Display an image tiled over the desktop.
+
+ -center <image> :
+  Display an image in the center of the desktop.
+
+ -bitmap [stretch|tile|center] <image> :
+  Similar to above.
+
+ -sat <0..255> :
+  Set image color saturation
+
+ -hue <0..255> :
+  Set image/background merge factor.
+
+ -scale <factor> :
+  Resize the image by a percent factor.
+
+ -path <searchpath> :
+  Specify searchpath for images. This is useful when set
+  in bsetroot.rc (See 'Configuration').
+
+ -quiet :
+  Igore any errors silently.
+
+ -vdesk :
+  Use virtual desktop size to span the wallpaper over monitors.
+
+ -save <file.bmp> :
+  Save the generated background to the specified file rather
+  than setting the wallpaper.
+
+ -help :
+  Show short summary.
+
+
+ Configuration
+ =============
+
+ Configuration is not needed in most cases. Just put the bsetroot
+ executable where blackbox.exe is.
+
+ When bsetroot finds bsetroot.rc in the same directory, it starts
+ reading options from it like commandline switches. This is supposed
+ to be useful especially with the *-path* switch.
+
+ For example these lines would make bsetroot look for images in
+ two additional locations and also let it silently ignore any errors.
+
+     -path "c:/blackbox/images"
+     -path "c:/my pictures"
+     -quiet
+
+
+ Searchpaths
+ ===========
+
+ This is how bsetroot looks for images:
+
+ 1) First it tries the image-path as given in the commandline.
+ 2) Then it looks for the image in the searchpaths from any
+    -path ... options (as listed in bsetroot.rc).
+ 3) Finally it looks for the image in a folder 'backgrounds'
+    relative to the location of bsetroot.exe.
+
+ You can use relative or absolute paths with both images and
+ image searchpaths. Relative paths refer to the location where
+ bsetroot.exe is.
+
+ *Please note that paths with spaces need to have quotes.* That
+ is for both paths on the command line and paths in bsetroot.rc.
+
+
+ Gradients
+ =========
+
+ A gradient texture is defined by the gradient type and two
+ colours (See 'Colours').
+
+ Type can be one of "vertical", "horizontal", "diagonal",
+ "crossdiagonal", "pipecross", "elliptic", "rectangle", or "pyramid".
+
+ For compatibility with bsetroot on linux, you also can/should include
+ the word "gradient" in the gradient type.
+
+ You can combine the gradient type with "interlaced" to get some
+ effect or add a bevel with "raised/sunken bevel1/2".
+
+ Example:
+
+    bsetroot -gradient verticalinterlacedgradient -from steelblue -to orange
+
+
+ Colours
+ =======
+
+ Colours can be in any format that blackbox accepts.
+ - rgb format: rgb:77/88/CC or rgb:7/8/C
+ - html format: "#7788CC" or the short form "#78C"
+ - one from the literal colors below
+
+ Note that bsetroot on linux wants quotes around html format colors.
+
+
+ Literal Colors:
+ ...............
+
+ These literal color names are known to bsetroot:
+
+ aliceblue antiquewhite aquamarine azure beige bisque black
+ blanchedalmond blue blueviolet brown burlywood cadetblue chartreuse
+ chocolate coral cornflowerblue cornsilk cyan darkblue darkcyan
+ darkgoldenrod darkgray darkgreen darkkhaki darkmagenta darkolivegreen
+ darkorange darkorchid darkred darksalmon darkseagreen darkslateblue
+ darkslategray darkturquoise darkviolet deeppink deepskyblue dimgray
+ dodgerblue firebrick floralwhite forestgreen gainsboro ghostwhite
+ gold goldenrod gray green greenyellow honeydew hotpink indianred
+ ivory khaki lavender lavenderblush lawngreen lemonchiffon lightblue
+ lightcoral lightcyan lightgoldenrod lightgoldenrodyellow lightgray
+ lightgreen lightpink lightsalmon lightseagreen lightskyblue
+ lightslateblue lightslategray lightsteelblue lightyellow limegreen
+ linen magenta maroon mediumaquamarine mediumblue mediumorchid
+ mediumpurple mediumseagreen mediumslateblue mediumspringgreen
+ mediumturquoise mediumvioletred midnightblue mintcream mistyrose
+ moccasin navajowhite navy navyblue oldlace olivedrab orange
+ orangered orchid palegoldenrod palegreen paleturquoise
+ palevioletred papayawhip peachpuff peru pink plum powderblue
+ purple red rosybrown royalblue saddlebrown salmon sandybrown
+ seagreen seashell sienna skyblue slateblue slategray springgreen
+ steelblue tan thistle tomato turquoise violet violetred wheat white
+ whitesmoke yellow yellowgreen
+
+ antiquewhite1..4 aquamarine1..4 azure1..4 bisque1..4 blue1..
+ 4 brown1..4 burlywood1..4 cadetblue1..4 chartreuse1..4
+ chocolate1..4 coral1..4 cornsilk1..4 cyan1..4 darkgoldenrod1..4
+ darkolivegreen1..4 darkorange1..4 darkorchid1..4 darkseagreen1..4
+ darkslategray1..4 deeppink1..4 deepskyblue1..4 dodgerblue1..4
+ firebrick1..4 gold1..4 goldenrod1..4 green1..4 honeydew1..4
+ hotpink1..4 indianred1..4 ivory1..4 khaki1..4 lavenderblush1..4
+ lemonchiffon1..4 lightblue1..4 lightcyan1..4 lightgoldenrod1..4
+ lightpink1..4 lightsalmon1..4 lightskyblue1..4 lightsteelblue1..4
+ lightyellow1..4 magenta1..4 maroon1..4 mediumorchid1..4
+ mediumpurple1..4 mistyrose1..4 navajowhite1..4 olivedrab1..4
+ orange1..4 orangered1..4 orchid1..4 palegreen1..4 paleturquoise1..4
+ palevioletred1..4 peachpuff1..4 pink1..4 plum1..4 purple1..4
+ red1..4 rosybrown1..4 royalblue1..4 salmon1..4 seagreen1..4
+ seashell1..4 sienna1..4 skyblue1..4 slateblue1..4 slategray1..4
+ snow1..4 springgreen1..4 steelblue1..4 tan1..4 thistle1..4
+ tomato1..4 turquoise1..4 violetred1..4 wheat1..4 yellow1..4
+
+
+ History
+ =======
+
+ bsetroot
+ ........
+
+ Version 2.1 (20-May-2009) (grischka)
+ + New: color dithering on 16-bit displays.
+ + Added switches: -scale, -quiet, -path.
+ ~ Changed bsetroot.rc format to be a commandline option listing.
+ ~ Optimized code (100 kb less)
+
+ Version 2.0b2 (11-Mar-2004) (grischka)
+ ~ Passes "tile"-option to windows for fullscreen images
+   (for multimon setups to spawn images across all screens)
+
+ Version 2.0b1 (21-Dec-2003) (grischka)
+ + Added '-vdesk' switch (use virtual desktop size)
+ + Now reads image-search patterns from bsetroot.rc.
+
+ Version 2.0b (25-Apr-2003) (grischka)
+ + Merged bsetbg and bsetroot into one executable.
+ + As a benefit, it can draw images in .bmp .gif .jpg .png formats
+   on gradient backgrounds, optionally with saturation and hue factors.
+ - The included bsetbg just passes it's commandline to bsetroot.
+ + Added -save <image.bmp> switch to write out the generated image
+   to the specified path.
+
+
+ Version 1.8 (2003-04-01)
+ ~ Cleaned up the code and corrected some resource leaks (ironhead)
+
+ Version 1.7 (2002-09-05) 
+ + Now uses the same rendering engine as Blackbox for Windows 0.0.60
+   (ironhead/qwilk/nivenh)
+ + Added -mod support (ironhead)
+ + It is now possible to use -bitmap and -solid concurrently (useful
+   for centered bitmaps) (qwilk)
+ ~ Fixed a bug where Diagonal would be drawn instead of CrossDiagonal
+   (ironhead)
+ + Created the missing 48x48 pixel icon... :) (qwilk)
+ ~ Cleaned up the code and made minor changes all over the place...=]
+   (qwilk/ironhead)
+ # bsetroot is now open source... 
+
+ Version 1.0.0.6 (2002-03-03) 
+ + Reintroduced the "stretch" bitmap style option (qwilk)
+ ~ Fixed an issue using rgb: colours, added more colour definitions
+   (deadbeat)
+ ~ Fixed a memory leak in the gradient code (steev/nivenh)
+ + New HTML documentation (qwilk)
+
+ Version 1.0.0.5 (2002-01-03) 
+ ~ Changed literal parsing (azathoth)
+
+ Version 1.0.0.4 (2002-01-02) 
+ - Removed stretch option azathoth 
+ ~ Updated to use new BImage version (azathoth)
+
+ Version 1.0.0.3 (2001-12-30) 
+ ~ Fixed colour order (azathoth)
+
+ Version 1.0.0.2 (2001-12-29) 
+ ~ Swapped colour rendering (azathoth)
+ ~ Fixed gradients so elliptic shows correctly and other gradients
+   render more nicely (azathoth)
+
+
+ bsetbg
+ ......
+
+ Version 1.2 [change bsetbg.cpp 04/18/2003 NC-17]
+ - executing bsetbg.exe with no arguments now shows the help window
+
+ [change bsetbg.cpp 01/21/2003 ironhead]
+ - switched to the CxImage image manipulation library
+ - modified the command line to allow for greater compatibility with
+   bsetbg for *nix
+ - made the default behaviour to load the file in "-full" mode (like
+   bsetbg for *nix)
+
+ Version 1.1 [changed bsetbg.cpp 9/15 ironhead]
+ - added error checking (thanx NC-17!)
+
+ -------------------------------------------------------------------
+ [fuzzydoc]
+    copyright   = Copyright 2003-2009 grischka
+    title       = bsetroot.readme
+    version     = 2.1
+    template    = tpl_simple
+    cssfile     = ../../docs/bblean_style.css
+    header      = <span class="bb2">bsetroot</span>&nbsp;<span class="bb3">2.1</span>
+    numbers = true
+ [endfuzzy]
+ -------------------------------------------------------------------

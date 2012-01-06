@@ -1,0 +1,27 @@
+/*---------------------------------------------------------------------------*
+
+  This file is part of the BBNote source code
+
+  Copyright 2003-2009 grischka@users.sourceforge.net
+
+  BBNote is free software, released under the GNU General Public License
+  (GPL version 2). For details see:
+
+  http://www.fsf.org/licenses/gpl.html
+
+  This program is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+  for more details.
+
+ *---------------------------------------------------------------------------*/
+
+// resource.rc - bbnote app icon and selection cursors
+
+#include <windows.h>
+#include "eddef.h"
+
+100 ICON   "bbnote.ico"
+101 CURSOR "dragmov.cur"
+102 CURSOR "dragcpy.cur"
+

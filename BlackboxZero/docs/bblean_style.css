@@ -1,0 +1,140 @@
+body {
+scrollbar-arrow-color:      #000;
+scrollbar-base-color:       #000;
+scrollbar-shadow-color:     #000;
+scrollbar-darkshadow-color: #000;
+scrollbar-track-color:      #000;
+scrollbar-highlight-color:  #000;
+scrollbar-3d-light-color:   #000;
+scrollbar-face-color:       #555;
+font-family: sans-serif;
+color: #999;
+background-color: #000;
+font-size: 11;
+}
+
+h1 {font-size:20px; padding-top:0px}
+h2 {font-size:16px; padding-top:20px}
+h3 {font-size:12px; padding-top:20px}
+h4 {font-size:12px; padding-top:20px}
+
+h1,h2,h3,h4 {font-weight:bold}
+h1 {color: #C60;}
+h2,h3 {color: #aaa;}
+h4 {color: #aaa; margin-bottom: 4;}
+
+P {
+margin-right: 10%;
+text-indent: 0px;
+margin-top: 8;
+margin-bottom: 8px;
+}
+
+table {
+font-family: helvetica, verdana, sans-serif;
+font-size: 11;
+font-weight: normal;
+background-color: #111;
+color: #999;
+}
+
+TH {
+text-align: left;
+color: #aaa;
+}
+
+TD {
+background-color: #000;
+}
+
+pre {
+font-family: lucida console, courier new, courier;
+font-weight: normal;
+padding: 2px;
+margin-left: 15px;
+margin-top: 2px;
+color: #787;
+overflow: hidden;
+}
+
+HR {
+color: #777;
+width: 80%;
+text-align: center;
+}
+
+B { color: #bbb; font-weight: normal }
+
+blockquote {
+font-size: 10pt;
+font-style: italic;
+margin-left: 0;
+}
+
+LI {
+margin-right: 10%;
+margin-bottom: 2;
+}
+
+ul {
+margin-top: 2;
+margin-bottom: 2;
+padding-left: 25;
+}
+
+dl {
+}
+
+dt {
+font-weight: normal;
+color: #aaa;
+margin-top: 6px;
+margin-bottom: 4px;
+}
+
+dd {
+margin-left: 16px;
+margin-bottom: 4px;
+}
+
+.footer {
+font-family: helvetica, verdana, sans-serif;
+font-size: 10px;
+letter-spacing: 1pt;
+text-align: center;
+margin-top: 10;
+}
+
+a.label { text-decoration: none; }
+a.label:hover { text-decoration: none; }
+a { color:#789; text-decoration: none; }
+a:hover { color:#abc; text-decoration: underline; }
+
+.bb1 { color: #DDD; }
+.bb2 { color: #D60; }
+.bb3 { color: #999; font-size: 12px; }
+
+.simple_toc td { background-color: #111; text-align: right;}
+.simple_toc h1 { font-size: 24px; text-align:left; margin-right:30px; padding-top:0}
+.simple_toc .t1 { font-size: 13px; font-weight: bold; color: #aaa;}
+.simple_toc .t2 { font-weight: bold; color: #999; }
+.simple_toc .t3 { color: #898; font-size: 10px; }
+.simple_toc a.t2 { color:#999; text-decoration: none; }
+.simple_toc a:hover { color:#abc; text-decoration: underline; }
+.simple_body td { background-color: #111; }
+table.simple_toc, table.simple_body { width: 640px; padding-left:20px; padding-top:10px; margin:0px;}
+table.simple_body { margin-top: 20px }
+
+.frame_toc { background-color: #111; margin:0; padding-right:20; }
+.frame_toc h1 { margin-left: 20px; margin-top:10px; margin-bottom:10px; text-align:right}
+.frame_toc .t1 { color: #d60; font-size:14px; font-weight: bold; margin-top: 10}
+.frame_toc .t2 { color: #aaa; }
+.frame_toc .t3 { color: #789; }
+.frame_toc a { text-decoration: none; }
+.frame_toc a:hover { text-decoration: underline; }
+.frame_toc p { margin: 0; text-align: right; }
+.frame_toc ul { padding-left:10; margin-left:10; list-style:none; }
+.frame_body { background-color: #111; padding-left:10px; }
+.frame_body h3 { color:#89a }
+body.frame_toc {border: #333 1px solid; height:99%;}
+

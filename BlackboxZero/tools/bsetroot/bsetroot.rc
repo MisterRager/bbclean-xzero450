@@ -1,0 +1,12 @@
+# --------------------------------------------------------------
+# bsetroot.rc - options and image searchpath for bsetroot 2.1
+
+# Options are read just like commandline switches.
+# Lines starting with # or ! are ignored.
+# Paths containing spaces need to have quotes.
+
+# Example: (uncomment to use)
+! -path c:\some\path\to\images
+! -path c:\another\path\to\images
+
+-quiet

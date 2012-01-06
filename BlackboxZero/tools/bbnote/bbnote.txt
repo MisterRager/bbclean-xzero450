@@ -1,0 +1,116 @@
+
+  BBNote 1.08
+
+  editing with style
+  02/2003 by grischka
+  THIS SOFTWARE IS PROVIDED AS IS, WITHOUT ANY WARRANTY.
+
+  BBNote - keys
+
+  file:
+
+    ctrl-n              new file
+    ctrl-o              open file
+    ctrl-s              save file
+    ctrl-f4             close file
+    f6/ctrl-f6          next/previous file
+    alt-left/right      next/previous file
+    f10                 zoom
+    esc                 quit
+
+    right-click, alt    menu
+    with ctrl/mid-btn   files list
+
+    drag and drop       open file(s)
+    with shift          apply style
+
+    f4                  save all and reconfigure blackbox
+    Shift-f4            write all files
+
+
+  edit:
+
+    ctrl-up/dn          scroll down/up
+    ctrl-home/end       scroll left/right
+
+    ctrl-left/right     previous/next word
+    ctrl-pgup/pgdn      start/end of the text
+
+    alt-up/dn           previous/next block
+
+    enter               break line
+    shift-bksp          join lines
+
+    ctrl-enter/bksp     insert/delete line
+
+    alt-enter           duplicate line
+    alt-ins/del         shift line up/down
+
+    ctrl-ins/del        insert/delete right
+
+    tab/shift-tab       tab/backtab, kill right spaces
+
+    ctrl-z              undo
+    ctrl-shift-z        redo
+
+    ctrl-f, f3          find
+
+    scroll-lock         lock scroll
+
+
+  block:
+
+    mark                with shift-key or mouse
+    column mark         with alt-key
+
+    ctrl-x              cut to      \
+    ctrl-c              copy to      > clipboard
+    ctrl-v              paste from  /
+    del                 delete
+
+    other common shift/ctrl-ins/del/bkspc
+    combinations are available
+
+    ctrl-a              mark all
+    ctrl-b              column mark on/off
+    ctrl-u              make upper/lower case
+
+    ctrl-0              windows clipboard
+    ctrl-7,8,9          private clipboards
+
+    tab/shift-tab       indent/unindent
+
+
+  find:
+
+    up/down arrow       find next/previous
+    ctrl-f, f3          back to text
+    esc                 close
+
+    case                case sensitive
+    word                find whole words only
+    regx                search with regular expression
+    files               search all open files
+
+    regular expression:
+      ^                 start of line
+      $                 end of line
+      [a-z] [^aeiou]    class, not-class
+
+      .                 any char
+      !                 any char but space
+      ?                 none or one
+      *                 none or some
+      +                 one or some
+      |                 or
+      ()                treat as single expression
+      {}                as before and assign to
+                        '%1..%9' in replacement-string.
+                        try this:
+                            search for: {ctrl|shift}-{!+}
+                            replace by: %1+%2
+
+      /                 escape char
+      /i                ignore case from nowon
+      /c                do not ignore case from nowon
+
