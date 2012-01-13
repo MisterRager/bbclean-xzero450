@@ -265,6 +265,11 @@ void* StyleStructPtr(int sn_index, StyleStruct *pStyle)
     case SN_ISSTYLE070              : return &pStyle->is_070             ;
     case SN_SLIT                    : return &pStyle->Slit;
 
+	/* BlackboxZero 1.8.2012 */
+	case SN_MENUSEPMARGIN			: return &pStyle->MenuSepMargin;
+	case SN_MENUSEPCOLOR			: return &pStyle->MenuSepColor;
+	case SN_MENUSEPSHADOWCOLOR		: return &pStyle->MenuSepShadowColor;
+
     default                         : return NULL;
     }
 }
@@ -318,6 +323,11 @@ int Settings_ItemSize(int sn_index)
 
     case SN_ISSTYLE070              : return sizeof (bool);
     case SN_SLIT                    : return sizeof (StyleItem);
+
+		/* BlackboxZero 1.8.2012 */
+	case SN_MENUSEPMARGIN			: return sizeof (int);
+	case SN_MENUSEPCOLOR			: return sizeof (COLORREF);
+	case SN_MENUSEPSHADOWCOLOR		: return sizeof (COLORREF);
 
     default                         : return 0;
     }
@@ -398,7 +408,7 @@ enum other_defaults
     STR_TRIANGLE,
 };
 
-/* BlackboxZero 1.5.2012 - Added |V_OUTLINECOLOR|V_SHADOW where V_TXT */
+/* BlackboxZero 1.5.2012 - Added |V_OUTLINECOLOR|V_SHADOW where V_TXT  and |V_SPLIT where A_TEX*/
 static const struct items StyleItems[] = {
 // bb4nix 065 style props --->>
 { C_INT, SN_BORDERWIDTH         , "borderWidth",           0, 1 },
@@ -412,32 +422,32 @@ static const struct items StyleItems[] = {
 //{ C_COL, SN_WINUNFOCUS_FRAME_COLOR, "window.frame.unfocusColor", SN_BORDERCOLOR, 0 },
 // --------------------------<<
 { C_STR, SN_ROOTCOMMAND         , "rootCommand",            STR_EMPTY       , sizeof mStyle.rootCommand },
-{ C_STY, SN_TOOLBAR             , "toolbar",                SN_DEFITEM_1    , A_TEX|V_MAR|V_TXT|A_FNT|I_DEF|V_OUTLINECOLOR|V_SHADOW },
-{ C_STY, SN_TOOLBARLABEL        , "toolbar.label",          SN_DEFITEM_1    , A_TEX|V_MAR|V_TXT|V_OUTLINECOLOR|V_SHADOW },
-{ C_STY, SN_TOOLBARWINDOWLABEL  , "toolbar.windowLabel",    SN_DEFITEM_2    , A_TEX|V_TXT|V_OUTLINECOLOR|V_SHADOW },
-{ C_STY, SN_TOOLBARCLOCK        , "toolbar.clock",          SN_DEFITEM_1    , A_TEX|V_TXT|V_OUTLINECOLOR|V_SHADOW },
-{ C_STY, SN_TOOLBARBUTTON       , "toolbar.button",         SN_DEFITEM_2    , A_TEX|V_PIC|V_MAR },
-{ C_STY, SN_TOOLBARBUTTONP      , "toolbar.button.pressed", SN_DEFITEM_1    , A_TEX|V_PIC },
+{ C_STY, SN_TOOLBAR             , "toolbar",                SN_DEFITEM_1    , A_TEX|V_MAR|V_TXT|A_FNT|I_DEF|V_OUTLINECOLOR|V_SHADOW|V_SPLIT },
+{ C_STY, SN_TOOLBARLABEL        , "toolbar.label",          SN_DEFITEM_1    , A_TEX|V_MAR|V_TXT|V_OUTLINECOLOR|V_SHADOW|V_SPLIT },
+{ C_STY, SN_TOOLBARWINDOWLABEL  , "toolbar.windowLabel",    SN_DEFITEM_2    , A_TEX|V_TXT|V_OUTLINECOLOR|V_SHADOW|V_SPLIT },
+{ C_STY, SN_TOOLBARCLOCK        , "toolbar.clock",          SN_DEFITEM_1    , A_TEX|V_TXT|V_OUTLINECOLOR|V_SHADOW|V_SPLIT },
+{ C_STY, SN_TOOLBARBUTTON       , "toolbar.button",         SN_DEFITEM_2    , A_TEX|V_PIC|V_MAR|V_SPLIT },
+{ C_STY, SN_TOOLBARBUTTONP      , "toolbar.button.pressed", SN_DEFITEM_1    , A_TEX|V_PIC|V_SPLIT },
 #ifndef BBSETTING_NOMENU
-{ C_STY, SN_MENUTITLE           , "menu.title",             SN_DEFITEM_2    , A_TEX|V_MAR|V_TXT|A_FNT|I_DEF|V_OUTLINECOLOR|V_SHADOW },
-{ C_STY, SN_MENUFRAME           , "menu.frame",             SN_DEFITEM_1    , A_TEX|V_MAR|V_TXT|V_PIC|A_FNT|V_DIS|I_DEF|I_BUL|V_OUTLINECOLOR|V_SHADOW },
-{ C_STY, SN_MENUHILITE          , "menu.active",            SN_DEFITEM_2    , A_TEX|V_TXT|V_PIC|V_MAR|I_ACT|I_BUL|V_OUTLINECOLOR|V_SHADOW },
+{ C_STY, SN_MENUTITLE           , "menu.title",             SN_DEFITEM_2    , A_TEX|V_MAR|V_TXT|A_FNT|I_DEF|V_OUTLINECOLOR|V_SHADOW|V_SPLIT },
+{ C_STY, SN_MENUFRAME           , "menu.frame",             SN_DEFITEM_1    , A_TEX|V_MAR|V_TXT|V_PIC|A_FNT|V_DIS|I_DEF|I_BUL|V_OUTLINECOLOR|V_SHADOW|V_SPLIT },
+{ C_STY, SN_MENUHILITE          , "menu.active",            SN_DEFITEM_2    , A_TEX|V_TXT|V_PIC|V_MAR|I_ACT|I_BUL|V_OUTLINECOLOR|V_SHADOW|V_SPLIT },
 { C_STR, SN_MENUBULLET          , "menu.bullet",            STR_TRIANGLE    , sizeof mStyle.menuBullet  },
 { C_STR, SN_MENUBULLETPOS       , "menu.bullet.position",   STR_RIGHT       , sizeof mStyle.menuBulletPosition  },
 #endif
 #ifndef BBSETTING_NOWINDOW
-{ C_STY, SN_WINFOCUS_TITLE      , "window.title.focus",     SN_TOOLBAR      , A_TEX|I_DEF },
-{ C_STY, SN_WINFOCUS_LABEL      , "window.label.focus",     SN_TOOLBARWINDOWLABEL, A_TEX|V_TXT|V_OUTLINECOLOR|V_SHADOW },
-{ C_STY, SN_WINFOCUS_HANDLE     , "window.handle.focus",    SN_TOOLBAR      , A_TEX|I_DEF },
-{ C_STY, SN_WINFOCUS_GRIP       , "window.grip.focus",      SN_TOOLBARWINDOWLABEL, A_TEX|I_DEF },
-{ C_STY, SN_WINFOCUS_BUTTON     , "window.button.focus",    SN_TOOLBARBUTTON, A_TEX|V_PIC },
-{ C_STY, SN_WINFOCUS_BUTTONP    , "window.button.pressed",  SN_TOOLBARBUTTONP, A_TEX|V_PIC },
+{ C_STY, SN_WINFOCUS_TITLE      , "window.title.focus",     SN_TOOLBAR      , A_TEX|I_DEF|V_SPLIT },
+{ C_STY, SN_WINFOCUS_LABEL      , "window.label.focus",     SN_TOOLBARWINDOWLABEL, A_TEX|V_TXT|V_OUTLINECOLOR|V_SHADOW|V_SPLIT },
+{ C_STY, SN_WINFOCUS_HANDLE     , "window.handle.focus",    SN_TOOLBAR      , A_TEX|I_DEF|V_SPLIT },
+{ C_STY, SN_WINFOCUS_GRIP       , "window.grip.focus",      SN_TOOLBARWINDOWLABEL, A_TEX|I_DEF|V_SPLIT },
+{ C_STY, SN_WINFOCUS_BUTTON     , "window.button.focus",    SN_TOOLBARBUTTON, A_TEX|V_PIC|V_SPLIT },
+{ C_STY, SN_WINFOCUS_BUTTONP    , "window.button.pressed",  SN_TOOLBARBUTTONP, A_TEX|V_PIC|V_SPLIT },
 
-{ C_STY, SN_WINUNFOCUS_TITLE    , "window.title.unfocus",   SN_TOOLBAR      , A_TEX|I_DEF },
-{ C_STY, SN_WINUNFOCUS_LABEL    , "window.label.unfocus",   SN_TOOLBAR      , A_TEX|V_TXT|V_OUTLINECOLOR|V_SHADOW },
-{ C_STY, SN_WINUNFOCUS_HANDLE   , "window.handle.unfocus",  SN_TOOLBAR      , A_TEX|I_DEF },
-{ C_STY, SN_WINUNFOCUS_GRIP     , "window.grip.unfocus",    SN_TOOLBARLABEL , A_TEX|I_DEF },
-{ C_STY, SN_WINUNFOCUS_BUTTON   , "window.button.unfocus",  SN_TOOLBARBUTTON, A_TEX|V_PIC },
+{ C_STY, SN_WINUNFOCUS_TITLE    , "window.title.unfocus",   SN_TOOLBAR      , A_TEX|I_DEF|V_SPLIT },
+{ C_STY, SN_WINUNFOCUS_LABEL    , "window.label.unfocus",   SN_TOOLBAR      , A_TEX|V_TXT|V_OUTLINECOLOR|V_SHADOW|V_SPLIT },
+{ C_STY, SN_WINUNFOCUS_HANDLE   , "window.handle.unfocus",  SN_TOOLBAR      , A_TEX|I_DEF|V_SPLIT },
+{ C_STY, SN_WINUNFOCUS_GRIP     , "window.grip.unfocus",    SN_TOOLBARLABEL , A_TEX|I_DEF|V_SPLIT },
+{ C_STY, SN_WINUNFOCUS_BUTTON   , "window.button.unfocus",  SN_TOOLBARBUTTON, A_TEX|V_PIC|V_SPLIT },
 // -------------------------->>
 // new bb4nix 070 style props
 { C_STY, SN_WINFOCUS_TITLE      , "window.title",           SN_TOOLBAR      , V_MAR|I_DEF },
@@ -452,7 +462,12 @@ static const struct items StyleItems[] = {
 // window.font:
 { C_STY, SN_WINFOCUS_LABEL      , "window",                 SN_TOOLBAR      , A_FNT },
 #endif
-{ C_STY, SN_SLIT                , "slit",                   SN_TOOLBAR      , A_TEX|V_MAR|I_DEF },
+{ C_STY, SN_SLIT                , "slit",                   SN_TOOLBAR      , A_TEX|V_MAR|I_DEF|V_SPLIT },
+
+/* BlackboxZero 1.8.2012 */
+{ C_INT, SN_MENUSEPMARGIN       , "menu.separator.margin",			0, 0 },
+{ C_COL, SN_MENUSEPCOLOR        , "menu.separator.color",			0, 0 },
+{ C_COL, SN_MENUSEPSHADOWCOLOR  , "menu.separator.shadowColor",		0, 0 },
 { 0,0,NULL,0,0 }
 };
 
@@ -498,12 +513,12 @@ static int read_style_item (
     { ".borderColor",     NULL              , C_BOC , V_BOC },
     { ".marginWidth",     NULL              , C_MAR , V_MAR },
 	/* BlackboxZero 1.4.2012 */
-	{ ".shadowX:",			NULL			, C_SHAX , V_SHADOWX },
-	{ ".shadowY:",			NULL			, C_SHAY , V_SHADOWY },
-	{ ".shadowColor:",		NULL			, C_CO5 , V_SHADOWCOLOR },
-	{ ".outlineColor:",		NULL			, C_CO6 , V_OUTLINECOLOR },
-    { ".color.splitTo:", ".color1.splitTo"	, C_CO1ST , V_FROMSPLITTO },
-    { ".colorTo.splitTo:", ".color2.splitTo", C_CO2ST , V_TOSPLITTO },
+	{ ".shadowX",			NULL			, C_SHAX , V_SHADOWX },
+	{ ".shadowY",			NULL			, C_SHAY , V_SHADOWY },
+	{ ".shadowColor",		NULL			, C_CO5 , V_SHADOWCOLOR },
+	{ ".outlineColor",		NULL			, C_CO6 , V_OUTLINECOLOR },
+    { ".color.splitTo", ".color1.splitTo"	, C_CO1ST , V_FROMSPLITTO },
+    { ".colorTo.splitTo", ".color2.splitTo" , C_CO2ST , V_TOSPLITTO },
 
     };
 
@@ -743,7 +758,7 @@ restart:
 //===========================================================================
 void ReadStyle(const char *style, StyleStruct *pStyle)
 {
-    const struct items *s;
+    const struct items *s, *ptr;
     StyleItem *T, *F;
     bool bu = pStyle->bulletUnix;
     bool valid_bevelWidth;
@@ -904,6 +919,43 @@ void ReadStyle(const char *style, StyleStruct *pStyle)
         if (false == valid_borderColor)
             pStyle->borderColor = pStyle->Toolbar.borderColor;
     }
+
+	/* BlackboxZero 1.6.2012 */
+	// default SplitColor
+	ptr = StyleItems;
+	do {
+        const void *p_default;
+		//memset(pStyle, 0, sizeof *pStyle);
+		p_default = StyleStructPtr(ptr->sn_def, pStyle);
+		StyleItem* pSI = (StyleItem*)p_default;
+        bool is_split = (pSI->type == B_SPLITVERTICAL) || (pSI->type == B_SPLITHORIZONTAL) 
+			|| (pSI->type == B_SPLIT_VERTICAL) || (pSI->type == B_SPLIT_HORIZONTAL);
+        if (ptr->flags & V_FROMSPLITTO){
+            if(is_split && !(pSI->validated & V_FROMSPLITTO)){
+                unsigned int r = GetRValue(pSI->Color);
+                unsigned int g = GetGValue(pSI->Color);
+                unsigned int b = GetBValue(pSI->Color);
+                r = iminmax(r + (r>>2), 0, 255);
+                g = iminmax(g + (g>>2), 0, 255);
+                b = iminmax(b + (b>>2), 0, 255);
+                pSI->ColorSplitTo = RGB(r, g, b);
+                pSI->validated |= V_FROMSPLITTO;
+            }
+        }
+        if (ptr->flags & V_TOSPLITTO){
+            if(is_split && !(pSI->validated & V_TOSPLITTO)){
+                unsigned int r = GetRValue(pSI->ColorTo);
+                unsigned int g = GetGValue(pSI->ColorTo);
+                unsigned int b = GetBValue(pSI->ColorTo);
+                r = iminmax(r + (r>>4), 0, 255);
+                g = iminmax(g + (g>>4), 0, 255);
+                b = iminmax(b + (b>>4), 0, 255);
+                pSI->ColorToSplitTo = RGB(r, g, b);
+                pSI->validated |= V_TOSPLITTO;
+            }
+        }
+    } while ((++ptr)->sn_def);
+	/* BlackboxZero 1.6.2012 */
 }
 
 //===========================================================================
@@ -977,6 +1029,14 @@ static const struct rccfg extrc_cfg[] = {
     { "blackbox.options.UTF8Encoding",         C_BOL, (void*)false,    &Settings_UTF8Encoding },
     { "blackbox.options.OldTray",              C_BOL, (void*)false,    &Settings_OldTray },
 
+	/* BlackboxZero 1.7.2012 */
+    { "blackbox.menu.keepHilite:",              C_BOL, (void*)false,    &Settings_menuKeepHilite },
+	{ "blackbox.recent.menuFile:",              C_STR, (void*)"",       &Settings_recentMenu },
+    { "blackbox.recent.itemKeepSize:",          C_INT, (void*)3,        &Settings_recentItemKeepSize },
+    { "blackbox.recent.itemSortSize:",          C_INT, (void*)5,        &Settings_recentItemSortSize },
+    { "blackbox.recent.withBeginEnd:",          C_BOL, (void*)true,     &Settings_recentBeginEnd },
+	/* BlackboxZero 1.7.2012 */
+
     { "blackbox.global.fonts.enabled",         C_BOL, (void*)false,    &Settings_globalFonts },
     { "blackbox.editor",                       C_STR, (void*)"notepad.exe", Settings_preferredEditor },
 
@@ -1017,6 +1077,7 @@ static const struct rccfg bbrc_cfg[] = {
 	{ ".menu.icon.size",			C_INT, (void*)16,		&Settings_menu.iconSize },
 	{ ".menu.icon.saturation",		C_INT, (void*)255,		&Settings_menu.iconSaturation },
 	{ ".menu.icon.hue",				C_INT, (void*)0,		&Settings_menu.iconHue },
+	{ ".menu.sub.spacing",			C_INT, (void*)0,		&Settings_menu.spacing }, /* BlackboxZero 1.6.2012 */
 
 
     { "#workspaces",               C_INT, (void*)4,        &Settings_workspaces },

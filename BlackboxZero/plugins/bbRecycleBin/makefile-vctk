@@ -1,0 +1,31 @@
+
+CPP=cl.exe
+OUTDIR=.\Release
+INTDIR=.\Release
+
+ALL : "$(OUTDIR)\bbrecyclebin.dll"
+
+"$(OUTDIR)" : 
+	if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
+
+LINK32=link.exe
+LINK32_FLAGS=blackbox.lib msvcrt.lib kernel32.lib user32.lib \
+	gdi32.lib comdlg32.lib shell32.lib shlwapi.lib comctl32.lib \
+	/subsystem:windows /nodefaultlib /dll /out:"$(OUTDIR)\bbrecyclebin.dll"
+LINK32_OBJS= "$(INTDIR)\bbrecyclebin.obj" \
+
+"$(OUTDIR)\bbrecyclebin.dll" : "$(OUTDIR)" $(LINK32_OBJS)
+    $(LINK32) @<<
+  $(LINK32_FLAGS) $(LINK32_OBJS)
+<<
+
+CPP_PROJ=/nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Fo"$(INTDIR)\\" /c 
+
+.cpp{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+SOURCE=.\bbrecyclebin.cpp
+
+"$(INTDIR)\bbrecyclebin.obj" : $(SOURCE) "$(INTDIR)"

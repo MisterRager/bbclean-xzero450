@@ -395,7 +395,8 @@ void SeparatorItem::Measure(HDC hDC, SIZE *size)
 {
     if (Settings_menu.drawSeparators)
         //size->cy = MenuInfo.separatorWidth + imax(MenuInfo.nItemHeight*2/5 & ~1, 2*mStyle.MenuFrame.marginWidth);
-        size->cy = MenuInfo.separatorWidth + 2*mStyle.MenuFrame.marginWidth;
+		/* BlackboxZero 1.8.2012 */
+		size->cy = Settings_menu.separatorCompact?(5):(MenuInfo.separatorWidth + 2*mStyle.MenuFrame.marginWidth);
     else
         size->cy = MenuInfo.nItemHeight*3/5;
 
@@ -404,6 +405,8 @@ void SeparatorItem::Measure(HDC hDC, SIZE *size)
 
 void SeparatorItem::Paint(HDC hDC)
 {
+	/* BlackboxZero 1.8.2012
+	** Dont' use original..
     RECT rect; int y, d;
     if (false == Settings_menu.drawSeparators)
         return;
@@ -411,6 +414,69 @@ void SeparatorItem::Paint(HDC hDC)
     d = MenuInfo.separatorWidth;
     y = (rect.top + rect.bottom - d) / 2;
     draw_line_h(hDC, rect.left, rect.right, y, d, MenuInfo.separatorColor);
+	** */
+
+	StyleItem *pSI = &mStyle.MenuFrame;
+	int x, y = m_nTop + m_nHeight / 2;
+	// Noccy: Looks like we have to remove some pixels here to prevent it from overwriting the right border.
+	int left  = m_nLeft + ((Settings_menu.separatorFullWidth)?1:mStyle.MenuSepMargin) - 1;
+	int right = m_nLeft + m_nWidth - ((Settings_menu.separatorFullWidth)?1:mStyle.MenuSepMargin);
+	// int dist = (m_nWidth + 1) / 2 - ((Settings_menuFullSeparatorWidth==true)?mStyle.MenuFrame.borderWidth:mStyle.MenuSepMargin);
+	int dist = (m_nWidth+1) / 2 - ((Settings_menu.separatorFullWidth)?1:mStyle.MenuSepMargin);
+	COLORREF c = mStyle.MenuSepColor;
+	COLORREF cs = mStyle.MenuSepShadowColor;//pSI->ShadowColor; /*12.08.2011*/
+
+	if (pSI->ShadowXY) {
+		int yS = y + pSI->ShadowY;
+		int leftS  = left + pSI->ShadowX;
+		int rightS = right + pSI->ShadowX;
+		if (0 == stricmp(Settings_menu.separatorStyle,"gradient")) {
+			// Gradient shadow
+			for (x = 0; x <= dist; ++x) {
+				int pos, hue = x * 255 / dist;
+				pos = leftS + x;
+				SetPixel(hDC, pos, yS, mixcolors(cs, GetPixel(hDC, pos, y), hue));
+				pos = rightS - x;
+				SetPixel(hDC, pos, yS, mixcolors(cs, GetPixel(hDC, pos, y), hue));
+			}
+		} else if (0 == stricmp(Settings_menu.separatorStyle,"flat")) {
+			// Flat shadow
+			for (x = 0; x <= dist; ++x) {
+				int pos;
+				pos = leftS + x;
+				SetPixel(hDC, pos, yS, cs);
+				pos = rightS - x;
+				SetPixel(hDC, pos, yS, cs);
+			}
+		} /*else if (0 == stricmp(Settings_menu.separatorStyle,"bevel")) {
+				// Bevel shadow is simply none...
+		}*/
+	}
+
+	//Draw Separator
+	if (0 == stricmp(Settings_menu.separatorStyle,"gradient")) {
+		for (x = 0; x <= dist; ++x) {
+			int pos, hue = x * 255 / dist;
+			pos = left + x;
+			SetPixel(hDC, pos, y, mixcolors(c, GetPixel(hDC, pos, y), hue));
+			pos = right - x;
+			SetPixel(hDC, pos, y, mixcolors(c, GetPixel(hDC, pos, y), hue));
+		}
+	} else if (0 == stricmp(Settings_menu.separatorStyle,"flat")) {
+		for (x = 0; x <= dist; ++x) {
+			int pos; //, hue = x * 255 / dist;
+			pos = left + x; SetPixel(hDC, pos, y, c);
+			pos = right - x; SetPixel(hDC, pos, y, c);
+		}
+	} else if (0 == stricmp(Settings_menu.separatorStyle,"bevel")) {
+		for (x = 0; x <= dist; ++x) {
+			int pos;
+			pos = left + x; SetPixel(hDC, pos, y, mixcolors(0x00000000, GetPixel(hDC, pos, y), 160));
+			pos = right - x; SetPixel(hDC, pos, y, mixcolors(0x00000000, GetPixel(hDC, pos, y), 160));
+			pos = left + x; SetPixel(hDC, pos, y+1, mixcolors(0x00FFFFFF, GetPixel(hDC, pos, y+1), 160));
+			pos = right - x; SetPixel(hDC, pos, y+1, mixcolors(0x00FFFFFF, GetPixel(hDC, pos, y+1), 160));
+		}
+	}
 }
 
 //===========================================================================

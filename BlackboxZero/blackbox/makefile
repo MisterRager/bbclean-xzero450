@@ -32,7 +32,8 @@ MENUOBJ = \
   SpecialFolder.obj \
   Contextmenu.obj \
   Dragsource.obj \
-  Droptarget.obj
+  Droptarget.obj \
+  RecentItem.obj
 
 RES = resource.res
 

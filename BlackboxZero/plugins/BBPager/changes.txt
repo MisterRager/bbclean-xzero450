@@ -1,0 +1,57 @@
+[changed BBPager.cpp 01/03/04 nc-17]
+- fixed window movement bug when all actions were bound to one mouse button
+
+[changed BBPager.cpp 22/02/04 nc-17]
+- fixed bug where pager couldnt move if useSlit was true but no slit window existed (thanks Fatman)
+
+[changed BBPager.cpp 09/01/04 nc-17]
+- fixed bug where the pager would set itself to 0x0 and no border...(disappear?) (thanks qwilk)
+
+[changed BBPager.cpp 22/12/03 nc-17]
+- fixed some activeDesktop issues and crash where 'texture' was set with no styles to go with it,
+  also 'none' does not set active desktop to parentrelative when normal desktops are not
+- fixed RC file handling and things with begin(Slit)Plugin(Ex)
+- fixed window not moving/redrawing properly on alignment change, and clicking set alignment in menu
+  will now set the opposite
+
+[changed BBPager.cpp 21/12/03 nc-17]
+- now uses an rc setting to decide whether to go into the slit on startup or not, good for xobliters
+- updated to use SetTransparency
+
+[changed BBPager.cpp 06/11/03 nc-17]
+- bbpager will turn trans off when going into the slit, but automatically turns
+  it back on if it was set before when leaving the slit.
+- the pager now remembers where it last was whening leaving the slit properly
+
+[changed BBPager.h/.cpp 03/11/03 nc-17]
+- added entry for magicDWord in .h now no longer in bbapi.h
+- ordering of focusing windows/changing workspace on click changed to stop the maximised 
+  windows following workspaces to the right issue with BBPager.
+
+[previous updates for 1.0+ (higher means more recent) nc-17]
+- added icon to about box (thanks mortar)
+- tweaked slit_update message sending and positioning function
+- now supports the xoblite/future bb4win beginPluginEx
+- forgot to add slit_remove message on plugin exit, fixed that :)
+- fixed autohide and loading in slit issue where the window would be nowhere to be seen :)
+- moving windows no longer causes bbsystembar and stuff to 'forget' which workspace a window is on   
+  (a bbapi core message was needed)
+- added border toggle (kinda nice for the slit sometimes)
+- our favourite pager is now slitable!
+- autohide now works correctly on startup...
+- improved deletion of GDI objects so should prolly cause less problems on 9x/me :) (thanks grishka)
+- removed references to Save Settings as it is no longer used/needed
+- fix for maximized window moving with top/left desktop margins
+- save settings menu item fix - bro@m
+- hideWidth implemented for hidden state, changes with style
+- fix for possible divide by zero from message boxes on bb startup
+- now only one dll needed for 9x/me/nt/2k/xp (thanks grishka)
+- removed 250ms delay on autohide state changes
+- edited about box
+- fixed strange disappearing bug?
+- rc written on any change with the menu... not saved on position change though...
+- made the pager more responsive to windows (shell hook msgs)
+- position saved now as pager is moved
+- rc file no longer written on plugin exit
+
+############################################################## 1.0 #################################

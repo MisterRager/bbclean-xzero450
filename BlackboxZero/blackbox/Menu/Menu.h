@@ -393,6 +393,10 @@ public:
 #define FOLDER_RIGHT    0
 #define FOLDER_LEFT     1
 
+/* BlackboxZero 1.7.2012 */
+#define FOLDER_DEFAULT 3
+#define FOLDER_DISABLED 4
+
 // DrawText flags
 #define DT_MENU_STANDARD (DT_VCENTER | DT_SINGLELINE | DT_END_ELLIPSIS | DT_NOCLIP | DT_EXPANDTABS)
 #define DT_MENU_MEASURE_STANDARD (DT_LEFT | DT_EXPANDTABS | DT_CALCRECT | DT_EXPANDTABS)
@@ -432,6 +436,7 @@ struct MenuInfo
     int nScrollerSize;
     int nScrollerSideOffset;
     int nScrollerTopOffset;
+	int nScrollerPosition; /* BlackboxZero 1.7.2012 */
     StyleItem Scroller;
 
     int nBulletPosition;

@@ -111,6 +111,10 @@ void MakeGradient(
     int borderWidth
     );
 
+void MakeGradientEx(HDC hDC, RECT rect, int type, COLORREF colour_from, COLORREF colour_to, 
+					COLORREF colour_from_splitto, COLORREF colour_to_splitto, bool interlaced, int bevelStyle,
+					int bevelPosition, int bevelWidth, COLORREF borderColor, int borderWidth);
+
 /* paint a border on hDC */
 void CreateBorder(HDC hDC, RECT *prect, COLORREF borderColour, int borderWidth);
 

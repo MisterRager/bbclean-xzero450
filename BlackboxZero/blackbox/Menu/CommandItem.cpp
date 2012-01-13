@@ -22,6 +22,7 @@
 #include "../BB.h"
 #include "../Settings.h"
 #include "Menu.h"
+#include "RecentItem.h"
 
 //===========================================================================
 //
@@ -46,17 +47,44 @@ void CommandItem::Invoke(int button)
         show_props(pidl);
         return;
     }
+		/*BlackboxZero 1.7.2012 */
+        char szPath[MAX_PATH];
+		szPath[0] = '\0';
 
     if (INVOKE_LEFT & button)
     {
+
         m_pMenu->hide_on_click();
         if (m_pszCommand) {
-            if (strstr(m_pszCommand, "%b"))
-                post_command_fmt(m_pszCommand, false == m_bChecked);
-            else
+			/*BlackboxZero 1.7.2012 */
+			//if (const char *p = strstr(m_pszCommand, "%b")) {
+            //    post_command_fmt(m_pszCommand, false == m_bChecked);
+			if (const char *p = stristr(m_pszCommand, "@BBCore.exec ")) {
+                _strcpy(szPath, p+13);
+				post_command(m_pszCommand);
+			} else
                 post_command(m_pszCommand);
-        } else if (pidl)
+		} else if (pidl) {
+			char buf[MAX_PATH];
+		/*BlackboxZero 1.7.2012 */
+			char szMenuPath[MAX_PATH];
+			szMenuPath[0] = '\0';
+			if (SHGetPathFromIDList(pidl, buf))
+				sprintf(szPath, "\"%s\"", buf);
+			/*BlackboxZero 1.7.2012 */
+
             BBExecute_pidl(NULL, pidl);
+
+			/*BlackboxZero 1.7.2012 */
+			strcpy(szMenuPath, unquote(Settings_recentMenu));
+			int nKeep = Settings_recentItemKeepSize;
+			int nSort = Settings_recentItemSortSize;
+			bool bBeginEnd = Settings_recentBeginEnd;
+
+			if (szPath[0] && szMenuPath[0] && (nKeep || nSort))
+				CreateRecentItemMenu(szMenuPath, szPath, m_pszTitle, m_pszIcon, nKeep, nSort, bBeginEnd);
+			/*BlackboxZero 1.7.2012 */
+		}
         return;
     }
 
@@ -445,8 +473,12 @@ LRESULT CALLBACK StringItem::EditProc(HWND hText, UINT msg, WPARAM wParam, LPARA
             hdc = BeginPaint(hText, &ps);
             GetClientRect(hText, &r);
             pSI = &mStyle.MenuFrame;
-            MakeGradient(hdc, r,
+			/* BlackboxZero 1.6.2012 */
+            /*MakeGradient(hdc, r,
                 pSI->type, pSI->Color, pSI->ColorTo,
+                pSI->interlaced, BEVEL_SUNKEN, BEVEL1, 0, 0, 0);*/
+			MakeGradientEx(hdc, r,
+				pSI->type, pSI->Color, pSI->ColorTo, pSI->ColorSplitTo, pSI->ColorToSplitTo,
                 pSI->interlaced, BEVEL_SUNKEN, BEVEL1, 0, 0, 0);
             CallWindowProc(pItem->wpEditProc, hText, msg, (WPARAM)hdc, lParam);
             EndPaint(hText, &ps);

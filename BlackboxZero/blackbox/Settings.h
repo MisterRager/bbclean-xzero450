@@ -79,10 +79,16 @@ BBSETTING struct menu_setting {
     bool	dropShadows;
     bool	alphaEnabled;
     int		alphaValue;
-	/* BlackboxZero 1.3.2012 - */
+	/* BlackboxZero 1.3.2012 - 1.7.2012 */
 	int		iconSize;
 	int		iconSaturation;
 	int		iconHue;
+	int		spacing;
+	bool	bullet_enabled;
+	char	scrollerPosition[16];
+	char	separatorStyle[16];
+	bool	separatorFullWidth;
+	bool	separatorCompact;
 } Settings_menu;
 
 //====================
@@ -135,6 +141,14 @@ BBSETTING bool Settings_OldTray;
 BBSETTING int Settings_contextMenuAdjust[2];
 BBSETTING int Settings_LogFlag;
 
+/* BlackboxZero 1.7.2012 */
+BBSETTING bool Settings_menuKeepHilite;
+BBSETTING char Settings_recentMenu[MAX_PATH];
+BBSETTING int  Settings_recentItemKeepSize;
+BBSETTING int  Settings_recentItemSortSize;
+BBSETTING bool Settings_recentBeginEnd;
+/* BlackboxZero 1.7.2012 */
+
 // feature select
 BBSETTING bool Settings_disableTray;
 BBSETTING bool Settings_disableDesk;
@@ -164,6 +178,7 @@ BBSETTING bool Settings_disableMargins;
 #define	V_TOSPLITTO		0x40000
 
 #define V_SHADOW (V_SHADOWX|V_SHADOWY|V_SHADOWCOLOR)
+#define V_SPLIT (V_FROMSPLITTO|V_TOSPLITTO)
 
 void ReadStyle(const char *style, StyleStruct *pStyle);
 

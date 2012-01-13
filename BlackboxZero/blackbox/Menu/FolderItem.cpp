@@ -59,6 +59,10 @@ void FolderItem::Paint(HDC hDC)
 
     MenuItem::Paint(hDC);
 
+	/* BlackboxZero 1.7.2012 */
+	if ( !Settings_menu.bullet_enabled )
+		return;
+
     bstyle = MenuInfo.nBulletStyle;
     if (BS_EMPTY == bstyle)
         return;

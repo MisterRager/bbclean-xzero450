@@ -48,9 +48,10 @@ static const struct int_item {
     { &Settings_toolbar.alphaValue          ,   0,   255, 255 },
     { &Settings_autoRaiseDelay              ,   0, 10000, -1  },
     { &Settings_workspaces                  ,   1,    24, -1  },
-	{ &Settings_menu.iconSize				,	0,	  32,  0  },
-	{ &Settings_menu.iconSaturation			,	0,	 255, 255 },
-	{ &Settings_menu.iconHue				,	0,	 255,  0  },
+	{ &Settings_menu.iconSize				,	0,	  32,  0  }, /* BlackboxZero 1.5.2012 */
+	{ &Settings_menu.iconSaturation			,	0,	 255, 255 }, /* BlackboxZero 1.5.2012 */
+	{ &Settings_menu.iconHue				,	0,	 255,  0  }, /* BlackboxZero 1.5.2012 */
+	{ &Settings_menu.spacing				, -50,	  50,  0  }, /* BlackboxZero 1.6.2012 */
     { NULL, 0, 0, 0}
 };
 
@@ -74,6 +75,9 @@ static bool is_fixed_string(const void *v)
     return v == Settings_focusModel
         || v == Settings_menu.openDirection
         || v == Settings_toolbar.placement
+		/* BlackboxZero 1.7.20120 - 1.8.2012*/
+		|| v == Settings_menu.scrollerPosition
+		|| v == Settings_menu.separatorStyle
         ;
 }
 
@@ -135,6 +139,36 @@ static const struct cfgmenu cfg_sub_menu_icons[] = { /* BlackboxZero 1.3.2012 */
 	{ NULL,NULL,NULL }
 };
 
+/* BlackboxZero 1.7.2012
+Submenu 2.6(Menus -> Scroll Position) */
+const struct cfgmenu cfg_sub_menu_scroll[] = {
+	{ NLS0("Default"),	"menu.scrollPosition default",	&Settings_menu.scrollerPosition },
+	{ NLS0("Left"),		"menu.scrollPosition left",		&Settings_menu.scrollerPosition },
+	{ NLS0("Right"),	"menu.scrollPosition right",	&Settings_menu.scrollerPosition },
+	{ NLS0("None"),		"menu.scrollPosition none",		&Settings_menu.scrollerPosition },
+	{ NULL,NULL,NULL }
+};
+
+/* BlackboxZero 1.8.2012
+Submenu 2.7.1(Menus -> Separators -> Style) */
+const struct cfgmenu cfg_sub_menu_separatorstyle[] = {
+	{ NLS0("Gradient"),           "menu.separatorStyle gradient", &Settings_menu.separatorStyle },
+	{ NLS0("Flat"),               "menu.separatorStyle flat",     &Settings_menu.separatorStyle },
+	{ NLS0("Bevel"),              "menu.separatorStyle bevel",    &Settings_menu.separatorStyle },
+	{ NLS0("None"),               "menu.separatorStyle none",     &Settings_menu.separatorStyle },
+	{ NULL, NULL, NULL },
+
+};
+
+/* BlackboxZero 1.8.2012
+Submenu 2.7(Menus -> Separators) */
+const struct cfgmenu cfg_sub_menu_separator[] = {
+	{ NLS0("Style"),			NULL, cfg_sub_menu_separatorstyle },
+	{ NLS0("Full width"),		"menu.fullSeparatorWidth",      &Settings_menu.separatorFullWidth },
+	{ NLS0("Compact mode"),		"menu.compactSeparators",       &Settings_menu.separatorCompact },
+	{ NULL, NULL, NULL }
+};
+
 /* BlackboxZero 1.3.2012
 Main portion of config menu #2(Menus) */
 static const struct cfgmenu cfg_sub_menu[] = {
@@ -145,6 +179,11 @@ static const struct cfgmenu cfg_sub_menu[] = {
     { NLS0("Files"),                NULL, cfg_sub_menu_files },		/* Menu #2.4 - BlackboxZero 1.3.2012 */
 	{ NLS0("Icons"),				NULL, cfg_sub_menu_icons },		/* Menu #2.5 - BlackboxZero 1.4.2012 */
     { "", NULL, NULL },
+	{ NLS0("Bullets"),		"menu.bullet.enabled",	&Settings_menu.bullet_enabled },/* BlackboxZero 1.7.2012 */
+	{ NLS0("Scroll Position"),		NULL, cfg_sub_menu_scroll },	/* Menu #2.6 - BlackboxZero 1.7.2012 */
+	{ NLS0("Separators"),			NULL, cfg_sub_menu_separator },	/* Menu #2.7 - BlackboxZero 1.8.2012 */
+    { "", NULL, NULL },
+	{ NLS0("Submenu Spacing"),		"menu.sub.spacing",		&Settings_menu.spacing },  /* BlackboxZero 1.6.2012 */
     { NLS0("Transparency"),         "menu.alpha.Enabled",   &Settings_menu.alphaEnabled  },
     { NLS0("Alpha Value"),          "menu.alpha.Value",     &Settings_menu.alphaValue  },
     { NLS0("Draw Separators"),      "menu.drawSeparators",  &Settings_menu.drawSeparators  },

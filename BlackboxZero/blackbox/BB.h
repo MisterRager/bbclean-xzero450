@@ -149,6 +149,7 @@ void _log_printf(int flag, const char *fmt, ...);
 #define LOG_STARTUP 2
 #define LOG_TRAY 4
 #define LOG_SHUTDOWN 8
+#define LOG_GRADIENTS 16
 #define log_printf(args) _log_printf args
 
 void bb_rcreader_init(void);

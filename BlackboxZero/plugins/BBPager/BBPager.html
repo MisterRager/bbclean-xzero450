@@ -1,0 +1,267 @@
+<html>
+<head>
+<title>BBPager</title>
+<style>
+	body
+	{background-color: #333333;
+	margin-top: 5px; margin-left: 5px;
+	scrollbar-face-color: #636363;
+	scrollbar-shadow-color: #535353;
+	scrollbar-highlight-color: #737373;
+	scrollbar-3dlight-color: #737373;
+	scrollbar-darkshadow-color: #535353;
+	scrollbar-track-color: #333333;
+	scrollbar-arrow-color: #FFFFFF;}
+	<!--
+	a:hover{color:#888888;}
+	.myhover a:hover{color:#888888;}
+	-->
+	hr {height: 1px; color: #666666;}
+	table {font-family: Tahoma; font-size: 8pt; font-weight: normal; text-align: left; color: #FFFFFF;}
+	span {color: #777777;}
+	span.desc {color: #BBBBBB;}
+	span.example {color: #555555;}
+</style>
+</head>
+
+<!-- ---------- -->
+
+<body bgcolor="#333333" text="#FFFFFF" link="#AAAAAA" vlink="#AAAAAA" alink="#AAAAAA" topmargin="5" leftmargin="5">
+
+<table border="0" cellpadding="0" cellspacing="2" align="center">
+
+<!-- ---------- -->
+
+<tr><td colspan="2">
+<table cellpadding="10" cellspacing="0" width="100%" border="1" bordercolor="#666666"><tr bgcolor="#555555"><td>
+<font size="+1">BBPager <span class="desc">1.0</span></font>
+</td></tr></table>
+</td></tr>
+
+<tr><td valign="top">
+
+<!-- ---------- -->
+
+<table cellpadding="10" cellspacing="0" width="300" border="1" bordercolor="#555555">
+
+<tr><td bgcolor="#444444"><center><font color="#777777"><b>description</b></font></center></td></tr>
+<tr bgcolor="#333333"><td>
+BBPager is a VWM (Virtual Window Manager) plugin for <a href="http://desktopian.org/bb/">Blackbox for Windows</a>. 
+It allows you to see window positions on other workspaces, change workspaces using the pager, focus windows on any workspace,
+and move windows from one workspace to another.
+
+<p>BBPager 1.0 requires Blackbox for Windows 0.0.81 or later.
+
+<p><span><font face="Verdana"><i>Insert random tagline here. =Q)</i></font></span>
+
+<p><a href="mailto:nc-17@ratednc-17.com">NC-17</a>
+
+</td></tr>
+
+<!-- ---------- -->
+
+<tr><td bgcolor="#444444"><center><font color="#777777"><b>revision history</b></font></center></td></tr>
+<tr bgcolor="#333333"><td>
+<p>BBPager 1.0 (2003-03-13) / <a href="mailto:nc-17@ratednc-17.com">NC-17</a>
+<span>
+    <li>Changed the way windows are filtered to display more windows, e.g. Delphi apps</li>
+    <li>Converted static arrays to vectors to help lower memory footprint</li>
+    <li>Added support for <i>moving windows</i>!</li>
+	<li>BBPager can now accept keyboard input for menu shortcuts</li>
+	<li>Added <i>docs</i>!</li>
+</span>
+<p>BBPager 0.8.5 (2003-02-24) / <a href="mailto:nc-17@ratednc-17.com">NC-17</a>
+<span>
+	<li>Original release</li>
+</span>
+
+</td></tr>
+
+<!-- ---------- -->
+
+<tr><td bgcolor="#444444"><center><font color="#777777"><b>future releases?</b></font></center></td></tr>
+<tr bgcolor="#333333"><td>
+	<li>[your wish goes here - <a href="mailto:nc-17@ratednc-17.com">send me your ideas</a>! :D ]</li>
+</td></tr>
+
+<tr><td bgcolor="#444444"><center><font color="#777777"><b>known issues</b></font></center></td></tr>
+<tr bgcolor="#333333"><td>
+	<li>windows do not span across desktops</li>
+</td></tr>
+
+<!-- ---------- -->
+
+<tr><td bgcolor="#444444"><center><font color="#777777"><b>license information</b></font></center></td></tr>
+<tr bgcolor="#333333"><td>
+<span class="desc">&copy; 2003 Laurence Skegg [NC-17]</span>
+<p><span>BBPAGER IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND.
+THE AUTHOR DISCLAIMS ALL WARRANTIES, EITHER EXPRESS OR IMPLIED,
+INCLUDING THE WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR PURPOSE. IN NO EVENT SHALL THE AUTHOR OR ITS
+SUPPLIERS BE LIABLE FOR ANY DAMAGES WHATSOEVER INCLUDING
+DIRECT, INDIRECT, INCIDENTAL, CONSEQUENTIAL, LOSS OF BUSINESS
+PROFITS OR SPECIAL DAMAGES, EVEN IF THE AUTHOR OR ITS SUPPLIERS
+HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</span>
+</td></tr>
+
+</table>
+
+<!-- ---------- -->
+
+</td><td valign="top">
+
+<!-- ---------- -->
+
+<table cellpadding="10" cellspacing="0" width="500" border="1" bordercolor="#555555">
+<tr><td bgcolor="#222222">
+
+<table width="100%" bgcolor="#333333"><tr><td>
+<center><span class="desc">initial setup</span></center>
+</td></tr></table>
+
+<p>To load BBPager you simply need to add the relative path of the plugin (from your Blackbox directory) to the Blackbox configuration file <span>plugins.rc</span> (located in the Blackbox directory).
+For example, if you installed Blackbox into c:\Blackbox, and BBPager.dll is located in c:\Blackbox\plugins\BBPager\, you should add the line...
+
+<p><span>plugins\BBPager\BBPager.dll</span> (for <b>2k/xp</b> users)
+<br><span>plugins\BBPager\BBPager_9x.dll</span> (for <b>9x/me</b> users)
+
+<p>...to plugins.rc. Simple, eh? :)
+
+<p>You should also have a look at the <span>bbpager.rc</span> file before you load the plugin, in case there are any settings you would want to customise.
+These settings are shown below.
+
+<!-- ---------- -->
+
+<p><table width="100%" bgcolor="#333333"><tr><td>
+<center><span class="desc">how to use BBPager...</span></center>
+</td></tr></table>
+
+<p><b><u>Mouse Input</u></b>
+<p>Once the plugin is loaded, several things can be done with a simple click on the pager window:
+<p>
+<span class="desc">
+Left Click&nbsp;&nbsp;<span>by default this focuses windows inside desktops, outside lets you drag the pager</span>
+<br>Left Click + Ctrl&nbsp;&nbsp;<span>this lets you drag the pager around wherever you click it</span>
+<br>Middle Click&nbsp;&nbsp;<span>by default this picks up a window in the pager and lets you drag it around</span>
+<br>Right Click&nbsp;&nbsp;<span>outside desktops this accesses the plugin menu, inside this changes desktop by default</span>
+<br>Right Click + Ctrl&nbsp;&nbsp;<span>anywhere in the pager this accesses the plugin menu</span>
+</span>
+
+<p><b><u>The Menu</u></b>
+<p>The plugin menu let's you change or select various things, and most should be self-explanatory. 
+However, there is one submenu worth mentioning - the "Settings" submenu.
+<p>This submenu let's you "Save Settings" (current) to file, or "Reload Settings" that you have edited. 
+These are important because a) BBPager only writes settings when you tell it to, or on plugin shutdown, and b) you do not need to reconfigure
+bb4win in order to have BBPager reload settings from the <span>bbpager.rc</span> file. 
+<p>The "Edit Style" entry opens the <span>bbpager.bb</span> file in your preferred editor. This file is for changing the way BBPager looks. 
+Any setting specified in that file overrides any definition found in the current style file bb4win is using. You can also change the way
+windows and the active desktop are rendered with this file.
+
+<p><b><u>Keyboard Input</u></b>
+<p>When BBPager is the focused window (i.e. after clicking on it), it can accept keyboard input. Below are keys you can press to access a few
+functions quickly. Note for the positioning you need to have numlock on.
+<p>
+<span class="desc">
+Numpad Keys 1-9, except 5&nbsp;&nbsp;<span>Set BBPager position (7 is TopLeft, 3 BottomRight, etc.)</span>
+<br>Numpad Subtract&nbsp;&nbsp;<span>Reload Settings</span>
+<br>Numpad Add&nbsp;&nbsp;<span>Save Settings</span>
+<br>Enter or Backspace&nbsp;&nbsp;<span>Toggle autohide</span>
+<br>Escape&nbsp;&nbsp;<span>This cancels window movement if a window has been grabbed in the pager</span>
+</span>
+
+<p><b><u>Miscellaneous Notes</u></b>
+<p><span>Dragging:</span> When in autohide mode this is not possible - this is where the positioning menu comes in handy. 
+You cannot drag the pager window off the screen.
+<p><span>Autohide:</span> Enabling autohide when the pager window is not on a screen edge will cause the pager to snap to the nearest screen edge and
+enter the hidden state.
+<p><span>Moving windows:</span> When an active window is moved, the workspace is changed to the one it is moved to. When unfocused windows are moved the workspace
+does not follow the window. Maximised windows cannot be moved within the same workspace. When they are moved to another workspace they will stay in their 
+maximised state. Maximised windows use the cursor position to decide which desktop it is dragged to, while unmaximised windows use upper left corner of the 
+window to decide this.
+
+<!-- ---------- -->
+
+<p><table width="100%" bgcolor="#333333"><tr><td>
+<center><span class="desc">bbpager.rc settings</span></center>
+</td></tr></table>
+
+<p>I have included a default configuration file <span>bbpager.rc</span> in the .zip.  If a configuration file for some reason (e.g. you deleted it &lt;g&gt;)
+can not be found at startup (BBPager will first search for it in the same directory as the plugin, then in the Blackbox directory),
+BBPager will automatically create one for you in the same directory as the plugin. Normally, you do not need to edit this file manually, however 
+you may want the to change the button settings to your preference. You may also want to tweak the alpha transparency value (for 2k/xp only, see below) 
+to your liking.
+
+<p><span class="desc">
+bbpager.position.x: 0&nbsp;&nbsp;<span>X position of the pager</span>
+<br>bbpager.position.y: 895&nbsp;&nbsp;<span>Y position of the pager</span>
+<br>bbpager.desktop.width: 40&nbsp;&nbsp;<span>Width of virtual desktops in the pager</span>
+<br>bbpager.desktop.height: 30&nbsp;&nbsp;<span>Height of virtual desktops in the pager</span>
+<br>bbpager.alignment: vertical&nbsp;&nbsp;<span>Chooses whether rows or columns are used</span>
+<br>bbpager.columns: 2&nbsp;&nbsp;<span>Number of columns to constrain desktops to in vertical mode</span>
+<br>bbpager.rows: 2&nbsp;&nbsp;<span>Number of rows to constrain desktops to in horizontal mode</span>
+<br>bbpager.desktopChangeButton: 2&nbsp;&nbsp;<span>Mouse button to use for changing desktops</span>
+<br>bbpager.windowMoveButton: 3&nbsp;&nbsp;<span>Mouse button to use for moving windows</span>
+<br>bbpager.windowFocusButton: 1&nbsp;&nbsp;<span>Mouse button to use for focusing windows</span>
+<br>bbpager.raised: true&nbsp;&nbsp;<span>Always on top?</span>
+<br>bbpager.autoHide: false&nbsp;&nbsp;<span>Toggle autohide mode for the pager</span>
+<br>bbpager.snapWindow: true&nbsp;&nbsp;<span>Snap window to screen edge?</span>
+<br>bbpager.transparency: false&nbsp;&nbsp;<span>Toggle transparency</span>
+<br>bbpager.transparency.alpha: 200&nbsp;&nbsp;<span>Value of transparency (0-255). Larger is more opaque</span>
+<br>bbpager.desktopNumbers: true&nbsp;&nbsp;<span>Show numbers of desktops?</span>
+<br>bbpager.desktopWindows: true&nbsp;&nbsp;<span>Display windows?</span>
+</span>
+
+<p>Please note that BBPager automatically saves the current running configuration when you quit or restart Blackbox,
+overwriting the previous contents of the file. If you want to change these values and make BBPager read them again, edit the file, and then select
+"Reload Settings" from the plugin's "Settings" submenu.
+<p><span>Mouse buttons:</span> For setting mouse buttons to certain actions, 1 is the Left Mouse Button, 2 is the Right Mouse Button, and 3 is the Middle Mouse Button.
+
+<p><table width="100%" bgcolor="#333333"><tr><td>
+<center><span class="desc">bbpager bro@ms</span></center>
+</td></tr></table>
+
+<span class="desc">
+<br>@BBShowPlugins&nbsp;&nbsp;<span>Standard BB bro@m to show all plugins</span>
+<br>@BBHidePlugins&nbsp;&nbsp;<span>Standard BB bro@m to hide all plugins</span>
+<br>@BBPagerReload&nbsp;&nbsp;<span>Make BBPager reload its settings</span>
+<br>@BBPagerSave&nbsp;&nbsp;<span>Make BBPager write your current settings to disk</span>
+<br>
+<br>@BBPagerPosition TopLeft&nbsp;&nbsp;<span>These set the position of the pager window to that specified :)</span>
+<br>@BBPagerPosition TopCenter
+<br>@BBPagerPosition TopRight
+<br>@BBPagerPosition CenterLeft
+<br>@BBPagerPosition CenterRight
+<br>@BBPagerPosition BottomLeft
+<br>@BBPagerPosition BottomCenter
+<br>@BBPagerPosition BottomRight
+<br>
+<br>@BBPagerInternal OpenRC&nbsp;&nbsp;<span>Open the bbpager.rc file with your preferred editor</span>
+<br>@BBPagerInternal OpenStyle&nbsp;&nbsp;<span>Open the bbpager.bb file with your preferred editor</span>
+<br>@BBPagerInternal Vertical&nbsp;&nbsp;<span>Change the alignment to vertical mode</span>
+<br>@BBPagerInternal Horizontal&nbsp;&nbsp;<span>Change the alignment to horizontal mode</span>
+<br>@BBPagerInternal ToggleSnap&nbsp;&nbsp;<span>Toggle snap window to edge</span>
+<br>@BBPagerInternal ToggleRaised&nbsp;&nbsp;<span>Toggle window always on top</span>
+<br>@BBPagerInternal ToggleHide&nbsp;&nbsp;<span>Toggle whether autohide is enabled or not</span>
+<br>@BBPagerInternal ToggleTrans&nbsp;&nbsp;<span>Toggle use of transparency (2k/xp only)</span>
+<br>@BBPagerInternal ToggleNumbers&nbsp;&nbsp;<span>Toggle whether numbers are displayed on desktops</span>
+<br>@BBPagerInternal ToggleWindows&nbsp;&nbsp;<span>Toggle whether windows are shown on desktops</span>
+<br>@BBPagerInternal About&nbsp;&nbsp;<span>Display message box about the plugin</span>
+</span>
+</td></tr>
+
+<!-- ---------- -->
+
+<tr><td bgcolor="#444444"><center><font color="#777777"><b>acknowledgements</b></font></center></td></tr>
+<tr bgcolor="#333333"><td>
+<span class="desc">Everyone who has tested BBPager and given helpful feedback whether it was critical or praising :)
+Qwilk of course for the lovely documentation layout and ever-helpful SDK!</span>
+</td></tr>
+
+<!-- ---------- -->
+
+</table>
+
+</td></tr></table>
+
+</body>
+</html>

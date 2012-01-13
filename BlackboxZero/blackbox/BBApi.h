@@ -463,6 +463,10 @@ enum SN_INDEX {
     SN_ISSTYLE070               , /* bool* */
     SN_SLIT                     , /* StyleItem* */
 
+	SN_MENUSEPMARGIN			, /* int* */
+	SN_MENUSEPCOLOR				, /* COLORREF* */
+	SN_MENUSEPSHADOWCOLOR		, /* COLORREF* */
+
     SN_LAST
 };
 
@@ -697,6 +701,10 @@ extern "C" {
         COLORREF borderColour,
         int borderWidth
         );
+
+	API_EXPORT void MakeGradientEx(HDC hDC, RECT rect, int type, COLORREF colour_from, COLORREF colour_to, 
+					COLORREF colour_from_splitto, COLORREF colour_to_splitto, bool interlaced, int bevelStyle,
+					int bevelPosition, int bevelWidth, COLORREF borderColor, int borderWidth);
 
     /* Draw a Gradient Rectangle from StyleItem, optional using the style border. */
     API_EXPORT void MakeStyleGradient(HDC hDC, RECT* p_rect, StyleItem * m_si, bool withBorder);

@@ -292,6 +292,57 @@ inline static void table_fn_mirror(struct bimage *bi, unsigned char *p, int leng
 	}
 }
 
+inline unsigned char tobyte(int v) {
+    return ((v > 255) ? 255 : ((v < 0) ? 0 : v));
+}
+
+/**
+ * creates a gradient with 2 colors
+ * color1 -> color2 (from top to bottom)
+ * @author eliteforce
+**/
+inline void create_gradient(struct bimage *bi, unsigned char *p, int length, COLORREF color1, COLORREF color2) {
+	unsigned char *c = p;
+	int r, g, b;
+	int dr, dg, db;
+
+	r = GetRValue(color2);
+	g = GetGValue(color2);
+	b = GetBValue(color2);
+	dr = GetRValue(color1) - r;
+	dg = GetGValue(color1) - g;
+	db = GetBValue(color1) - b;
+
+	int divlength = ((length > 2) ? (length - 1) : length);
+	for (int i = 0; i < length; ++i, c += BBP) {
+		c[0] = tobyte(b + db * i / divlength);
+		c[1] = tobyte(g + dg * i / divlength);
+		c[2] = tobyte(r + dr * i / divlength);
+		c[3] = (unsigned char)BI_HIBITS;
+	}
+}
+
+/**
+ * creates a gradient with 4 colors
+ * color1 -> color2, color3 -> color4 (from top to bottom)
+ * @author eliteforce
+**/
+inline static void table_fn_split(struct bimage *bi, unsigned char *p, int length, COLORREF color1, COLORREF color2, COLORREF color3, COLORREF color4, bool invert) {
+    int halfheight = length / 2;
+	if (length % 2 != 0) ++halfheight;
+
+	if ( invert ) {
+		create_gradient(bi, p, halfheight, color3, color4);
+		create_gradient(bi, p + halfheight * 4, length - halfheight, color1, color2);
+	} else {
+		/* BlackboxZero 1.7.2012
+		** Rather that redo the math in create_gradient,
+		** we're just going to swap colors. */
+		create_gradient(bi, p, halfheight, color2, color1);
+		create_gradient(bi, p + halfheight * 4, length - halfheight, color4, color3);
+	}
+}
+
 inline static void diag_fn(struct bimage *bi, unsigned char *c, int x, int y)
 {
     unsigned char *xp = bi->xtab + x*BBP;
@@ -450,6 +501,39 @@ struct bimage *bimage_create(int width, int height,  StyleItem *si)
             }
             break;
 
+		case B_SPLITHORIZONTAL:
+		case B_SPLIT_HORIZONTAL:
+			// Vertical gradient. Color1 | Color2
+			table_fn_split(bi, bi->xtab, width, si->ColorSplitTo, si->Color, si->ColorTo, si->ColorToSplitTo, false);
+			//table_fn_split(ytab, height, false);
+
+			// draw 2 lines, to cover the 'interlaced' case
+            y = 0;
+			do {
+                x = 0;
+				s = (unsigned long *)bi->xtab;
+				do {
+                    *(unsigned long*)p = *s++;
+                    if (interlaced) {
+                        if (1 & y)
+							darker(bi, p);
+                        else
+							lighter(bi, p);
+                    }
+                    p+=BBP;
+                } while (++x < width);
+            } while (++y < 2);
+
+            // copy down the lines
+        //copy_lines:
+            d = (unsigned long*)p;
+            while (y < height) {
+                s = (unsigned long*)bi->pixels + (y&1)*width;
+                memcpy(d, s, width*BBP);
+                d += width; y++;
+            }
+            break;
+
         case B_HORIZONTAL:
             table_fn(bi, bi->xtab, width, false);
             // draw 2 lines, to cover the 'interlaced' case
@@ -484,7 +568,9 @@ struct bimage *bimage_create(int width, int height,  StyleItem *si)
 		case B_MIRROR_VERTICAL:
 			table_fn_mirror(bi, bi->ytab, height, true);
 			// draw 1 column
-            y = 0; s = (unsigned long *)bi->ytab; z = width*BBP;
+            y = 0;
+			s = (unsigned long *)bi->ytab;
+			z = width*BBP;
             do {
                 *(unsigned long*)p = *s++;
                 if (interlaced) {
@@ -506,6 +592,37 @@ struct bimage *bimage_create(int width, int height,  StyleItem *si)
 				while (++d<s);
             } while (++y < height);
             break;
+
+		case B_SPLITVERTICAL:
+		case B_SPLIT_VERTICAL:
+			// Vertical gradient. Color1 | Color2
+			table_fn_split(bi, bi->ytab, height, si->ColorSplitTo, si->Color, si->ColorTo, si->ColorToSplitTo, true);
+
+			// draw 1 column
+			y = 0;
+			s = (unsigned long *)bi->ytab;
+			z = width*BBP;
+			do {
+				*(unsigned long*)p = *s++;
+				if (interlaced) {
+					if (1 & y)
+						darker(bi, p);
+					else
+						lighter(bi, p);
+				}
+				p += z;
+			} while (++y < height);
+
+			// copy colums
+			s = (unsigned long*)bi->pixels;
+			y = 0;
+			do {
+				d = s, s += width;
+				c = *d++;
+				do *d = c;
+				while (++d<s);
+			} while (++y < height);
+			break;
 
         case B_VERTICAL:
             table_fn(bi, bi->ytab, height, true);
@@ -691,7 +808,6 @@ void CreateBorder(HDC hdc, RECT *rp, COLORREF borderColor, int borderWidth)
 // API: MakeStyleGradient
 // Purpose:  Make a gradient from style Item
 //===========================================================================
-
 void MakeStyleGradient(HDC hdc, RECT *rp, StyleItem *pSI, bool withBorder)
 {
     int x, y, w, h, b;
@@ -733,18 +849,9 @@ void MakeStyleGradient(HDC hdc, RECT *rp, StyleItem *pSI, bool withBorder)
 // In: int = width of border around bitmap
 //===========================================================================
 
-void MakeGradient(
-    HDC hdc,
-    RECT rect,
-    int type,
-    COLORREF Color,
-    COLORREF ColorTo,
-    bool interlaced,
-    int bevelstyle,
-    int bevelposition,
-    int bevelWidth,
-    COLORREF borderColor,
-    int borderWidth)
+void MakeGradient(HDC hdc, RECT rect, int type, COLORREF Color, COLORREF ColorTo,
+    bool interlaced, int bevelstyle,
+    int bevelposition, int bevelWidth, COLORREF borderColor, int borderWidth)
 {
     StyleItem si;
 
@@ -762,32 +869,28 @@ void MakeGradient(
 }
 
 /* BlackboxZero 1.5.2012 */
-/*void MakeGradientEx(HDC hDC, RECT rect, int type, COLORREF colour_from, COLORREF colour_to, 
+void MakeGradientEx(HDC hDC, RECT rect, int type, COLORREF colour_from, COLORREF colour_to, 
 					COLORREF colour_from_splitto, COLORREF colour_to_splitto, bool interlaced, int bevelStyle,
-					int bevelPosition, int bevelWidth, COLORREF borderColour, int borderWidth)
+					int bevelPosition, int bevelWidth, COLORREF borderColor, int borderWidth)
 {
-    if (borderWidth)
-    {
-        HBRUSH  hBrush    = CreateSolidBrush(borderColour);
-        HGDIOBJ hOldBrush = SelectObject(hDC, hBrush);
-        while (--borderWidth >= 0)
-        {
-            FrameRect(hDC, &rect, hBrush);
-            _InflateRect(&rect, -1, -1);
-        }
-        DeleteObject(SelectObject(hDC, hOldBrush));
-    }
 
     if (type >= 0)
     {
-        bImage *bImg;
-        int w = GetRectWidth(&rect);
-        int h = GetRectHeight(&rect);
-
         bool is_vertical	= false;
         bool is_horizontal	= false;
         bool is_split		= false;
-        bool is_mirror		= false;
+		COLORREF color0 = colour_from;
+		COLORREF color1 = colour_from;
+		COLORREF color2 = colour_to;
+		COLORREF color3 = colour_to;
+
+		int	rect_diff = 0;
+		RECT rect2;
+
+		rect2.top = rect.top;
+		rect2.bottom = rect.bottom;
+		rect2.left = rect.left;
+		rect2.right = rect.right;
 
 		switch (type) {
 			case B_SPLITVERTICAL:
@@ -798,64 +901,44 @@ void MakeGradient(
 			case B_SPLITHORIZONTAL:
 			case B_SPLIT_HORIZONTAL:
 				is_horizontal = is_split = true;
-				break;
-			
-			case B_MIRRORVERTICAL:
-			case B_MIRROR_VERTICAL:
-				is_vertical = is_mirror = true;
-				break;
-				
-			case B_MIRRORHORIZONTAL:
-			case B_MIRROR_HORIZONTAL:
-				is_horizontal = is_mirror = true;
-				break;
-				
+				break;	
 		}
 
-        if (is_vertical || is_horizontal || is_split || is_mirror){
-            // specify params depending on style
-            int exception0 = 0;
-            int exception1 = 0;
-            COLORREF Color0 = colour_from;
-            COLORREF Color1 = colour_from;
-            COLORREF Color2 = colour_to;
-            COLORREF Color3 = colour_to;
+        if ( is_vertical || is_horizontal || is_split ){
 
             if (is_vertical){
                 type = B_VERTICAL;
-                h = (h+1)>>1;
-                exception0 = BEVEL_EXCEPT_BOTTOM;
-                exception1 = BEVEL_EXCEPT_TOP;
             }
             if (is_horizontal){
                 type = B_HORIZONTAL;
-                w = (w+1)>>1;
-                exception0 = BEVEL_EXCEPT_RIGHT;
-                exception1 = BEVEL_EXCEPT_LEFT;
-            }
-            if(is_split){
-                Color0 = colour_from_splitto;
-                Color3 = colour_to_splitto;
-            }
-            if(is_mirror){
-                Color1 = colour_to;
-                Color3 = colour_from;
             }
 
-            bImg = new bImage(w, h, type, Color0, Color1, interlaced, bevelStyle, bevelPosition, exception0);
-            bImg->copy_to_hdc(hDC, rect.left, rect.top, w, h);
-            delete bImg;
-            bImg = new bImage(w, h, type, Color2, Color3, interlaced, bevelStyle, bevelPosition, exception1);
-            bImg->copy_to_hdc(hDC, rect.right - w, rect.bottom - h, w, h);
-            delete bImg;
-        }
-        else{
-            bImg = new bImage(w, h, type, colour_from, colour_to, interlaced, bevelStyle, bevelPosition, 0);
-            bImg->copy_to_hdc(hDC, rect.left, rect.top, w, h);
-            delete bImg;
+            //if ( is_split ) {//Should always be split to be here...
+                color0 = colour_from_splitto;
+                color3 = colour_to_splitto;
+            //}
+
+			//Split the rect
+			if ( is_vertical ) {
+				rect_diff = (rect.bottom - rect.top) / 2;
+				rect2.top = rect.bottom - rect_diff;
+				rect.bottom = rect.top + rect_diff;
+			} else { //Has to be horizontal
+				rect_diff = (rect.right - rect.left) / 2;
+				rect2.right = rect.left - rect_diff;
+				rect.left = rect.right + rect_diff;
+			}
+			//Draw first half
+			MakeGradient(hDC, rect, type, color0, color1, interlaced, bevelStyle, bevelPosition, bevelWidth, borderColor, borderWidth);
+			//Draw second half
+			MakeGradient(hDC, rect2, type, color2, color3, interlaced, bevelStyle, bevelPosition, bevelWidth, borderColor, borderWidth);
+        } else{
+			/* BlackboxZero 1.6.2012 */
+			//Just pass it along to the normal routine since we don't need 4 colors.
+            MakeGradient(hDC, rect, type, colour_from, colour_to, interlaced, bevelStyle, bevelPosition, bevelWidth, borderColor, borderWidth);
         }
     }
-}*/
+}
 
 //===========================================================================
 // API: MakeGradientBitmap

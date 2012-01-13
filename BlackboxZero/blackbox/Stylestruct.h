@@ -76,6 +76,13 @@ typedef struct StyleStruct
 
     StyleItem Slit;
 
+	/* BlackboxZero 1.8.2012
+	** These will break anything expecting to acquire the whole structure
+	** and not built against this base */
+	int MenuSepMargin;
+	COLORREF MenuSepColor;
+	COLORREF MenuSepShadowColor;
+
 } StyleStruct;
 
 #define STYLESTRUCTSIZE ((SIZEOFPART(StyleStruct, Slit)+3) & ~3)

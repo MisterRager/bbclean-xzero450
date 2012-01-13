@@ -517,7 +517,9 @@ void Menu::get_vscroller_rect(RECT* rw)
 
     rw->top = m_scrollpos + y0;
     rw->bottom = rw->top + s;
-    if (MenuInfo.nBulletPosition == FOLDER_RIGHT)
+	//if ( MenuInfo.nBulletPosition == FOLDER_RIGHT )
+	/* BlackboxZero 1.7.2012 */
+    if ( (MenuInfo.nBulletPosition == FOLDER_RIGHT && MenuInfo.nScrollerPosition == FOLDER_DEFAULT) || (MenuInfo.nScrollerPosition == FOLDER_LEFT))
         rw->right = (rw->left = d) + s;
     else
         rw->left = (rw->right = m_width - d) - s;
@@ -762,7 +764,9 @@ void Menu::Paint()
     }
     SelectObject(hdc, F0);
 
-    if (m_pagesize < m_itemcount)
+	/* BlackboxZero 1.7.2012 - Check for disabled
+	** Only draw if not disabled.. */
+    if (m_pagesize < m_itemcount && MenuInfo.nScrollerPosition != FOLDER_DISABLED)
     {
         // draw the scroll button
         get_vscroller_rect(&r);
@@ -932,14 +936,13 @@ void Menu::Show(int xpos, int ypos, bool fShow)
         // pop to the left or to the right ?
         if (xright + m_width > m_mon.right)
             at_left = true;
-        else
-        if (xleft < m_mon.left)
+        else if (xleft < m_mon.left)
             at_left = false;
-        else
-        if (p->m_pParent)
+        else if (p->m_pParent)
             at_left = p->m_pParent->m_xpos > p->m_xpos;
 
-        xpos = at_left ? xleft : xright;
+        //xpos = at_left ? xleft : xright;
+		xpos = at_left ? (xleft -= Settings_menu.spacing):(xright += Settings_menu.spacing); /* BlackboxZero 1.6.2012 */
         ypos = p->m_ypos;
 
         if (m_pParentItem != m_pParent->m_pMenuItems) // not the TitleItem
@@ -1100,7 +1103,8 @@ void Menu::mouse_over(bool indrag)
 
 void Menu::mouse_leave(void)
 {
-    if (NULL == m_pChild || false == m_pChild->m_bMouseOver)
+    if (false == Settings_menuKeepHilite
+        && (NULL == m_pChild || false == m_pChild->m_bMouseOver))
         UnHilite();
     if (m_pChild)
         set_timer(false, true); // to close submenu
@@ -1171,7 +1175,7 @@ void Menu::Handle_Mouse(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 {
                     // ignore scroller, if an folder-item is at the same position
                     bool submenu_right = m_pChild->m_xpos > m_xpos;
-                    bool scroller_right = FOLDER_RIGHT != MenuInfo.nBulletPosition;
+                    bool scroller_right = FOLDER_LEFT == MenuInfo.nBulletPosition; /* BlackboxZero 1.7.2012 - Was FOLDER_RIGHT != */
                     if (scroller_right == submenu_right)
                         return;
                 }
@@ -2157,8 +2161,8 @@ void Menu_Reconfigure(void)
     MenuInfo.hFrameFont = CreateStyleFont(MFrame);
 
     // set bullet position & style
-    MenuInfo.nBulletPosition = stristr(mStyle.menuBulletPosition, "left")
-        ? FOLDER_LEFT : FOLDER_RIGHT;
+	MenuInfo.nBulletPosition = (Settings_menu.bullet_enabled)?(stristr(mStyle.menuBulletPosition, "left")
+		? FOLDER_LEFT : FOLDER_RIGHT):(FOLDER_DISABLED);
 
     MenuInfo.nBulletStyle = get_menu_bullet(mStyle.menuBullet);
 
@@ -2166,6 +2170,13 @@ void Menu_Reconfigure(void)
         ? MenuInfo.nBulletPosition == FOLDER_LEFT
         : 0 == stricmp(Settings_menu.openDirection, "left")
         ;
+
+	/* BlackboxZero 1.7.2012
+	** This is kinda fugly...OKAY, it's REALLY fugly
+	** If default, elseif left, elseif right, else disabled */
+	MenuInfo.nScrollerPosition = stristr(Settings_menu.scrollerPosition, "default")?
+		(FOLDER_DEFAULT):(stristr(Settings_menu.scrollerPosition, "left")?(FOLDER_LEFT):(
+		stristr(Settings_menu.scrollerPosition, "right")?(FOLDER_RIGHT):(FOLDER_DISABLED)));
 
     // --------------------------------------------------------------
     // calulate metrics:
@@ -2291,8 +2302,15 @@ void Menu_Reconfigure(void)
     }
 
     // Menu separator line
-    MenuInfo.separatorColor = get_mixed_color(MFrame);
-    MenuInfo.separatorWidth = Settings_menu.drawSeparators ? imax(1, MFrame->borderWidth) : 0;
+	/* BlackboxZero 1.8.2012 */
+    //MenuInfo.separatorColor = get_mixed_color(MFrame);
+	MenuInfo.separatorColor = (mStyle.MenuSepColor != CLR_INVALID)?(mStyle.MenuSepColor):(get_mixed_color(MFrame));
+	if ( Settings_menu.drawSeparators ) {
+		//MenuInfo.separatorWidth = Settings_menu.drawSeparators ? imax(1, MFrame->borderWidth) : 0;
+
+	} else
+		MenuInfo.separatorWidth = 0;
+
     MenuInfo.check_is_pr = MHilite->parentRelative
         || iabs(greyvalue(get_bg_color(MFrame))
                 - greyvalue(get_bg_color(MHilite))) < 24;
@@ -2548,11 +2566,13 @@ MenuItem *MakeMenuItemString(Menu *PluginMenu, const char* Title, const char* Cm
 
 MenuItem* MakeMenuNOP(Menu *PluginMenu, const char* Title)
 {
+	/* BlackboxZero 1.8.2012 - For separator graident? */
     MenuItem *pItem;
-    if (Title && Title[0])
+	if (Title && Title[0]) {
         pItem = new MenuItem(NLS1(Title));
-    else
+	} else {
         pItem = new SeparatorItem();
+	}
     pItem->m_bNOP = true;
     return PluginMenu->AddMenuItem(pItem);
 }

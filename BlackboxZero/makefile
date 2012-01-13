@@ -59,6 +59,8 @@ all.progs clean.progs :
 	$(call MAKE_PLUGIN,bbIconBox)
 	$(call MAKE_PLUGIN,bbColor3dc)
 	$(call MAKE_PLUGIN,bbWorkspaceWheel)
+	$(call MAKE_PLUGIN,bbRecycleBin)
+	$(call MAKE_PLUGIN,BBPager)
 
 	$(call MAKE_TOOL,bsetshell)
 	$(call MAKE_TOOL,bsetroot)
