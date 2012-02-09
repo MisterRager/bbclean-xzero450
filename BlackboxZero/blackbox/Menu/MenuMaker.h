@@ -98,6 +98,7 @@ Menu *MakeContextMenu(const char *path, const void *pidl);
 // special broams
 
 #define MM_STYLE_BROAM "@BBCore.style %s"
+#define MM_EDIT_BROAM "@BBCore.edit %s"
 #define MM_THEME_BROAM "@BBCore.theme %s"
 #define MM_ROOT_BROAM "@BBCore.rootCommand %s"
 

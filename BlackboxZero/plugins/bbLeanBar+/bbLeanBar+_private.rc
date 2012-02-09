@@ -1,0 +1,28 @@
+#include <windows.h>
+
+
+1 VERSIONINFO
+FILEVERSION 7,11,0,7
+PRODUCTVERSION 7,11,0,7
+FILETYPE VFT_DLL
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "000004B0"
+        BEGIN
+            VALUE "CompanyName", "TheDevTeam"
+            VALUE "FileVersion", "bbLeanBar+ - bbLean"
+            VALUE "FileDescription", "toolbar plugin for Blackbox for Windows"
+            VALUE "InternalName", "bbLeanBar+"
+            VALUE "LegalCopyright", "© 2003-2009 grischka|TheDevTeam"
+            VALUE "LegalTrademarks", "none"
+            VALUE "OriginalFilename", "bbLeanBar+.dll"
+            VALUE "ProductName", "bbLean - bbLeanBar+"
+            VALUE "ProductVersion", "bbLean"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0000, 1200
+    END
+END

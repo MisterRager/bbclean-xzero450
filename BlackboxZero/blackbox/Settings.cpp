@@ -27,6 +27,7 @@
 # include "BImage.h"
 # define BBSETTING
 #endif
+COLORREF SetContrast (int sn_index);
 
 #define BBSETTINGS_INTERNAL
 #include "Settings.h"
@@ -1064,7 +1065,8 @@ static const struct rccfg bbrc_cfg[] = {
 	{ ".menu.closeDelay",          C_INT, (void*)80,       &Settings_menu.closeDelay },/*BlackboxZero 1.3.2012 */
     { ".menu.mouseWheelFactor",    C_INT, (void*)3,        &Settings_menu.mouseWheelFactor },
     { ".menu.alpha.enabled",       C_BOL, (void*)false,    &Settings_menu.alphaEnabled },
-    { ".menu.alpha.value",         C_INT, (void*)255,      &Settings_menu.alphaValue },
+    { ".menu.icon.hue",			   C_INT, (void*)2,        &Settings_menu.iconHue },
+	{ ".menu.scrollButton.hue",    C_INT, (void*)2,       &Settings_menu.scrollHue },
     { ".menu.onTop",               C_BOL, (void*)false,    &Settings_menu.onTop },
     { ".menu.sticky",              C_BOL, (void*)true,     &Settings_menu.sticky },
     { ".menu.snapWindow",          C_BOL, (void*)true,     &Settings_menu.snapWindow },
@@ -1077,7 +1079,6 @@ static const struct rccfg bbrc_cfg[] = {
 	{ ".menu.icon.size",			C_INT, (void*)16,		&Settings_menu.iconSize },
 	{ ".menu.icon.saturation",		C_INT, (void*)255,		&Settings_menu.iconSaturation },
 	{ ".menu.icon.hue",				C_INT, (void*)0,		&Settings_menu.iconHue },
-	{ ".menu.sub.spacing",			C_INT, (void*)0,		&Settings_menu.spacing }, /* BlackboxZero 1.6.2012 */
 
 
     { "#workspaces",               C_INT, (void*)4,        &Settings_workspaces },
@@ -1086,7 +1087,9 @@ static const struct rccfg bbrc_cfg[] = {
     { "#fullMaximization",         C_BOL, (void*)false,    &Settings_fullMaximization },
     { "#focusModel",               C_STR, (void*)"ClickToFocus", Settings_focusModel },
 
-    { ".imageDither",              C_BOL, (void*)true,     &Settings_imageDither },
+    { ".imageDither",              C_INT, (void*)0,		   &Settings_imageDither },
+    { ".force.font.Shadows:",	   C_BOL, (void*)false,    &Settings_globalShadows },
+    { ".outlineText:",			   C_BOL, (void*)false,    &Settings_outlineText },
     { ".opaqueMove",               C_BOL, (void*)true,     &Settings_opaqueMove },
     { ".autoRaiseDelay",           C_INT, (void*)250,      &Settings_autoRaiseDelay },
 

@@ -68,7 +68,7 @@ static const char * const menu_cmds[] = {
     "insertpath"        ,
     "stylesmenu"        ,
     "stylesdir"         ,
-
+    "rcmenu"	        ,
     "themesmenu"        ,
     // ------------------
     "workspaces"        ,
@@ -95,7 +95,7 @@ enum menu_cmd_tokens
     e_insertpath        ,
     e_stylesmenu        ,
     e_stylesdir         ,
-
+    e_rcmenu            ,
     e_themesmenu        ,
     // ------------------
     e_workspaces        ,
@@ -284,6 +284,11 @@ skip:
         // a [styledir] item will insert styles from a folder...
         case e_stylesdir:
             pItem = MakeMenuItemPath(pMenu, NULL, p_data, MM_STYLE_BROAM);
+            break;
+
+        // a [rcmenu] item is pointing to a dynamic rc files folder...
+        case e_rcmenu:
+            pItem = MakeMenuItemPath(pMenu, label, p_data, MM_EDIT_BROAM);
             break;
 
         case e_themesmenu:

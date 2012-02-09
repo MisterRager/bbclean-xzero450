@@ -232,6 +232,7 @@ void MenuItem::ShowSubmenu()
     m_pSubmenu->Hide();
 
     // inherit some values from parent menu
+	m_pSubmenu->m_bIconized = false;
     m_pSubmenu->m_bOnTop = m_pMenu->m_bOnTop;
     m_pSubmenu->m_flags |= m_pMenu->m_flags & BBMENU_NOTITLE;
     m_pSubmenu->m_maxheight = m_pMenu->m_maxheight;

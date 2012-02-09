@@ -118,7 +118,7 @@ BOOL BBRegisterClass (const char *classname, WNDPROC wndproc, int flags)
         "Error: Could not register \"%s\" window class."), classname);
     return 0;
 }
-
+/*
 void draw_line_h(HDC hDC, int x1, int x2, int y, int w, COLORREF C)
 {
     HGDIOBJ oldPen;
@@ -132,7 +132,7 @@ void draw_line_h(HDC hDC, int x1, int x2, int y, int w, COLORREF C)
     } while (--w);
     DeleteObject(SelectObject(hDC, oldPen));
 }
-
+*/
 COLORREF get_bg_color(StyleItem *pSI)
 {
     if (B_SOLID == pSI->type) // && false == pSI->interlaced)
@@ -345,7 +345,7 @@ void bbDrawText(HDC hDC, const char *text, RECT *p_rect, unsigned format, COLORR
         DrawText(hDC, text, -1, p_rect, format);
 }
 
-int BBDrawText(HDC hDC, LPCTSTR lpString, int nCount, LPRECT lpRect, UINT uFormat, StyleItem* pSI){
+int BBDrawText(HDC hDC, const char *lpString, int nCount, LPRECT lpRect, UINT uFormat, StyleItem* pSI){
     bool bShadow = (pSI->validated & V_SHADOWCOLOR) && (pSI->ShadowColor != (CLR_INVALID));
     bool bOutline = (pSI->validated & V_OUTLINECOLOR) && (pSI->OutlineColor != (CLR_INVALID));
 	
@@ -680,6 +680,61 @@ void bbDrawPix(HDC hDC, RECT *rc, COLORREF color, int pic)
     }
     if (oldPen)
         DeleteObject(SelectObject(hDC, oldPen));
+}
+
+//===========================================================================
+// Function: GetOSVersion - bb4win_mod
+// Purpose: Retrieves info about the current OS & bit version
+// In: None
+// Out: int = Returns an integer indicating the OS & bit version
+//===========================================================================
+OSVERSIONINFO osInfo;
+
+int GetOSVersion(void)
+{
+    ZeroMemory(&osInfo, sizeof(osInfo));
+    osInfo.dwOSVersionInfoSize = sizeof(osInfo);
+    GetVersionEx(&osInfo);
+
+	//64-bit OS test, when running as 32-bit under WoW
+	BOOL bIs64BitOS= FALSE;
+	typedef BOOL (WINAPI *LPFN_ISWOW64PROCESS)(HANDLE, PBOOL);
+	LPFN_ISWOW64PROCESS fnIsWow64Process = (LPFN_ISWOW64PROCESS)GetProcAddress(GetModuleHandle("kernel32"),"IsWow64Process");
+	if (NULL != fnIsWow64Process)
+		fnIsWow64Process(GetCurrentProcess(), &bIs64BitOS);
+	/*usingx64 = bIs64BitOS;
+	//64-bit OS test, if compiled as native 64-bit. In case we ever need it.
+	if (!usingx64)
+		usingx64=(sizeof(int)!=sizeof(void*));*/
+
+    usingNT         = osInfo.dwPlatformId == VER_PLATFORM_WIN32_NT;
+
+    if (usingNT)
+		return ((osInfo.dwMajorVersion * 10) + osInfo.dwMinorVersion + (bIs64BitOS ? 5 : 0)); // NT 40; Win2kXP 50; Vista 60; etc.
+
+
+	if (osInfo.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS)
+    {
+        if (osInfo.dwMinorVersion >= 90)
+            return 30; // Windows ME
+        if (osInfo.dwMinorVersion >= 10)
+            return 20; // Windows 98
+    }
+	return 10; // Windows 95
+}
+//===========================================================================
+// Function: Settings_MapShadowColor
+// Purpose: maps a ShadowColor from the existing style
+// In:
+// Out:
+//===========================================================================
+
+COLORREF Settings_MapShadowColor(StyleItem *si, StyleItem *ri)
+{
+	if (!FuzzyMatch(si->TextColor, ri->TextColor))
+		return ri->TextColor;
+	else 
+		return Settings_CreateShadowColor(si->TextColor);
 }
 
 //===========================================================================

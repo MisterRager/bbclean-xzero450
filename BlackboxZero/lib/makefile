@@ -18,6 +18,11 @@ OBJ = \
   bbroot.obj \
   m_alloc.obj \
   pidl.obj \
+  moreutils.obj \
+  moreutils.obj \
+  moreutils.obj \
+  moreutils.obj \
+  moreutils.obj \
 
 ifeq "$(BBLIB_STATIC)" "1"
   BIN = $(call LIBNAME,bblib)

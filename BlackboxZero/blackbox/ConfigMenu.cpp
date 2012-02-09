@@ -52,6 +52,8 @@ static const struct int_item {
 	{ &Settings_menu.iconSaturation			,	0,	 255, 255 }, /* BlackboxZero 1.5.2012 */
 	{ &Settings_menu.iconHue				,	0,	 255,  0  }, /* BlackboxZero 1.5.2012 */
 	{ &Settings_menu.spacing				, -50,	  50,  0  }, /* BlackboxZero 1.6.2012 */
+	{ &Settings_menu.scrollHue              ,   0,     8,  0  },
+    { &Settings_imageDither		            ,   0,     3,  0  },
     { NULL, 0, 0, 0}
 };
 
@@ -163,6 +165,7 @@ const struct cfgmenu cfg_sub_menu_separatorstyle[] = {
 /* BlackboxZero 1.8.2012
 Submenu 2.7(Menus -> Separators) */
 const struct cfgmenu cfg_sub_menu_separator[] = {
+	{ NLS0("Scroll Button Hue"),    "menu.scrollButton.hue",&Settings_menu.scrollHue  },
 	{ NLS0("Style"),			NULL, cfg_sub_menu_separatorstyle },
 	{ NLS0("Full width"),		"menu.fullSeparatorWidth",      &Settings_menu.separatorFullWidth },
 	{ NLS0("Compact mode"),		"menu.compactSeparators",       &Settings_menu.separatorCompact },
@@ -212,6 +215,8 @@ static const struct cfgmenu cfg_sub_graphics[] = {
     { NLS0("*Nix Arrows"),          "arrowUnix",            &Settings_arrowUnix  },
     { "", NULL, NULL },
     { NLS0("Image Dithering"),      "imageDither",          &Settings_imageDither  },
+    { NLS0("Global Shadows"),		"force.font.Shadows",   &Settings_globalShadows  },
+    { NLS0("Outline Text"),			"outlineText",			&Settings_outlineText  },
     { NLS0("Global Font Override"), "globalFonts",          &Settings_globalFonts  },
     { NULL,NULL,NULL }
 };
@@ -272,8 +277,9 @@ static const struct cfgmenu cfg_sub_misc[] = {
 #endif
     { NLS0("Opaque Window Move"),   "opaqueMove",           &Settings_opaqueMove },
     { NLS0("Use UTF-8 Encoding"),   "UTF8Encoding",         &Settings_UTF8Encoding },
-    { NLS0("Blackbox Editor"),      "preferredEditor",      &Settings_preferredEditor },
     { "", NULL, NULL },
+    { NLS0("Blackbox Editor"),      "preferredEditor",      &Settings_preferredEditor },
+    { NLS0("Edit StickyWindows"),	"@BBCore.Edit stickywindows.ini", NULL },     
     { NLS0("Show Appnames"),        "@BBCore.showAppnames", NULL },
     { NULL,NULL,NULL }
 };

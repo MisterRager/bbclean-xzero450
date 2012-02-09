@@ -19,10 +19,10 @@ RM      = @for %%f in ($(call BSL,$1)) do $(call DEL,%%f)
 DIR     = @dir "$(call BSL,$@)" | find "$(call BSL,$@)"
 ifeq "$(OS)" "Windows_NT"
 DEL     = @if exist $1 (echo -- removing $1 && del $1)
-SHELL   = cmd.exe
+#SHELL   = cmd.exe
 else
 DEL     = if exist $1 del $1
-SHELL   = command.com
+#SHELL   = command.com
 endif
 
 FUZZY   = $(call BSL,$(TOP)/build/fuzzydoc/fuzzydoc.exe)

@@ -20,7 +20,7 @@ COREOBJ = \
   DesktopMenu.obj \
   ConfigMenu.obj \
   BBRoot.obj \
-  BBVWM.obj
+  BBVWM.obj 
 
 MENUOBJ = \
   MenuMaker.obj \

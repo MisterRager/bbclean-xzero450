@@ -53,7 +53,8 @@ void TitleItem::Paint(HDC hDC)
 
     //bbDrawText(hDC, GetDisplayString(), &rect, justify, pSI->TextColor);
 	/* BlackboxZero 1.5.2012 */
-	BBDrawText(hDC, GetDisplayString(), -1, &rect, justify, pSI);
+	if (pSI->FontHeight > 1)
+		BBDrawText(hDC, GetDisplayString(), -1, &rect, justify, pSI);
 }
 
 //===========================================================================
@@ -61,8 +62,9 @@ void TitleItem::Paint(HDC hDC)
 HCURSOR get_moving_cursor(void)
 {
     HCURSOR hC = NULL;
+	bool lHand = ReadBool(extensionsrcPath(), "blackbox.options.LeftHandedCursor:", false);
     if (false == Settings_useDefCursor)
-        hC = LoadCursor(hMainInstance, (char*)IDC_MOVEMENU);
+		hC = LoadCursor(hMainInstance, lHand ? (char*)IDC_MOVEMENUL : (char*)IDC_MOVEMENU);
     if (NULL == hC)
         hC = LoadCursor(NULL, IDC_SIZEALL);
     return hC;
@@ -90,6 +92,10 @@ void TitleItem::Mouse(HWND hwnd, UINT uMsg, DWORD wParam, DWORD lParam)
     case WM_LBUTTONDBLCLK:
         p->m_bOnTop = false == p->m_bOnTop;
         p->SetZPos();
+		if (wParam & MK_SHIFT) {
+			p->m_bIconized = false == p->m_bIconized;
+			p->Redraw(0);
+		}
         break;
 
     case WM_LBUTTONDOWN:

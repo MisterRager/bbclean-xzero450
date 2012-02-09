@@ -1,0 +1,39 @@
+[changed 06/11/03 nc-17]
+- bbstyle will turn trans off when going into the slit, but automatically turns
+  it back on if it was set before when leaving the slit.
+
+[previous updates for 0.25+ (higher means more recent) nc-17]
+more crash fix attempts...think i've got it now
+added icon to about box (thanks mortar)
+now supports the xoblite/future bb4win beginPluginEx
+forgot to add slit_remove message on plugin exit, fixed that :)
+fixed folders being interpreted as styles, i hope
+stopped alt-f4 closing bbstyle window
+added border toggle (kinda nice for the slit sometimes)
+writes rc settings on any change, no longer when plugin unloads
+now rereads rc settings on reconfigure
+setting transparency no longer makes the window disappear
+improved deletion of GDI objects so should prolly cause less problems on 9x/me :) (thanks grishka)
+window disappearing in slit on style change fixed
+inherit toolbar height fixed in slit (thanks tres`ni)
+edited about box (thanks manneeaack)
+now slitable.
+tweaked multiple wallpaper implementation
+now only one dll needed for 9x/me/nt/2k/xp (thanks grishka)
+
+############################################################## 0.20 #################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

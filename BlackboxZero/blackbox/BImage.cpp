@@ -42,7 +42,7 @@ static unsigned char _dith_g_table[DITH_TABLE_SIZE];
 static unsigned char _dith_b_table[DITH_TABLE_SIZE];
 static unsigned char add_r[16], add_g[16], add_b[16];
 
-static bool option_dither;
+static int option_dither;
 static bool option_070;
 #define BBP 4 // bytes per pixel
 
@@ -52,9 +52,15 @@ struct bimage
     unsigned from_red;
     unsigned from_green;
     unsigned from_blue;
+    unsigned to_red;
+    unsigned to_green;
+    unsigned to_blue;
     int diff_red;
     int diff_green;
     int diff_blue;
+	float delta_red;
+	float delta_green;
+	float delta_blue;
     int width;
     int height;
     bool alternativ;
@@ -121,10 +127,22 @@ static void init_dither_tables(void)
         return;
     }
 
+	switch (option_dither)
+	{
+	case 2: // 32-bit
+		red_bits    = 1 << (8 + 3);
+		green_bits  = 1 << (8 + 2);
+		blue_bits   = 1 << (8 + 3);
+	case 1: // 24-bit
+		red_bits    = 1 << 8;
+		green_bits  = 1 << 8;
+		blue_bits   = 1 << 8;
+	default:
     // hardcoded for 16 bit display: red:5, green:6, blue:5
     red_bits    = 1 << (8 - 5);
     green_bits  = 1 << (8 - 6);
     blue_bits   = 1 << (8 - 5);
+    }
     for (i = 0; i < DITH_TABLE_SIZE; i++)
     {
         _dith_r_table[i] = (unsigned char)_imin(255, i & -red_bits    );
@@ -211,6 +229,7 @@ inline static void darker(struct bimage *bi, unsigned char *pixel)
     pixel[2] = bi->dark_table[pixel[2]];
 }
 
+//====================
 /* draw the bevel along the edges */
 static void bevel(struct bimage *bi, bool sunken, int pos)
 {
@@ -241,6 +260,10 @@ static void bevel(struct bimage *bi, bool sunken, int pos)
     modify_pixel(p-d, delta_bevel_corner, sunken); // top-left corner pixel
 }
 
+//====================
+inline int tobyte2(int v) {
+    return ((v<0)?0:(v>255)?255:v);
+}
 inline static void table_fn(struct bimage *bi, unsigned char *p, int length, bool invert)
 {
     unsigned char *c = p;
@@ -262,6 +285,30 @@ inline static void table_fn(struct bimage *bi, unsigned char *p, int length, boo
 }
 
 /* BlackboxZero 1.5.2012 */
+inline static void table_fn_block(struct bimage *bi, unsigned char *p, int length)
+{
+    unsigned char *c = p;
+    int i, e, d;
+    i = length-1, d = e = -1;
+    while (i != e)
+    {
+		c[0] = tobyte2(bi->to_blue);
+		c[1] = tobyte2(bi->to_green);
+		c[2] = tobyte2(bi->to_red);
+		c[3] = 0;
+		c += 4; i += d;
+    }
+    i = 0, d = 1, e = length;
+    while (i != e)
+    {
+		c[0] = tobyte2(bi->from_blue);
+		c[1] = tobyte2(bi->from_green);
+		c[2] = tobyte2(bi->from_red);
+		c[3] = 0;
+		c += 4; i += d;
+    }
+}
+
 int iminmax(int a, int b, int c)
 {
     if (a>c) a=c;
@@ -291,6 +338,72 @@ inline static void table_fn_mirror(struct bimage *bi, unsigned char *p, int leng
         i += d;
 	}
 }
+
+inline static void table_fn_wave(struct bimage *bi, unsigned char *p, int length, bool vertical, COLORREF colour_from, COLORREF colour_to)
+{
+	unsigned char *c = p;
+	int i, e, d;
+
+	unsigned char splitBlue = vertical ? bi->to_blue : bi->from_blue; 
+	unsigned char splitGreen = vertical ? bi->to_green : bi->from_green; 
+	unsigned char splitRed = vertical ? bi->to_red : bi->from_red;
+
+	if (vertical)
+	{
+		bi->delta_blue = colour_from < colour_to ? -bi->diff_blue : bi->diff_blue;
+		bi->delta_green = colour_from < colour_to ? -bi->diff_green : bi->diff_green;
+		bi->delta_red = colour_from < colour_to ? -bi->diff_red : bi->diff_red;
+	}
+	else
+	{
+		bi->delta_blue = colour_from < colour_to ? bi->diff_blue : -bi->diff_blue;
+		bi->delta_green = colour_from < colour_to ? bi->diff_green : -bi->diff_green;
+		bi->delta_red = colour_from < colour_to ? bi->diff_red : -bi->diff_red;
+	}
+
+	i =  length - 1, d = e = -1;
+	while (i != e)
+	{
+		c[0] = tobyte2(splitBlue + (int)bi->delta_blue  * i / length);
+		c[1] = tobyte2(splitGreen + (int)bi->delta_green * i / length);
+		c[2] = tobyte2(splitRed + (int)bi->delta_red   * i / length);
+		c[3] = 0;
+		c += 4; i += d;
+	}
+
+	if (vertical)
+	{
+		splitBlue = bi->from_blue;
+		splitGreen = bi->from_green;
+		splitRed = bi->from_red;
+
+		bi->delta_blue = colour_from < colour_to ? bi->diff_blue : -bi->diff_blue;
+		bi->delta_green = colour_from < colour_to ? bi->diff_green : -bi->diff_green;
+		bi->delta_red = colour_from < colour_to ? bi->diff_red : -bi->diff_red;
+	}
+	else
+	{
+		splitBlue = bi->to_blue;
+		splitGreen = bi->to_green;
+		splitRed = bi->to_red;
+
+		bi->delta_blue = colour_from < colour_to ? -bi->diff_blue : bi->diff_blue;
+		bi->delta_green = colour_from < colour_to ? -bi->diff_green : bi->diff_green;
+		bi->delta_red = colour_from < colour_to ? -bi->diff_red : bi->diff_red;
+	}
+
+	c = p + length * 4;
+	i = 0, d = 1, e = length;
+    while (i != e)
+    {
+		c[0] = tobyte2(splitBlue + (int)bi->delta_blue  * i / length);
+		c[1] = tobyte2(splitGreen + (int)bi->delta_green * i / length);
+		c[2] = tobyte2(splitRed + (int)bi->delta_red   * i / length);
+		c[3] = 0;
+		c += 4; i += d;
+    }
+}
+
 
 inline unsigned char tobyte(int v) {
     return ((v > 255) ? 255 : ((v < 0) ? 0 : v));
@@ -329,14 +442,17 @@ inline void create_gradient(struct bimage *bi, unsigned char *p, int length, COL
 **/
 inline static void table_fn_split(struct bimage *bi, unsigned char *p, int length, COLORREF color1, COLORREF color2, COLORREF color3, COLORREF color4, bool invert) {
     int halfheight = length / 2;
-	if (length % 2 != 0) ++halfheight;
+	//if (length % 2 != 0) ++halfheight;
+	/* BlackboxZero 1.14.2012
+	** & 1 means it's not even, same as % 2 != 0 it's just faster.. */
+	if ( length & 1 ) ++halfheight;
 
 	if ( invert ) {
 		create_gradient(bi, p, halfheight, color3, color4);
 		create_gradient(bi, p + halfheight * 4, length - halfheight, color1, color2);
 	} else {
 		/* BlackboxZero 1.7.2012
-		** Rather that redo the math in create_gradient,
+		** Rather than redo the math in create_gradient,
 		** we're just going to swap colors. */
 		create_gradient(bi, p, halfheight, color2, color1);
 		create_gradient(bi, p + halfheight * 4, length - halfheight, color4, color3);
@@ -369,6 +485,10 @@ inline static void elli_fn(struct bimage *bi, unsigned char *c, int x, int y)
     *(unsigned long *)c = ((unsigned long*)bi->xtab)[f];
 }
 
+/* BlackboxZero 1.14.2012
+** Cleaning up bimage_create()
+**
+** */
 // -------------------------------------
 struct bimage *bimage_create(int width, int height,  StyleItem *si)
 {
@@ -376,7 +496,7 @@ struct bimage *bimage_create(int width, int height,  StyleItem *si)
     int table_size;
     bool sunken, interlaced;
 
-    unsigned long *s, *d, c, *e, *f;
+    unsigned long *s, *d = 0, c, *e, *f;
     int x, y, z, i;
     unsigned char r2, g2, b2;
     unsigned char *p;
@@ -425,11 +545,12 @@ struct bimage *bimage_create(int width, int height,  StyleItem *si)
         }
     }
 
-    i = (b2 = GetBValue(color_to)) - (bi->from_blue = GetBValue(color_from));
+	//BlackboxZero 2.4.12 - Eliminate b2, g2, r2
+    i = (bi->to_blue = b2 = GetBValue(color_to)) - (bi->from_blue = GetBValue(color_from));
     bi->diff_blue = i + isgn(i);
-    i = (g2 = GetGValue(color_to)) - (bi->from_green = GetGValue(color_from));
+    i = (bi->to_green = g2 = GetGValue(color_to)) - (bi->from_green = GetGValue(color_from));
     bi->diff_green = i + isgn(i);
-    i = (r2 = GetRValue(color_to)) - (bi->from_red = GetRValue(color_from));
+    i = (bi->to_red = r2 = GetRValue(color_to)) - (bi->from_red = GetRValue(color_from));
     bi->diff_red = i + isgn(i);
 
     if (interlaced && B_SOLID != type)
@@ -460,82 +581,113 @@ struct bimage *bimage_create(int width, int height,  StyleItem *si)
             }
 
             // draw 2 lines, to cover the 'interlaced' case
-            y = 0; do {
-                c = (height & 1) == y ? c2 : c1;
-                x = 0; do {
-                    *(unsigned long*)p = c;
-                    p+=BBP;
-                } while (++x < width);
-            } while (++y < 2);
-            goto copy_lines;
-        }
+            y = 0;
+			do {
+				c = (height & 1) == y ? c2 : c1;
+				x = 0;
+				do {
+					*(unsigned long*)p = c;
+					p+=BBP;
+				} while (++x < width);
+			} while (++y < 2);
+
+			d = (unsigned long*)p;
+			while (y < height) {
+				s = (unsigned long*)bi->pixels + (y&1)*width;
+				memcpy(d, s, width*BBP);
+				d += width;
+				y++;
+			}
+		}
+		
+		case B_BLOCKHORIZONTAL:
+			table_fn_block(bi, bi->xtab, (width & 1)?((width+1)/2):(width/2));
+			break;
+		
+		case B_WAVEHORIZONTAL:
+			table_fn_wave(bi, bi->xtab, (width & 1)?((width+1)/2):(width/2), false, si->Color, si->ColorTo);
+			break;
 
 		case B_MIRROR_HORIZONTAL:
 		case B_MIRRORHORIZONTAL:
 			table_fn_mirror(bi, bi->xtab, width, false);
-
-			// draw 2 lines, to cover the 'interlaced' case
-            y = 0;
-			do {
-                x = 0;
-				s = (unsigned long *)bi->xtab;
-				do {
-                    *(unsigned long*)p = *s++;
-                    if (interlaced) {
-                        if (1 & y)
-							darker(bi, p);
-                        else
-							lighter(bi, p);
-                    }
-                    p+=BBP;
-                } while (++x < width);
-            } while (++y < 2);
-
-            // copy down the lines
-        //copy_lines:
-            d = (unsigned long*)p;
-            while (y < height) {
-                s = (unsigned long*)bi->pixels + (y&1)*width;
-                memcpy(d, s, width*BBP);
-                d += width; y++;
-            }
             break;
 
 		case B_SPLITHORIZONTAL:
 		case B_SPLIT_HORIZONTAL:
-			// Vertical gradient. Color1 | Color2
 			table_fn_split(bi, bi->xtab, width, si->ColorSplitTo, si->Color, si->ColorTo, si->ColorToSplitTo, false);
-			//table_fn_split(ytab, height, false);
-
-			// draw 2 lines, to cover the 'interlaced' case
-            y = 0;
-			do {
-                x = 0;
-				s = (unsigned long *)bi->xtab;
-				do {
-                    *(unsigned long*)p = *s++;
-                    if (interlaced) {
-                        if (1 & y)
-							darker(bi, p);
-                        else
-							lighter(bi, p);
-                    }
-                    p+=BBP;
-                } while (++x < width);
-            } while (++y < 2);
-
-            // copy down the lines
-        //copy_lines:
-            d = (unsigned long*)p;
-            while (y < height) {
-                s = (unsigned long*)bi->pixels + (y&1)*width;
-                memcpy(d, s, width*BBP);
-                d += width; y++;
-            }
             break;
 
         case B_HORIZONTAL:
             table_fn(bi, bi->xtab, width, false);
+            break;
+
+        // -------------------------------------
+		case B_BLOCKVERTICAL:
+			table_fn_block(bi, bi->ytab, (height & 1)?((height+1)/2):(height/2));
+			break;
+			
+		case B_WAVEVERTICAL:
+			table_fn_wave(bi, bi->ytab, (height & 1)?((height+1)/2):(height/2), true, si->Color, si->ColorTo);
+			break;
+		
+		case B_MIRRORVERTICAL:
+		case B_MIRROR_VERTICAL:
+			table_fn_mirror(bi, bi->ytab, height, true);
+			break;
+
+		case B_SPLITVERTICAL:
+		case B_SPLIT_VERTICAL:
+			// Vertical gradient. Color1 | Color2
+			table_fn_split(bi, bi->ytab, height, si->ColorSplitTo, si->Color, si->ColorTo, si->ColorToSplitTo, true);
+			break;
+
+        case B_VERTICAL:
+            table_fn(bi, bi->ytab, height, true);
+			break;
+
+        // -------------------------------------
+        case B_CROSSDIAGONAL:
+            table_fn(bi, bi->xtab, width, true);
+            break;
+
+        case B_DIAGONAL:
+            table_fn(bi, bi->xtab, width, false);
+			break;
+
+        // -------------------------------------
+        case B_PIPECROSS:
+            bi->alternativ = true;
+        case B_RECTANGLE:
+        case B_PYRAMID:
+            table_fn(bi, bi->xtab, width, false);
+            table_fn(bi, bi->ytab, height, false);
+			break;
+
+        case B_ELLIPTIC:
+            if (0 == _sqrt_table[0])
+                init_sqrt();
+            table_fn(bi, bi->xtab, SQR, false);
+			break;
+    }
+
+	/* BlackboxZero 1.17.2012
+	** This is a touch slower cuz we're running 2 switch statements..
+	** but it's cleaner to look at and easy to maintain. */
+	switch ( type ) {
+		// -------------------------------------
+        //default:
+        //case B_SOLID: <-- Handled up above, completely.
+
+		// -------------------------------------
+		//Horizontal specific
+		case B_WAVEHORIZONTAL:
+		case B_BLOCKHORIZONTAL:
+		case B_MIRROR_HORIZONTAL:
+		case B_MIRRORHORIZONTAL:
+		case B_SPLITHORIZONTAL:
+		case B_SPLIT_HORIZONTAL:
+        case B_HORIZONTAL:
             // draw 2 lines, to cover the 'interlaced' case
             y = 0;
 			do {
@@ -554,7 +706,6 @@ struct bimage *bimage_create(int width, int height,  StyleItem *si)
             } while (++y < 2);
 
             // copy down the lines
-        copy_lines:
             d = (unsigned long*)p;
             while (y < height) {
                 s = (unsigned long*)bi->pixels + (y&1)*width;
@@ -564,20 +715,23 @@ struct bimage *bimage_create(int width, int height,  StyleItem *si)
             break;
 
         // -------------------------------------
+		//Vertical specific
+		case B_BLOCKVERTICAL:
+		case B_WAVEVERTICAL:
 		case B_MIRRORVERTICAL:
 		case B_MIRROR_VERTICAL:
-			table_fn_mirror(bi, bi->ytab, height, true);
-			// draw 1 column
+		case B_SPLITVERTICAL:
+		case B_SPLIT_VERTICAL:
+        case B_VERTICAL:
+            // draw 1 column
             y = 0;
 			s = (unsigned long *)bi->ytab;
 			z = width*BBP;
             do {
                 *(unsigned long*)p = *s++;
                 if (interlaced) {
-                    if (1 & y)
-						darker(bi, p);
-                    else
-						lighter(bi, p);
+                    if (1 & y) darker(bi, p);
+                    else lighter(bi, p);
                 }
                 p += z;
             } while (++y < height);
@@ -593,68 +747,13 @@ struct bimage *bimage_create(int width, int height,  StyleItem *si)
             } while (++y < height);
             break;
 
-		case B_SPLITVERTICAL:
-		case B_SPLIT_VERTICAL:
-			// Vertical gradient. Color1 | Color2
-			table_fn_split(bi, bi->ytab, height, si->ColorSplitTo, si->Color, si->ColorTo, si->ColorToSplitTo, true);
-
-			// draw 1 column
-			y = 0;
-			s = (unsigned long *)bi->ytab;
-			z = width*BBP;
-			do {
-				*(unsigned long*)p = *s++;
-				if (interlaced) {
-					if (1 & y)
-						darker(bi, p);
-					else
-						lighter(bi, p);
-				}
-				p += z;
-			} while (++y < height);
-
-			// copy colums
-			s = (unsigned long*)bi->pixels;
-			y = 0;
-			do {
-				d = s, s += width;
-				c = *d++;
-				do *d = c;
-				while (++d<s);
-			} while (++y < height);
-			break;
-
-        case B_VERTICAL:
-            table_fn(bi, bi->ytab, height, true);
-
-            // draw 1 column
-            y = 0; s = (unsigned long *)bi->ytab; z = width*BBP;
-            do {
-                *(unsigned long*)p = *s++;
-                if (interlaced) {
-                    if (1 & y) darker(bi, p);
-                    else lighter(bi, p);
-                }
-                p += z;
-            } while (++y < height);
-
-            // copy colums
-            s = (unsigned long*)bi->pixels;
-            y = 0; do {
-                d = s, s += width; c = *d++;
-                do *d = c; while (++d<s);
-            } while (++y < height);
-            break;
-
         // -------------------------------------
+		//Diagonal specific
         case B_CROSSDIAGONAL:
-            table_fn(bi, bi->xtab, width, true);
-            goto diag;
         case B_DIAGONAL:
-            table_fn(bi, bi->xtab, width, false);
-        diag:
             table_fn(bi, bi->ytab, height, true);
-            y = 0; do {
+            y = 0;
+			do {
                 x = 0; do {
                     diag_fn(bi, p, x, y);
                     if (interlaced) {
@@ -667,21 +766,11 @@ struct bimage *bimage_create(int width, int height,  StyleItem *si)
             break;
 
         // -------------------------------------
+		//Everything else.
         case B_PIPECROSS:
-            bi->alternativ = true;
         case B_RECTANGLE:
         case B_PYRAMID:
-            table_fn(bi, bi->xtab, width, false);
-            table_fn(bi, bi->ytab, height, false);
-            goto draw_quadrant;
-
         case B_ELLIPTIC:
-            if (0 == _sqrt_table[0])
-                init_sqrt();
-            table_fn(bi, bi->xtab, SQR, false);
-            goto draw_quadrant;
-
-        draw_quadrant:
             // one quadrant is drawn, and mirrored horizontally and vertically
             y = 0;
             s = (unsigned long*)p + height*width;
@@ -689,7 +778,10 @@ struct bimage *bimage_create(int width, int height,  StyleItem *si)
             do {
                 x = 0;
                 d = (unsigned long*)p + width;
-                f = s; s -= width; e = s; z--;
+                f = s;
+				s -= width;
+				e = s;
+				z--;
                 do {
                     if (B_ELLIPTIC == type)
                         elli_fn(bi, p, x, y);
@@ -715,9 +807,9 @@ struct bimage *bimage_create(int width, int height,  StyleItem *si)
                         *--f = *e;
                     }
                     e++;
-                    p+=BBP;
-                } while ((x+=2) < width);
-                p+=(width/2)*BBP;
+                    p += BBP;
+                } while ( (x+=2) < width );
+                p += (width/2)*BBP;
             } while ((y+=2) < height);
             break;
     }
@@ -772,7 +864,7 @@ void bimage_destroy(struct bimage *bi)
     free(bi);
 }
 
-void bimage_init(bool dither, bool is_070)
+void bimage_init(int dither, bool is_070)
 {
     option_dither = dither;
     option_070 = is_070;

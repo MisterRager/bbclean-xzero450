@@ -162,6 +162,16 @@ cont_1:
             if (false==read_color(r->token, &r->color2)) return false;
             continue;
 
+        case E_splitFrom:
+            next_token(r);
+            if (false==read_color(r->token, &r->color_from)) return false;
+            continue;
+
+        case E_splitTo:
+            next_token(r);
+            if (false==read_color(r->token, &r->color_to)) return false;
+            continue;
+
         case E_fg:
         case E_foreground:
             next_token(r);

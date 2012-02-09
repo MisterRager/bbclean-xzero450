@@ -305,19 +305,22 @@ void bb_about(void)
     BBMessageBox(MB_OK,
     BBAPPVERSION" - Copyright 2003-2009 grischka\n%s",
     NLS2("$About_Blackbox$",
-        "Based stylistically on blackboxwm by Brad Hughes"
+        "Based stylistically on the Blackbox window manager"
+        "\nfor the Linux X Window System by Brad Hughes"
         "\n"
         "\nSwitches:"
         "\n-help           \tShow this text"
         "\n-install        \tInstall Blackbox as default shell"
         "\n-uninstall      \tReset Explorer as default shell"
         "\n-nostartup      \tDo not run startup programs"
+		"\n-toggle	      \tToggle between \'nostartup\' and \'quit\'"
         "\n-rc <path>      \tSpecify alternate blackbox.rc path"
         "\n-exec <@broam>  \tSend broadcast message to running shell"
         "\n"
         "\nFor more information visit:"
         "\nhttp://bb4win.sourceforge.net/bblean/"
         "\nhttp://bb4win.org/"
+        "\n- #bb4win on irc.freenode.net"
         ));
 }
 
@@ -379,6 +382,14 @@ bool check_options (const char* lpCmdLine)
                 }
                 return true;
         }
+		// automatically open a style file (address flag)
+		else if (strchr(option, ':'))
+		{
+			;
+			if (!BBSendData(FindWindow(szBlackboxClass, szBlackboxName), BB_SETSTYLE, 0, option, 1+strlen(option)))
+				BBMessageBox(MB_OK, "Unknown type of style file: %s\t", option);
+			return true;
+		}
         BBMessageBox(MB_OK, "Unknown commandline option: %s\t", option);
         return true;
     }
@@ -703,6 +714,7 @@ LRESULT CALLBACK MainWndProc (HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 {
     LRESULT r;
     const char *str;
+    const WPARAM ID_HOTKEY = 3;
 
 #ifdef LOG_BB_MESSAGES
     //dbg_printf("hwnd %04x msg %d wp %x lp %x", hwnd, uMsg, wParam, lParam);
@@ -727,6 +739,7 @@ LRESULT CALLBACK MainWndProc (HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
             if (in_restart)
                 break;
 
+bb_quit:
             MessageManager_Send(BB_EXITTYPE, 0, B_QUIT);
             /* clean up */
             shutdown_blackbox();
@@ -952,6 +965,7 @@ LRESULT CALLBACK MainWndProc (HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
             BBhwnd = hwnd;
             MakeSticky(hwnd);
             register_shellhook(hwnd);
+            RegisterHotKey(hwnd, ID_HOTKEY, MOD_CONTROL|MOD_ALT, VK_F1);
             break;
 
         //====================
@@ -972,6 +986,11 @@ LRESULT CALLBACK MainWndProc (HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
             return TRUE;
 
         case WM_CLOSE:
+            break;
+
+        case WM_HOTKEY:
+            if (ID_HOTKEY == wParam)
+                goto bb_quit;
             break;
 
         //====================
@@ -1229,6 +1248,7 @@ enum corebroam_flags {
     e_lpnum  = 0x080,
     e_lptask = 0x100,
     e_wpnum  = 0x200,
+	e_lpint  = 0x400,
 };
 
 static const struct corebroam_table {
@@ -1394,6 +1414,9 @@ int exec_core_broam(const char *broam)
     if (action->flag & e_lpnum)
         lParam = atoi(core_args)-1;
     else
+	if (action->flag & e_lpint)
+		lParam = atoi(core_args);
+	else
     if (action->flag & e_lptask)
         lParam = (LPARAM)GetTask(atoi(core_args)-1);
 

@@ -59,6 +59,7 @@ IDI_BLACKBOX ICON DISCARDABLE "Blackbox.ico"
 //
 
 IDC_MOVEMENU CURSOR DISCARDABLE "Menu/MoveMenu.cur"
+IDC_MOVEMENUL CURSOR DISCARDABLE "Menu/MoveMenuL.cur"
 
 /////////////////////////////////////////////////////////////////////////////
 //

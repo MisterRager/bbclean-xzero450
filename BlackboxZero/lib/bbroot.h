@@ -41,6 +41,7 @@ enum
     E_solid     , E_gradient  , E_mod       ,
     E_from      , E_bg        , E_background ,
     E_to        , E_fg        , E_foreground ,
+	E_splitFrom , E_splitTo   ,
 
     Einterlaced,
 
@@ -61,6 +62,7 @@ static const char *switches[] =
     "-solid",       "-gradient",    "-mod",
     "-from",        "-bg",          "-background",
     "-to",          "-fg",          "-foreground",
+	"-splitFrom",   "-splitTo",
 
     "interlaced",
 
@@ -90,6 +92,8 @@ struct rootinfo
 
     COLORREF color1;
     COLORREF color2;
+    COLORREF color_from;
+    COLORREF color_to;
     char interlaced;
     int type;
     int bevelstyle;

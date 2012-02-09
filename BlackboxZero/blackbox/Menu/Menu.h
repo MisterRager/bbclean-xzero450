@@ -69,6 +69,7 @@ protected:
     bool        m_bOnTop;       // z-order
     bool        m_bPinned;      // pinned
     bool        m_bNoTitle;     // dont draw title
+	bool        m_bIconized;    // iconized to titlebar
 
     bool        m_kbdpos;  // save position to blackbox.rc on changes
     bool        m_bIsDropTarg;  // window should be registered as DT
@@ -90,6 +91,7 @@ protected:
     int         m_height;
 
     HBITMAP     m_hBitMap;      // background bitmap, only while onscreen
+	HBITMAP     m_hBmpScroll;   // bitmap to paint scroller
     HWND        m_hwnd;         // window handle, only while onscreen
     HWND        m_hwndChild;    // edit control of StringItems
     HWND        m_hwndRef;      // hwnd to send notifications to */

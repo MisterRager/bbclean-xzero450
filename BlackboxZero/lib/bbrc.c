@@ -608,6 +608,90 @@ ST struct lin_list *search_line(
     return tl;
 }
 
+void translate_new(char *buffer, int bufsize, char **pkey, int *pklen, int syntax)
+{
+    static const char *pairs [] =
+    {
+		// from         -->   to [OB -> 0.65 fork] 
+        "padding.width"					, "bevelWidth"     ,
+        "menu.border.width"				, "menu.*.borderWidth"     ,
+        "border.width"					, "borderWidth"     ,
+        "handle.width"					, "handleWidth"     ,
+        "menu.border.color"				, "menu.*.borderColor"     ,
+        "border.color"					, "borderColor"     ,
+        "label.text.justify"			, "justify"                ,
+        ".bg"							, ""                ,
+        "title.text.font"				, "title.font"                ,
+        "items.font"					, "frame.font"                ,
+        "items.active"					, "hilite"                ,
+        "items"							, "frame"                ,
+        "disabled.text.color"			, "disableColor"                ,
+        "active.label.text.font"        , "font"                ,
+        ".active.title"					, ".title.focus"                ,
+        ".active.label"					, ".label.focus"                ,
+        ".active.handle"				, ".handle.focus"                ,
+        ".active.grip"					, ".grip.focus"                ,
+        "window.active.button.*"        , "window.button.focus"        ,
+       	"window.inactive.button.*"      , "window.button.unfocus"     ,
+        ".active.button.unpressed"      , ".button.focus"                ,
+        ".active.button.pressed"        , ".button.pressed"            ,
+        "inactive.title"				, "title.unfocus"                ,
+        "inactive.label"				, "label.unfocus"                ,
+        "inactive.handle"				, "handle.unfocus"                ,
+        "inactive.grip"					, "grip.unfocus"                ,
+        "inactive.button.unpressed"     , "button.unfocus"                ,
+        "text.justify"					, "justify"                ,
+        "text.color"					, "textColor"                ,
+      	"image.color"					, "picColor"             ,
+        "osd"							, "toolbar"     ,
+        "unhighlight"					, "button"     ,
+        "highlight"						, "button.pressed"     ,
+		// frame values
+        "window.client.padding.width"   , "window.frame.borderWidth"     ,
+        "window.active.border.color"    , "window.*.focus.borderColor"  ,
+        "window.inactive.border.color"  , "window.*.unfocus.borderColor" ,
+        "active.client.color"			, "frame.focus.borderColor"     ,
+        "inactive.client.color"			, "frame.unfocus.borderColor"   ,
+        "frameColor"					, "frame.focus.borderColor"     ,
+       NULL
+    };
+
+    static const char *FBpairs [] =    // older items
+    {
+        "window.frame.focusColor"		, "window.frame.focus.borderColor" ,
+        "window.frame.unfocusColor"		, "window.frame.unfocus.borderColor" ,
+        "window.frame.focus.color"		, "window.frame.focus.borderColor" ,
+        "window.frame.unfocus.color"	, "window.frame.unfocus.borderColor" ,
+        "frameWidth"					, "window.frame.borderWidth"     ,
+        "window.frameWidth"				, "window.frame.borderWidth" ,
+      NULL
+    };
+
+    const char **p = pairs;
+    int k = *pklen;
+    if (k >= bufsize) return;
+    *pkey = (char *)memcpy(buffer, *pkey, k);
+    buffer[k] = 0;
+	if (syntax == 1)
+		p = FBpairs;
+    do
+    {
+        char *q = (char*)stristr(buffer, *p);
+        if (q)
+        {
+            int lp = strlen(p[0]);
+            int lq = strlen(q);
+            int lr = strlen(p[1]);
+            int k0 = k + lr - lp;
+            if (k0 >= bufsize) break;
+            memmove(q + lr, q + lp, lq - lp + 1);
+            memmove(q, p[1], lr);
+            k = k0;
+        }
+    } while ((p += 2)[0]);
+    *pklen = k;
+}
+
 /* ------------------------------------------------------------------------- */
 // searches for the filename and, if not found, builds a _new line-list
 
@@ -615,9 +699,9 @@ struct fil_list *read_file(const char *filename)
 {
     struct lin_list **slp, *sl;
     struct fil_list **flp, *fl;
-    char *buf, *p, *d, *s, *t, c, hashname[MAX_PATH];
+    char *buf, *p, *d, *s, *t, c, hashname[MAX_PATH], buff[MAX_KEYWORD_LENGTH];
     unsigned h;
-    int k;
+    int k, is_OB, is_070;
 
     // ----------------------------------------------
     // first check, if the file has already been read
@@ -649,7 +733,14 @@ struct fil_list *read_file(const char *filename)
         return fl;
     }
 
-    for (slp = &fl->lines, p = buf;;)
+    is_OB = is_070 = false;
+	if(stristr(buf, "bg:"))
+	    is_OB = true;
+	else
+    if(stristr(buf, "appearance:"))
+	    is_070 = true;
+
+	for (slp = &fl->lines, p = buf;;)
     {
         c = scan_line(&p, &s, &k);
         if (0 == c)
@@ -671,6 +762,13 @@ comment:
             // skip spaces between key and value
             while (*++d == ' ')
                 ;
+
+			if (k && is_OB)
+				translate_new(buff, sizeof buff, &s, &k, 0);
+			else 
+			if (k && false == is_070)
+				translate_new(buff, sizeof buff, &s, &k, 1);
+
             sl = make_line(fl, s, d);
         }
         //append it to the list
@@ -886,11 +984,14 @@ int read_next_line(FILE *fp, char* szBuffer, unsigned dwLength)
 
 ST const struct styleprop styleprop_1[] = {
  {"splithorizontal" ,B_SPLITHORIZONTAL  }, // "horizontal" is match .*horizontal
+ {"blockhorizontal",B_BLOCKHORIZONTAL },
  {"mirrorhorizontal",B_MIRRORHORIZONTAL },
+ {"wavehorizontal",B_WAVEHORIZONTAL },
  {"splitvertical"   ,B_SPLITVERTICAL    }, // "vertical" is match .*vertical
+ {"blockvertical",B_BLOCKVERTICAL   },
  {"mirrorvertical"  ,B_MIRRORVERTICAL   },
  {"solid"        ,B_SOLID           },
- {"horizontal"   ,B_HORIZONTAL      },
+ {"wavevertical" ,B_WAVEVERTICAL    },
  {"vertical"     ,B_VERTICAL        },
  {"crossdiagonal",B_CROSSDIAGONAL   },
  {"diagonal"     ,B_DIAGONAL        },

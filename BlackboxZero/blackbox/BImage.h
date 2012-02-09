@@ -78,7 +78,7 @@ struct StyleItem;
         - use color2 with solid interlaced
 */
 
-void bimage_init(bool dither, bool is_070);
+void bimage_init(int dither, bool is_070);
 
 /* Low level functions */
 /* ------------------- */

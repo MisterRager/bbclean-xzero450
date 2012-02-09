@@ -86,6 +86,7 @@ BBSETTING struct menu_setting {
 	int		spacing;
 	bool	bullet_enabled;
 	char	scrollerPosition[16];
+	int	 scrollHue;
 	char	separatorStyle[16];
 	bool	separatorFullWidth;
 	bool	separatorCompact;
@@ -134,7 +135,7 @@ BBSETTING char Settings_preferredEditor[MAX_PATH];
 BBSETTING bool Settings_useDefCursor;
 BBSETTING bool Settings_arrowUnix;
 BBSETTING bool Settings_globalFonts;
-BBSETTING bool Settings_imageDither;
+BBSETTING int Settings_imageDither;
 BBSETTING bool Settings_shellContextMenu;
 BBSETTING bool Settings_UTF8Encoding;
 BBSETTING bool Settings_OldTray;
@@ -147,6 +148,8 @@ BBSETTING char Settings_recentMenu[MAX_PATH];
 BBSETTING int  Settings_recentItemKeepSize;
 BBSETTING int  Settings_recentItemSortSize;
 BBSETTING bool Settings_recentBeginEnd;
+BBSETTING bool Settings_globalShadows;
+BBSETTING bool Settings_outlineText;
 /* BlackboxZero 1.7.2012 */
 
 // feature select

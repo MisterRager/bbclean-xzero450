@@ -92,14 +92,14 @@
 #define B_PYRAMID 7
 #define B_SOLID 8
 /* BlackboxZero 1.5.2012 */
-#define B_SPLITVERTICAL		9
-#define B_MIRRORVERTICAL	11//10
-#define B_MIRRORHORIZONTAL	10//11
-#define B_SPLITHORIZONTAL	12
-#define B_SPLIT_VERTICAL		B_VERTICAL+100
-#define B_MIRROR_HORIZONTAL	B_HORIZONTAL+200
-#define B_MIRROR_VERTICAL	B_VERTICAL+200
-#define B_SPLIT_HORIZONTAL	B_HORIZONTAL+100
+#define B_SPLIT_VERTICAL		9
+#define B_MIRROR_VERTICAL	11//10
+#define B_MIRROR_HORIZONTAL	10//11
+#define B_SPLIT_HORIZONTAL	12
+#define B_SPLITVERTICAL		B_VERTICAL+100
+#define B_MIRRORHORIZONTAL	B_HORIZONTAL+200
+#define B_MIRRORVERTICAL	B_VERTICAL+200
+#define B_SPLITHORIZONTAL	B_HORIZONTAL+100
 #define B_WAVEHORIZONTAL	B_HORIZONTAL+300
 #define B_WAVEVERTICAL		B_VERTICAL+300
 #define B_BLOCKHORIZONTAL	B_HORIZONTAL+400
@@ -716,7 +716,7 @@ extern "C" {
     API_EXPORT HFONT CreateStyleFont(StyleItem * si);
 
 	/* Draw text with shadow, etc. */
-	API_EXPORT int BBDrawText(HDC hDC, LPCTSTR lpString, int nCount, LPRECT lpRect, UINT uFormat, StyleItem * si);
+	API_EXPORT int BBDrawText(HDC hDC, const char *lpString, int nCount, LPRECT lpRect, UINT uFormat, StyleItem * si);
 
 
     /* ------------------------------------ */

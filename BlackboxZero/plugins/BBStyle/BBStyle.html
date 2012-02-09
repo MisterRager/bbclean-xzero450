@@ -1,0 +1,238 @@
+<html>
+<head>
+<title>BBStyle</title>
+<style>
+	body
+	{background-color: #333333;
+	margin-top: 5px; margin-left: 5px;
+	scrollbar-face-color: #636363;
+	scrollbar-shadow-color: #535353;
+	scrollbar-highlight-color: #737373;
+	scrollbar-3dlight-color: #737373;
+	scrollbar-darkshadow-color: #535353;
+	scrollbar-track-color: #333333;
+	scrollbar-arrow-color: #FFFFFF;}
+	<!--
+	a:hover{color:#888888;}
+	.myhover a:hover{color:#888888;}
+	-->
+	hr {height: 1px; color: #666666;}
+	table {font-family: Tahoma; font-size: 8pt; font-weight: normal; text-align: left; color: #FFFFFF;}
+	span {color: #777777;}
+	span.desc {color: #BBBBBB;}
+	span.example {color: #555555;}
+</style>
+</head>
+
+<!-- ---------- -->
+
+<body bgcolor="#333333" text="#FFFFFF" link="#AAAAAA" vlink="#AAAAAA" alink="#AAAAAA" topmargin="5" leftmargin="5">
+
+<table border="0" cellpadding="0" cellspacing="2" align="center">
+
+<!-- ---------- -->
+
+<tr><td colspan="2">
+<table cellpadding="10" cellspacing="0" width="100%" border="1" bordercolor="#666666"><tr bgcolor="#555555"><td>
+<font size="+1">BBStyle <span class="desc">0.2</span></font>
+</td></tr></table>
+</td></tr>
+
+<tr><td valign="top">
+
+<!-- ---------- -->
+
+<table cellpadding="10" cellspacing="0" width="300" border="1" bordercolor="#555555">
+
+<tr><td bgcolor="#444444"><center><font color="#777777"><b>description</b></font></center></td></tr>
+<tr bgcolor="#333333"><td>
+BBStyle is a <a href="http://desktopian.org/bb/">Blackbox for Windows</a> plugin that applies a random style to Blackbox on a set timer.
+This timer can be disabled or enabled on the fly, via the plugin menu. BBStyle can also be set to apply a random style on Blackbox startup!
+The latest release adds support for different wallpapers for each workspace. Also the window can now inherit the toolbar height,
+or be disabled completely.
+
+<p>BBStyle 0.2 requires Blackbox for Windows 0.0.81 or later.
+
+<p><span><font face="Verdana"><i>Insert random tagline here. =Q)</i></font></span>
+
+<p><a href="mailto:nc-17@ratednc-17.com">NC-17</a>
+
+</td></tr>
+
+<!-- ---------- -->
+
+<tr><td bgcolor="#444444"><center><font color="#777777"><b>revision history</b></font></center></td></tr>
+<tr bgcolor="#333333"><td>
+<p>BBStyle 0.2 (2003-03-12) / <a href="mailto:nc-17@ratednc-17.com">NC-17</a>
+<span>
+	<li>Added support for seperate rootCommands on each workspace</li>
+	<li>Modified contents of Configuration submenu</li>
+	<li>Added toggle for window display</li>
+	<li>Changed the way style paths are stored. Now internal using a vector rather than using an external .ini file</li>
+	<li>Added toggle for inheriting the toolbar height, otherwise it's now a static size</li>
+</span>
+<p>BBStyle 0.1 (2003-02-14) / <a href="mailto:nc-17@ratednc-17.com">NC-17</a>
+<span>
+	<li>Original release</li>
+</span>
+
+</td></tr>
+
+<!-- ---------- -->
+
+<tr><td bgcolor="#444444"><center><font color="#777777"><b>future releases?</b></font></center></td></tr>
+<tr bgcolor="#333333"><td>
+	<li>[your wish goes here - <a href="mailto:nc-17@ratednc-17.com">send me your ideas</a>! :D ]</li>
+</td></tr>
+
+<!-- ---------- -->
+
+<tr><td bgcolor="#444444"><center><font color="#777777"><b>license information</b></font></center></td></tr>
+<tr bgcolor="#333333"><td>
+<span class="desc">&copy; 2003 Laurence Skegg [NC-17]</span>
+<p><span>BBSTYLE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND.
+THE AUTHOR DISCLAIM ALL WARRANTIES, EITHER EXPRESS OR IMPLIED,
+INCLUDING THE WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR PURPOSE. IN NO EVENT SHALL THE AUTHOR OR ITS
+SUPPLIERS BE LIABLE FOR ANY DAMAGES WHATSOEVER INCLUDING
+DIRECT, INDIRECT, INCIDENTAL, CONSEQUENTIAL, LOSS OF BUSINESS
+PROFITS OR SPECIAL DAMAGES, EVEN IF THE AUTHOR OR ITS SUPPLIERS
+HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</span>
+</td></tr>
+
+</table>
+
+<!-- ---------- -->
+
+</td><td valign="top">
+
+<!-- ---------- -->
+
+<table cellpadding="10" cellspacing="0" width="500" border="1" bordercolor="#555555">
+<tr><td bgcolor="#222222">
+
+<table width="100%" bgcolor="#333333"><tr><td>
+<center><span class="desc">initial setup</span></center>
+</td></tr></table>
+
+<p>To load BBStyle you simply need to add the relative path of the plugin (from your Blackbox directory) to the Blackbox configuration file <span>plugins.rc</span> (located in the Blackbox directory).
+For example, if you installed Blackbox into c:\Blackbox, and BBStyle.dll is located in c:\Blackbox\plugins\BBStyle\, you should add the line...
+
+<p><span>plugins\BBStyle\BBStyle.dll</span> (for <b>2k/xp</b> users)
+<br<span>plugins\BBStyle\BBStyle_9x.dll</span> (for <b>9x/me</b> users)
+
+<p>...to plugins.rc. Simple, eh? :)
+
+<!-- ---------- -->
+
+<p><table width="100%" bgcolor="#333333"><tr><td>
+<center><span class="desc">how to use BBStyle...</span></center>
+</td></tr></table>
+
+<p>Once the plugin is loaded, several things can be done with a simple mouse click on the BBStyle "box":
+<p>
+<span class="desc">
+Left Click&nbsp;&nbsp;<span>within the "S" button this applies a randomly selected style to Blackbox for Windows. 
+Outside the button this lets you drag the box around.</span>
+<br>Left Click + Ctrl&nbsp;&nbsp;<span>within the button this also allows you to drag the box around.</span>
+<br>Middle Click&nbsp;&nbsp;<span>anywhere in the box this opens the current style with your preferred editor for editing.</span>
+<br>Right Click&nbsp;&nbsp;<span>anywhere this displays the BBStyle plugin menu, which lets you fiddle with numerous options...</span>
+</span>
+
+<p>The plugin menu let's you change or select various things, and most should be self-explanatory. 
+However, there are two important entries worth mentioning.
+<p>In the "Configuration" submenu is a "Style Change On Timer" entry. 
+This toggles whether the timer changing the current style is active or not. If it is active, there will be an indicator next to the entry.
+The amount of time before the timer causes a style change is set in the <span>bbstyle.rc</span> file as described below.
+<p>The second entry to be noted is the "Refresh Style List" option in the main menu. This makes BBStyle re-read your given style path, as set in the 
+bbstyle.rc file, and create an updated internal list of paths to all your styles. This should be used if you have copied over any new
+styles and you want them to have a chance of being applied! :)
+
+<p>For usage concerning multiple wallpapers, see below.
+
+<!-- ---------- -->
+
+<p><table width="100%" bgcolor="#333333"><tr><td>
+<center><span class="desc">BBStyle.rc settings</span></center>
+</td></tr></table>
+
+<p>I have included a default configuration file (BBStyle.rc) in the .zip.  If a configuration file for some reason (e.g. you deleted it &lt;g&gt;)
+can not be found at startup (BBStyle will first search for it in the same directory as the plugin, then in the Blackbox directory),
+BBStyle will automatically create one for you in the same directory as the plugin. Normally, you do not need to edit this file manually, however 
+there is one path you should set - the <span>bbstyle.stylePath:</span> value. You may also want to tweak the alpha transparency value (for 2k/xp only, see below) 
+to your liking.
+
+<p><span class="desc">
+<br>bbstyle.position.x: 0&nbsp;&nbsp;<span>X position</span>
+<br>bbstyle.position.y: 0&nbsp;&nbsp;<span>Y position</span>
+<br>bbstyle.alwaysOnTop: true&nbsp;&nbsp;<span>Always on top?</span>
+<br>bbstyle.snapWindow: true&nbsp;&nbsp;<span>Snap BBStyle window to screen edge?</span>
+<br>bbstyle.inheritToolbarHeight: false&nbsp;&nbsp;<span>Make window same height as toolbar?</span>
+<br>bbstyle.transparency: false&nbsp;&nbsp;<span>Enable transparency?</span>
+<br>bbstyle.transparency.alpha: 200&nbsp;&nbsp;<span>Alpha transparency value (0-255). Larger is more opaque</span>
+<br>bbstyle.timerOn: false&nbsp;&nbsp;<span>Enable timer?</span>
+<br>bbstyle.changeTime: 5&nbsp;&nbsp;<span>Number of minutes between style changes</span>
+<br>bbstyle.changeOnStart: false&nbsp;&nbsp;<span>Apply a random style on bb4win startup?</span>
+<br>bbstyle.stylePath: C:\Blackbox\styles\&nbsp;&nbsp;<span>Path to find styles; will be searched recursively</span>
+<br>bbstyle.rootCommands: false&nbsp;&nbsp;<span>Use a specific rootCommand for each workspace?</span>
+</span>
+
+<p>I'm not quite sure what the restraints are on the path name yet - if in doubt, use a DOS short path name. =]</p>
+<p>In order to have separate wallpapers on each workspace you must add some settings either to the <span>bbstyle.rc</span> file or to a specific style file.
+This lets you have different wallpaper settings for different styles. If the settings are not found in the current style file, it will use those in the .rc
+file, if any. For example:
+
+<br><span class="desc">
+<br>bbstyle.workspace1.rootCommand:&nbsp;&nbsp;<span>bsetroot -solid black</span>
+<br>bbstyle.workspace2.rootCommand:&nbsp;&nbsp;<span>bsetroot -mod 3 3 -fg #666666 -bg #333333</span>
+<br>bbstyle.workspace3.rootCommand:&nbsp;&nbsp;<span>bsetroot -gradient verticalinterlaced -from rgb:00/00/00 -to rgb:99/99/99</span>
+<br>bbstyle.workspace4.rootCommand:&nbsp;&nbsp;<span>bsetbg -full backgrounds\mypicture.png</span>
+</span>
+
+<p>Note these settings have to be sequential, without any gaps, from workspace1 to workspaceX, otherwise BBStyle will only use the settings up to the first gap.
+If no rootCommand is set for a particular workspace, the default style rootCommand is used.
+<p>Please note that BBStyle automatically saves the current running configuration when you quit or restart Blackbox,
+overwriting the previous contents of the file. In order to change this file easily restart Blackbox from the menu while holding down the Shift key,
+which will unload all plugins and display a message box telling you that the restart has been paused.
+Now make your changes to the file and save, then click OK on the message box to continue the restart. BBStyle will now read your manually edited settings.
+
+<p><table width="100%" bgcolor="#333333"><tr><td>
+<center><span class="desc">BBStyle bro@ms</span></center>
+</td></tr></table>
+
+<span class="desc">
+<br />@BBShowPlugins&nbsp;&nbsp;<span>Standard BB bro@m to show all plugins</span>
+<br />@BBHidePlugins&nbsp;&nbsp;<span>Standard BB bro@m to hide all plugins</span>
+<br />@BBStyleRandom&nbsp;&nbsp;<span>Select a random style and apply it</span>
+<br />
+<br />@BBStyleInternal EditStyle&nbsp;&nbsp;<span>Open the current style with your preferred editor</span>
+<br />@BBStyleInternal AboutStyle&nbsp;&nbsp;<span>Display a message box with information about the current style</span>
+<br />@BBStyleInternal RefreshList&nbsp;&nbsp;<span>Make BBStyle re-read your style path to update any addition or removal of files</span>
+<br />@BBStyleInternal Transparency&nbsp;&nbsp;<span>Toggle use of transparency (2k/xp only)</span>
+<br />@BBStyleInternal AlwaysOnTop&nbsp;&nbsp;<span>Toggle window always on top</span>
+<br />@BBStyleInternal SnapWindowToEdge&nbsp;&nbsp;<span>Toggle snap window to edge</span>
+<br />@BBStyleInternal ToggleToolbar&nbsp;&nbsp;<span>Toggle inheritance of toolbar height for window</span>
+<br />@BBStyleInternal ToggleWindow&nbsp;&nbsp;<span>Toggle whether window is displayed or not</span>
+<br />@BBStyleInternal ToggleTimer&nbsp;&nbsp;<span>Toggle the use of the timer for changing styles</span>
+<br />@BBStyleInternal ToggleStartChange&nbsp;&nbsp;<span>Toggle whether a random style is set on BB4Win startup</span>
+<br />@BBStyleInternal ToggleRootCommands&nbsp;&nbsp;<span>Toggle whether separate rootCommands are used for each workspace</span>
+<br />@BBStyleInternal About&nbsp;&nbsp;<span>Display message box about the plugin</span>
+</span>
+</td></tr>
+
+<!-- ---------- -->
+
+<tr><td bgcolor="#444444"><center><font color="#777777"><b>acknowledgements</b></font></center></td></tr>
+<tr bgcolor="#333333"><td>
+<span class="desc">PovRayMan! It was his idea for the plugin so everyone has to thank him. Heck I just coded this little beauty up in a day,
+I didn't do anything! Qwilk of course for the lovely documentation layout and ever-helpful SDK!</span>
+</td></tr>
+
+<!-- ---------- -->
+
+</table>
+
+</td></tr></table>
+
+</body>
+</html>

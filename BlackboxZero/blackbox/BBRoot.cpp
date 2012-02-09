@@ -66,10 +66,10 @@ HBITMAP make_root_bmp(const char *command)
         bmp = CreateCompatibleBitmap(hdc_desk, width, height);
         B0 = SelectObject(buf, bmp);
 
-        MakeGradient(buf, rect,
+        MakeGradientEx(buf, rect,
             r->type, r->color1, r->color2, 0 != r->interlaced,
             r->bevelstyle, r->bevelposition,
-            0, 0, 0
+            0, 0, 0, r->color_from, r->color_to
             );
 
         if (r->mod)

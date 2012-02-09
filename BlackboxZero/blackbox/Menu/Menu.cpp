@@ -766,12 +766,40 @@ void Menu::Paint()
 
 	/* BlackboxZero 1.7.2012 - Check for disabled
 	** Only draw if not disabled.. */
-    if (m_pagesize < m_itemcount && MenuInfo.nScrollerPosition != FOLDER_DISABLED)
+    if (m_pagesize < m_itemcount && MenuInfo.nScrollerPosition != FOLDER_DISABLED && false == m_bIconized)
     {
         // draw the scroll button
         get_vscroller_rect(&r);
-        pSI = &MenuInfo.Scroller;
-        MakeStyleGradient(hdc, &r, pSI, pSI->bordered);
+		HDC buf = CreateCompatibleDC(hdc_screen);
+		
+		if (NULL == m_hBmpScroll)
+		{
+			RECT rs;
+			rs.left = 0; rs.right  = r.right - r.left;
+			rs.top  = 0; rs.bottom = r.bottom - r.top;
+			m_hBmpScroll = CreateCompatibleBitmap(hdc_screen, rs.right, rs.bottom);
+			S0 = SelectObject(buf, m_hBmpScroll);
+			pSI = &MenuInfo.Scroller;
+			MakeStyleGradient(buf, &rs, pSI, pSI->bordered);
+		}
+		else
+			S0 = SelectObject(buf, m_hBmpScroll);
+
+		int hue = eightScale_up(Settings_menu.scrollHue);
+		if (hue) {
+			int x,y;
+			for (x = r.left; x < r.right; ++x)
+				for (y = r.top; y < r.bottom; ++y)
+					SetPixel(hdc, x, y, mixcolors(
+						GetPixel(hdc, x, y),
+						GetPixel(buf, x - r.left, y - r.top),
+						hue
+					));
+		} else
+			BitBlt(hdc, r.left, r.top, r.right-r.left, r.bottom-r.top, buf, 0, 0, SRCCOPY);
+
+		SelectObject(buf, S0);
+		DeleteDC(buf);
     }
 
     if (hdc != hdc_screen) // if using double buffer
@@ -899,7 +927,7 @@ void Menu::Validate()
     m_height = m_firstitem_top + h + margin;
 
     // adjust height for empty menus
-    if (0 == c0) {
+    if (0 == c0 || m_bIconized) {
         if (m_bNoTitle) {
             m_height += 4;
         } else if (mStyle.menuTitleLabel || mStyle.MenuTitle.parentRelative) {

@@ -242,6 +242,31 @@ BBLIB_EXPORT void m_alloc_check_leaks(const char *title);
 BBLIB_EXPORT unsigned m_alloc_size(void);
 #endif /* BBOPT_MEMCHECK */
 
+/* moreutils.c */
+
+BBLIB_EXPORT int locate_file(HINSTANCE hInstance, char *path, const char *fname, const char *ext);
+BBLIB_EXPORT int bbPlugin_LocateFile(HINSTANCE hInstance, LPSTR lpPluginPath, DWORD nSize, LPCSTR lpString);
+BBLIB_EXPORT int check_filetime(const char *fn, FILETIME *ft0);
+BBLIB_EXPORT unsigned int eightScale_down(unsigned int i);
+BBLIB_EXPORT unsigned int eightScale_up(unsigned int i);
+BBLIB_EXPORT int my_substr_icmp(const char *a, const char *b);
+BBLIB_EXPORT int n_stricmp(const char **pp, const char *s);
+BBLIB_EXPORT int trim_address(char q[MAX_PATH], int is, int js);
+BBLIB_EXPORT int get_substring_index (const char *key, const char * const * string_list);
+BBLIB_EXPORT int substr_icmp(const char *a, const char *b);
+BBLIB_EXPORT const char *string_empty_or_null(const char *s);
+BBLIB_EXPORT const char *get_delim(const char *path, int d);
+BBLIB_EXPORT char *add_slash(char *d, const char *s);
+BBLIB_EXPORT int is_relative_path(const char *path);
+BBLIB_EXPORT char *make_bb_path(HINSTANCE h, char *dest, const char *src);
+BBLIB_EXPORT char* make_full_path(HINSTANCE h, char *buffer, const char *filename);
+BBLIB_EXPORT char *get_path(char *pszPath, int nMaxLen, const char *file);
+BBLIB_EXPORT void draw_line_h(HDC hDC, int x1, int x2, int y, int w, COLORREF C);
+BBLIB_EXPORT HICON GetIcon(HWND iWin);
+BBLIB_EXPORT COLORREF Settings_CreateShadowColor(COLORREF textColor);
+BBLIB_EXPORT int FuzzyMatch(COLORREF focus, COLORREF unfocus);
+BBLIB_EXPORT COLORREF split(COLORREF c, int To);
+
 /* ------------------------------------------------------------------------- */
 
 /* ------------------------------------------------------------------------- */

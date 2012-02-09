@@ -96,9 +96,45 @@ void CommandItem::Invoke(int button)
         if (m_pRightmenu)
             m_pRightmenu->incref(), ShowRightMenu(m_pRightmenu);
         else
+		if ((GetAsyncKeyState (VK_SHIFT) & 0x8000))
+		{
+			char buffer[MAX_PATH], param[MAX_PATH];
+			char *tokens[1];
+			tokens[0] = param;
+			BBTokenize((const char*)m_pszCommand, tokens, 1, param);
+			if (0 == _memicmp(m_pszCommand, "@BBCfg.plugin", 12)) 
+			{
+				if ((GetAsyncKeyState (VK_CONTROL) & 0x8000))
+					sprintf(buffer, "@BBCfg.plugin.remove %s", param);
+				else
+					sprintf(buffer, "@BBCfg.plugin.edit %s", param);
+				post_command(buffer);
+			}
+			else
+				if (0 == _memicmp(m_pszCommand, "@BBCore.style", 12)) 
+				{
+					sprintf(buffer, "@BBCore.edit %s", param);
+					post_command(buffer);
+				}
+		}
+		else
             ShowContextMenu(m_pszCommand, pidl);
         return;
     }
+
+    if (INVOKE_MID & button)
+    {
+		if (0 == _memicmp(m_pszCommand, "@BBCfg.plugin", 12)) 
+		{
+			char buffer[MAX_PATH], param[MAX_PATH];
+			char *tokens[1];
+			tokens[0] = param;
+			BBTokenize((const char*)m_pszCommand, tokens, 1, param);
+			sprintf(buffer, "@BBCfg.plugin.docs %s", param);
+			post_command(buffer);
+		}
+		return;
+	}
 
     if (INVOKE_DRAG & button)
     {

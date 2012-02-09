@@ -54,7 +54,7 @@ ST struct winlist *vwm_WL;
 
 ST bool belongs_to_app(winlist *wl, winlist *wl2);
 ST HWND get_root(HWND hwnd);
-ST bool is_shadow(HWND hwnd, LONG ex_style);
+ST bool is_shadow(HWND hwnd, LONG ex_style, DWORD threadid);
 
 //=========================================================
 // helper functions
@@ -82,7 +82,7 @@ winlist* vwm_add_window(HWND hwnd)
         threadid = GetWindowThreadProcessId(hwnd, NULL);
 
         // exclude blackbox menu drop shadows
-        if (usingXP && is_shadow(hwnd, ex_style))
+        if (usingXP && is_shadow(hwnd, ex_style, threadid))
             return NULL;
 
         wl = c_new(winlist);
@@ -170,11 +170,12 @@ void vwm_update_winlist(void)
 
 //============================================================
 
-ST bool is_shadow(HWND hwnd, LONG ex_style)
+ST bool is_shadow(HWND hwnd, LONG ex_style, DWORD threadid)
 {
     char class_name[20];
     const unsigned wstyle = WS_EX_TRANSPARENT|WS_EX_TOOLWINDOW|WS_EX_LAYERED;
     return wstyle == (ex_style & wstyle)
+        && threadid == BBThreadId
         && GetClassName(hwnd, class_name, sizeof class_name)
         && 0 == strcmp(class_name, "SysShadow")
         ;

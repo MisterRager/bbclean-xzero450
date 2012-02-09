@@ -638,15 +638,92 @@ Menu* PluginManager_GetMenu(const char *text, char *menu_id, bool pop, int mode)
 }
 
 //===========================================================================
+// parse a line from plugins.rc to obtain the pluginRC address
+
+bool parse_pluginRC(const char *rcline, const char *name)
+{
+    bool is_comment = false;
+
+    if ('#' == *rcline || 0 == *rcline)
+        is_comment = true;
+    else
+    if ('!' == *rcline)
+        while (' '== *++rcline);
+
+    if ('&' == *rcline)
+    {
+        while (' '== *++rcline);
+    }
+
+	if (!is_comment && IsInString(rcline, name))
+	{
+		char editor[MAX_PATH];
+		char road[MAX_PATH];
+		char buffer[2*MAX_PATH];
+		char *s = strcpy((char*)name, rcline);
+		*(char*)file_extension(s) = 0; // strip ".dll"
+		if (IsInString(s, "+"))
+			*(char*)get_delim(s, '+') = 0; // strip "+"
+		rcline = (const char*)strcat((char*)s, ".rc");
+		GetBlackboxEditor(editor);
+        sprintf(buffer, "\"%s\" \"%s\"", editor, set_my_path(hMainInstance, road, rcline));
+        BBExecute_string(buffer, RUN_SHOWERRORS);
+		return true;
+	}
+	return false;
+}
+
+//===========================================================================
+// parse a line from plugins.rc to obtain the Documentation address
+
+bool parse_pluginDocs(const char *rcline, const char *name)
+{
+    bool is_comment = false;
+
+    if ('#' == *rcline || 0 == *rcline)
+        is_comment = true;
+    else
+    if ('!' == *rcline)
+        while (' '== *++rcline);
+
+    if ('&' == *rcline)
+    {
+        while (' '== *++rcline);
+    }
+
+	if (!is_comment && IsInString(rcline, name))
+	{
+		char road[MAX_PATH];
+		char *s = strcpy((char*)name, rcline);
+		*(char*)file_extension(s) = 0; // strip ".dll"
+		// files could be *.html, *.htm, *.txt, *.xml ...
+		if (locate_file(hMainInstance, road, s, "html") || locate_file(hMainInstance, road, s, "htm") || locate_file(hMainInstance, road, s, "txt") || locate_file(hMainInstance, road, s, "xml"))
+		{
+			BBExecute(NULL, "open", road, NULL, NULL, SW_SHOWNORMAL, 		false);
+			return true;
+		}
+		*(char*)get_delim(s, '\\') = 0; // strip plugin name
+		rcline = (const char*)strcat((char*)s, "\\readme");
+		// ... also the old standby: readme.txt
+		if (locate_file(hMainInstance, road, rcline, "txt"))
+		{
+			BBExecute(NULL, "open", road, NULL, NULL, SW_SHOWNORMAL, 		false);
+			return true;
+		}
+	}
+	return false;
+}
+
+//===========================================================================
 // handle the "@BBCfg.plugin.xxx" bro@ms from the config->plugins menu
 
 int PluginManager_handleBroam(const char *args)
 {
     static const char * const actions[] = {
-        "add", "remove", "load", "inslit", NULL
+        "add", "remove", "load", "inslit", "edit", "docs", NULL
     };
     enum {
-        e_add, e_remove, e_load, e_inslit
+        e_add, e_remove, e_load, e_inslit, e_edit, e_docs
     };
 
     char buffer[MAX_PATH];
@@ -659,6 +736,34 @@ int PluginManager_handleBroam(const char *args)
         return 0;
 
     NextToken(buffer, &args, NULL);
+	if (action > 3)
+    {
+		//check for multiple loadings
+		if (IsInString(buffer, "/"))
+		{
+			char path[1];
+			char *p = strcpy(path, buffer);
+			*(char*)get_delim(p, '/') = 0; // strip "/#"
+			strcpy(buffer, (const char*)strcat((char*)p, ".dll"));
+		}
+
+
+		char szBuffer[MAX_PATH];
+		const char *path=plugrcPath();
+
+		FILE *fp = fopen(path,"rb");
+		if (fp)
+		{
+			if (e_edit == action)
+			while (read_next_line(fp, szBuffer, sizeof szBuffer))
+				parse_pluginRC(szBuffer, buffer);
+			else
+			while (read_next_line(fp, szBuffer, sizeof szBuffer))
+				parse_pluginDocs(szBuffer, buffer);
+			fclose(fp);
+		}
+	}
+
     if (e_add == action && 0 == buffer[0])
     {
 #ifndef BBTINY
@@ -678,7 +783,7 @@ int PluginManager_handleBroam(const char *args)
     } else {
         dolist (q, bbplugins)
             if (q->name
-                && 0 == stricmp(e_remove==action?q->path:q->name, buffer))
+                && 0 == stricmp(/*e_remove==action?q->path:*/q->name, buffer))
                 break;
     }
 

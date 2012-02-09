@@ -62,7 +62,7 @@
 #define SIZEOFPART(s,e) (offsetof(s,e) + sizeof(((s*)0)->e))
 
 #define _OffsetRect(lprc, dx, dy) *lprc.left += (dx), *lprc.right += (dx), *lprc.top += (dy), *lprc.bottom += (dy)
-#define _CopyOffsetRect(lprcDst,lprcSrc,dx,dy) (*(lprcDst)).left = (*(lprcSrc)).left + (dx), (*(lprcDst)).right = (*(lprcSrc)).right + (dx), (*(lprcDst)).top = (*(lprcSrc)).top + (dy), (*(lprcDst)).bottom = (*(lprcSrc)).bottom + (dy)
+//#define _CopyOffsetRect(lprcDst,lprcSrc,dx,dy) (*(lprcDst)).left = (*(lprcSrc)).left + (dx), (*(lprcDst)).right = (*(lprcSrc)).right + (dx), (*(lprcDst)).top = (*(lprcSrc)).top + (dy), (*(lprcDst)).bottom = (*(lprcSrc)).bottom + (dy)
 
 #ifdef __BBCORE__
 // ==============================================================
@@ -71,6 +71,7 @@
 extern HINSTANCE hMainInstance;
 extern HWND BBhwnd;
 extern DWORD BBThreadId;
+extern OSVERSIONINFO osInfo;
 extern unsigned WM_ShellHook;
 extern int VScreenX, VScreenY, VScreenWidth, VScreenHeight;
 extern bool usingNT, usingXP, usingVista, usingWin7;
@@ -94,8 +95,8 @@ extern char defaultrc_path[];
 #define BBAPPNAME "bbTiny"
 #define BBAPPVERSION "bbLean "BBLEAN_VERSION" (Tiny)"
 #else
-#define BBAPPNAME "bbLean"
-#define BBAPPVERSION "bbLean "BBLEAN_VERSION
+#define BBAPPNAME "BlackboxZero(Beta)"
+#define BBAPPVERSION "BlackboxZero(Beta) "BBLEAN_VERSION
 #endif
 
 /* Blackbox window timers */
@@ -110,6 +111,7 @@ extern char defaultrc_path[];
 /* resource.rc */
 #define IDI_BLACKBOX 101 // blackbox.ico
 #define IDC_MOVEMENU 102 // MoveMenu.cur
+#define IDC_MOVEMENUL 104 // MoveMenuL.cur
 #define IDC_EDITBOX 103 // MoveMenu.cur
 
 
@@ -132,8 +134,11 @@ void reset_pix(void);
 void unregister_fonts(void);
 void register_fonts(void);
 void arrow_bullet (HDC buf, int x, int y, int d);
-void draw_line_h(HDC hDC, int x1, int x2, int y, int w, COLORREF C);
+//void draw_line_h(HDC hDC, int x1, int x2, int y, int w, COLORREF C);
 char *replace_arg1(const char *fmt, const char *in);
+COLORREF Settings_MapShadowColor(StyleItem *si, StyleItem *ri);
+#define _CopyOffsetRect(lprcDst, lprcSrc, dx, dy) (*lprcDst).left = (*lprcSrc).left + (dx), (*lprcDst).right = (*lprcSrc).right + (dx), (*lprcDst).top = (*lprcSrc).top + (dy), (*lprcDst).bottom = (*lprcSrc).bottom + (dy)
+void BBDrawText(HDC hDC, LPCTSTR lpString, LPRECT rc, UINT uFormat, StyleItem * pSI);
 
 /* other */
 int BBMessageBox(int flg, const char *fmt, ...);
@@ -142,6 +147,7 @@ BOOL BBRegisterClass (const char *classname, WNDPROC wndproc, int flags);
 #define BBCS_EXTRA 2
 #define BBCS_DROPSHADOW 4
 int EditBox(const char *caption, const char *message, const char *initvalue, char *buffer);
+int GetOSVersion(void);
 
 /* Logging */
 void _log_printf(int flag, const char *fmt, ...);
